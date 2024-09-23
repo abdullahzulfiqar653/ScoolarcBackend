@@ -140,6 +140,17 @@ docs = ["furo (>=2021.8.17b43,<2021.9.dev0)", "sphinx (>=3.5.0)", "sphinx-notfou
 testing = ["coverage[toml] (>=5.0a4)", "pytest (>=4.6.11)"]
 
 [[package]]
+name = "django-soft-delete"
+version = "1.0.14"
+description = "Soft delete models, managers, queryset for Django"
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "django-soft-delete-1.0.14.tar.gz", hash = "sha256:428df56ea4fbb13f42d4f752f11f2a517aa31ac3d1b450e6b78c4c5d5d9dfc3b"},
+    {file = "django_soft_delete-1.0.14-py3-none-any.whl", hash = "sha256:558821ea988fd69a3a7008cdb33a06ded491af828bdffa5b287fa0fb72b52a09"},
+]
+
+[[package]]
 name = "djangorestframework"
 version = "3.15.2"
 description = "Web APIs for Django, made easy."
@@ -782,4 +793,4 @@ brotli = ["brotli"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "9d6f1ab5b03f5d29db0a9ee5e3314196c46a8fd7844fdee564127a8745520656"
+content-hash = "f3d171365e320041bec210943b2bc609337c5dffcfa62eac57c139254110f15b"
