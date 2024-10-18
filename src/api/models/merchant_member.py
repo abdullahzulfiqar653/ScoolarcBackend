@@ -10,14 +10,14 @@ from api.models.abstract.base import BaseModel
 
 class MerchantMember(BaseModel):
     user = models.OneToOneField(
-        User, on_delete=models.CASCADE, related_name="member_profile"
+        User, on_delete=models.SET_NULL, related_name="member_profile", null=True
     )
     merchant = models.ForeignKey(
         Merchant, on_delete=models.CASCADE, related_name="merchant_member"
     )
     outlets = models.ManyToManyField(Outlet)
     role = models.ForeignKey(
-        Lookup, on_delete=models.CASCADE
+        Lookup, on_delete=models.SET_NULL, null=True
     )  # Dynamic role reference[merchant, principal, admin, teacher, student]
     address = models.TextField(null=True)
     status = models.BooleanField(default=True)
@@ -29,11 +29,11 @@ class MerchantMember(BaseModel):
     blood_group = models.CharField(max_length=3, null=True)
     date_of_birth = models.DateField(null=True)
     gender = models.ForeignKey(
-        Lookup, on_delete=models.CASCADE, related_name="gender"
+        Lookup, on_delete=models.SET_NULL, related_name="gender", null=True
     )  # Gender reference from Lookup [Male, Female, Other]
     phone = models.CharField(max_length=10, null=True, verbose_name="Primary Phone")
     phone_network = models.ForeignKey(
-        Lookup, on_delete=models.CASCADE, related_name="network", null=True
+        Lookup, on_delete=models.SET_NULL, related_name="network", null=True
     )  # Network reference from Lookup
     registration_number = models.CharField(max_length=50, null=True)
 

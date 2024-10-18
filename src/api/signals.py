@@ -19,8 +19,5 @@ def load_data_from_fixture(sender, **kwargs):
 @receiver(post_save, sender=Merchant)
 def create_merchant_member(sender, instance, created, **kwargs):
     if created:
-        male = Lookup.objects.filter(name="Male").first()
         role = Lookup.objects.filter(name="Merchant").first()
-        MerchantMember.objects.create(
-            user=instance.owner, merchant=instance, role=role, gender=male
-        )
+        MerchantMember.objects.create(user=instance.owner, merchant=instance, role=role)
