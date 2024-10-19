@@ -1,7 +1,7 @@
-import random
-
 from django.db import models
+from django.db.models import Max
 from django.contrib.auth.models import User
+
 from api.models.abstract.base import BaseModel
 
 
@@ -10,6 +10,7 @@ class Merchant(BaseModel):
     owner = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name="merchant"
     )
+    short_name = models.CharField(max_length=7)
     code = models.CharField(max_length=4, unique=True, editable=False)
     domain = models.CharField(max_length=55, unique=True)
 
@@ -18,11 +19,8 @@ class Merchant(BaseModel):
 
     def save(self, *args, **kwargs):
         if not self.code:
-            while True:
-                code = str(random.randint(1000, 9999))
-                if not Merchant.objects.filter(code=code).exists():
-                    self.code = code
-                    break
+            last_code = Merchant.objects.aggregate(Max("code"))["code__max"]
+            self.code = f"{int(last_code) + 1}" if last_code else "1000"
         super().save(*args, **kwargs)
 
     class Meta:

@@ -8,12 +8,12 @@ class OutletListCreateView(generics.ListCreateAPIView):
     permission_classes = [MerchantDomainPermission]
 
     def get_queryset(self):
-        return self.request.user.member_profile.outlets.all()
+        return self.request.user.profile.outlets.all()
 
 
-class OutleRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+class OutletRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = OutletSerializer
     permission_classes = [MerchantDomainPermission]
 
     def get_queryset(self):
-        return self.request.user.member_profile.outlets.all()
+        return self.request.user.profile.outlets.all()

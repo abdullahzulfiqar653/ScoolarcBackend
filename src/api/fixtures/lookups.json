@@ -61,7 +61,7 @@
     },
     {
         "model": "api.lookup",
-        "pk": "100abcdefijkl14",
+        "pk": "100abcdefijkl16",
         "fields": {
             "name": "Parent",
             "type":"100abcdefijklm1",
@@ -141,7 +141,7 @@
     },
     {
         "model": "api.lookup",
-        "pk": "100abcdefijkl12",
+        "pk": "100abcdefijkl14",
         "fields": {
             "name": "Zong",
             "type": "100abcdefijkl11",
@@ -151,7 +151,7 @@
     },
     {
         "model": "api.lookup",
-        "pk": "100abcdefijkl13",
+        "pk": "100abcdefijkl15",
         "fields": {
             "name": "Ufone",
             "type": "100abcdefijkl11",

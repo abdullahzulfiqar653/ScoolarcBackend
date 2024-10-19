@@ -1,6 +1,11 @@
 from api.views.outlets.outlet import (
     OutletListCreateView,
-    OutleRetrieveUpdateDestroyView,
+    OutletRetrieveUpdateDestroyView,
 )
+from api.views.outlets.merchant_member import MerchantMemberListCreateView
 
-__all__ = ["OutletListCreateView", "OutleRetrieveUpdateDestroyView"]
+__all__ = [
+    "OutletListCreateView",
+    "OutletRetrieveUpdateDestroyView",
+    "MerchantMemberListCreateView",
+]

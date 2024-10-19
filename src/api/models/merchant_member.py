@@ -10,12 +10,12 @@ from api.models.abstract.base import BaseModel
 
 class MerchantMember(BaseModel):
     user = models.OneToOneField(
-        User, on_delete=models.SET_NULL, related_name="member_profile", null=True
+        User, on_delete=models.SET_NULL, related_name="profile", null=True
     )
     merchant = models.ForeignKey(
-        Merchant, on_delete=models.CASCADE, related_name="merchant_member"
+        Merchant, on_delete=models.CASCADE, related_name="members"
     )
-    outlets = models.ManyToManyField(Outlet)
+    outlets = models.ManyToManyField(Outlet, related_name="members")
     role = models.ForeignKey(
         Lookup, on_delete=models.SET_NULL, null=True
     )  # Dynamic role reference[merchant, principal, admin, teacher, student]
@@ -42,11 +42,11 @@ class MerchantMember(BaseModel):
 
     class Meta:
         verbose_name = "MerchantsMembersRegister"
-        unique_together = [["user", "merchant", "role", "cnic", "status"]]
+        unique_together = [["user", "merchant", "role", "cnic"]]
 
     def clean(self):
         # Enforce that a student can only have one outlet
-        if self.role.name.lower() == "student" and self.outlets.count() >= 1:
+        if self.role.name.lower() == "student" and self.outlets.count() > 1:
             raise ValidationError("A student can only be linked to one outlet.")
             # Enforce phone uniqueness logic
         # if self.phone:
