@@ -1,9 +1,8 @@
 from django.apps import apps
-
 from rest_framework import permissions, exceptions
 
 
-class MerchantDomainPermission(permissions.BasePermission):
+class isMerchantMember(permissions.BasePermission):
     message = "You do not have permission to access this merchant's resources."
 
     def has_permission(self, request, view):
@@ -13,23 +12,7 @@ class MerchantDomainPermission(permissions.BasePermission):
         if request.user.profile.merchant != request.merchant:
             return False
 
-        if request.method in permissions.SAFE_METHODS:
-            return True
-
-        is_merchant = request.user.profile.role.name in ["Merchant"]
-        if request.method == "POST":
-            return is_merchant
-
-        return is_merchant
-
-    # def has_object_permission(self, request, view, obj):
-    #     if obj.merchant != request.merchant:
-    #         return False
-
-    #     if request.method in ["PUT", "PATCH", "DELETE"]:
-    #         return request.user.profile.role.name in ["Merchant"]
-
-    #     return True
+        return True
 
 
 def get_instance(queryset, instance_id):
@@ -61,6 +44,18 @@ class InOutletOrMerchant(permissions.BasePermission):
     def is_authenticated(self, request):
         return bool(request.user and request.user.is_authenticated)
 
+    def is_in_outlet(self, request, view):
+        if not self.is_authenticated(request):
+            return False
+
+        merchant, outlet = self.get_merchant_outlet(request, view)
+        if outlet:
+            if outlet in request.user.profile.outlets.all():
+                return outlet
+            else:
+                raise exceptions.NotFound
+        return False
+
     def is_in_outlet_or_merchant(self, request, view):
         if not self.is_authenticated(request):
             return False
@@ -80,26 +75,28 @@ class InOutletOrMerchant(permissions.BasePermission):
             return False
 
 
-class IsMerchantOwner(InOutletOrMerchant):
+class IsOutletMember(InOutletOrMerchant):
     def has_permission(self, request, view):
-        merchant = self.is_in_outlet_or_merchant(request, view)
-        if not merchant:
+        outlet = self.is_in_outlet(request, view)
+        if not outlet:
             return False
-
-        if hasattr(merchant, "owner") and merchant.owner == request.user:
-            return True
-        else:
-            return False
+        return True
 
 
-class IsOutletEditor(InOutletOrMerchant):
+class RolePermission(permissions.BasePermission):
     def has_permission(self, request, view):
-        merchant = self.is_in_outlet_or_merchant(request, view)
-        if not merchant:
-            return False
-
-        role = request.user.get_role(merchant)
-        # if role == WorkspaceUser.Role.EDITOR:
-        #     return True
-        # else:
-        #     return False
+        method_perms = {
+            "GET": "view",
+            "POST": "add",
+            "PUT": "change",
+            "PATCH": "change",
+            "DELETE": "delete",
+        }
+        model = view.get_queryset().model if hasattr(view, "get_queryset") else None
+        if model:
+            model_name = model._meta.model_name
+            app_label = model._meta.app_label
+            action = method_perms.get(request.method, "view")
+            permission_codename = f"{app_label}.{action}_{model_name}"
+            return request.user.has_perm(permission_codename)
+        return False

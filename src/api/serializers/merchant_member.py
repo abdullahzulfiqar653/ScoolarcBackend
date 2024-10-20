@@ -3,9 +3,11 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 
 from api.models.lookup import Lookup
+from django.contrib.auth.models import Group
 from api.models.merchant_member import MerchantMember
 
 from api.serializers.user import UserSerializer
+from django.core.exceptions import ValidationError
 from api.serializers.outlet import OutletSerializer
 from api.serializers.merchant import MerchantSerializer
 
@@ -50,7 +52,9 @@ class MerchantMemberSerializer(serializers.ModelSerializer):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.fields["role"].queryset = Lookup.objects.filter(type__name="Role")
+        self.fields["role"].queryset = Lookup.objects.filter(type__name="Role").exclude(
+            name="Merchant"
+        )
         self.fields["gender"].queryset = Lookup.objects.filter(type__name="Gender")
         self.fields["phone_network"].queryset = Lookup.objects.filter(
             type__name="PhoneNetwork"
@@ -91,6 +95,30 @@ class MerchantMemberSerializer(serializers.ModelSerializer):
         if not value.isdigit():
             raise serializers.ValidationError("Ensure this field has numbers only.")
 
+    def validate_role(self, value):
+        user_role = self.context["request"].user.profile.role.name
+        role_permissions = {
+            "Merchant": ["Principal", "Registrar", "Teacher", "Student", "Parent"],
+            "Principal": ["Principal", "Registrar", "Teacher", "Student", "Parent"],
+            "Registrar": ["Registrar", "Teacher", "Student", "Parent"],
+            "Teacher": [],
+            "Student": [],
+            "Parent": [],
+        }
+
+        if value.name not in role_permissions.get(user_role, []):
+            raise ValidationError(
+                f"Users with the role '{user_role}' are not allowed to create members with the role '{value.name}'."
+            )
+
+        return value
+
+    def generate_unique_username(self):
+        while True:
+            username = secrets.token_hex(8)
+            if not User.objects.filter(username=username).exists():
+                return username
+
     def create(self, validated_data):
         merchant = self.context["request"].merchant
         outlet = self.context["request"].outlet
@@ -110,14 +138,10 @@ class MerchantMemberSerializer(serializers.ModelSerializer):
         user = User.objects.create_user(
             username=self.generate_unique_username(), **user
         )
+        user.groups.add(Group.objects.get(name=role.name))
+
         validated_data["user"] = user
         merchant_member = MerchantMember.objects.create(**validated_data)
         merchant_member.outlets.add(outlet)
-        merchant_member.save()
-        return merchant_member
 
-    def generate_unique_username(self):
-        while True:
-            username = secrets.token_hex(8)
-            if not User.objects.filter(username=username).exists():
-                return username
+        return merchant_member
