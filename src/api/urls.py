@@ -5,11 +5,15 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
+
 urlpatterns = [
     # =====================================================
     # Auth
     # =====================================================
     path("auth/", include("rest_framework.urls")),
+    path(
+        "auth/permissions/", PermissionsListAPIView.as_view(), name="permissions-list"
+    ),
     path("auth/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("auth/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     # =====================================================
