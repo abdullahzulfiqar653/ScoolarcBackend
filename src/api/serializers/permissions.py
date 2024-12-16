@@ -1,16 +1,17 @@
+from itertools import chain
 from rest_framework import serializers
 from rest_framework.exceptions import PermissionDenied
 
-from django.contrib.auth.models import Permission, User
+from django.contrib.auth.models import Permission
 from api.models.merchant_member import MerchantMember
 
 
 class PermissionSerializer(serializers.ModelSerializer):
     member_ids = serializers.PrimaryKeyRelatedField(
-        queryset=MerchantMember.objects.none(), many=True, write_only=True
+        queryset=MerchantMember.objects.all(), many=True, write_only=True
     )
     permission_ids = serializers.PrimaryKeyRelatedField(
-        queryset=Permission.objects.none(), many=True, write_only=True
+        queryset=Permission.objects.all(), many=True, write_only=True
     )
 
     class Meta:
@@ -23,6 +24,7 @@ class PermissionSerializer(serializers.ModelSerializer):
             "content_type",
             "permission_ids",
         ]
+        read_only_fields = ["name", "codename", "content_type"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -34,7 +36,7 @@ class PermissionSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user_role = self.context["request"].user.profile.role.name
 
-        if user_role not in ["Merchant", "Principal"]:
+        if user_role not in ["Merchant", "Principal", "Registrar"]:
             raise PermissionDenied("You do not have permission to perform this action.")
 
         members = validated_data["member_ids"]
@@ -46,12 +48,7 @@ class PermissionSerializer(serializers.ModelSerializer):
                 raise PermissionDenied(
                     f"Permissions cannot be updated for the '{role}' with role."
                 )
-            permissions_to_set = member.user.user_permissions.all() | permissions
+            permissions_to_set = chain(member.user.user_permissions.all(), permissions)
             member.user.user_permissions.set(permissions_to_set)
-            # member.user.save()
-        User.objects.bulk_update(
-            [member.user for member in members],
-            fields=["user_permissions"],
-        )
 
         return validated_data

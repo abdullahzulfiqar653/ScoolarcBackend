@@ -1,12 +1,12 @@
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView
 from django.contrib.auth.models import Permission
 from api.serializers.permissions import PermissionSerializer
-from api.permissions import isMerchantMember, RolePermission, IsOutletMember
+from api.permissions import isMerchantMember, RolePermission
 
 
-class PermissionsListAPIView(ListAPIView):
+class PermissionsListAPIView(ListAPIView, CreateAPIView):
     serializer_class = PermissionSerializer
-    permission_classes = [isMerchantMember, IsOutletMember, RolePermission]
+    permission_classes = [isMerchantMember, RolePermission]
 
     def get_queryset(self):
         user = self.request.user
