@@ -1,4 +1,5 @@
 from django.apps import apps
+from django.db.models import Q
 from rest_framework import permissions, exceptions
 
 
@@ -8,10 +9,31 @@ class isMerchantMember(permissions.BasePermission):
     def has_permission(self, request, view):
         if not request.merchant:
             return False
-
         if request.user.profile.merchant != request.merchant:
             return False
+        return True
 
+
+class IsMerchantMemberAnonymous(permissions.BasePermission):
+    """
+    Permission to check if the Anonymous user is a member of the merchant,
+    even for anonymous requests where email or phone is provided.
+    """
+
+    def has_permission(self, request, view):
+        if not hasattr(request, "merchant") or not request.merchant:
+            return False
+        email = request.data.get("email", "")
+        phone = request.data.get("phone", "")
+
+        query = request.merchant.members.filter(
+            Q(user__email=email) | Q(phone=phone),
+        )
+
+        if not query.exists():
+            self.message = "User is not a member of the merchant."
+            return False
+        request.member = query.first()
         return True
 
 
