@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your OTP Code</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+      }
+      .email-container {
+        max-width: 600px;
+        margin: 20px auto;
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .email-header {
+        text-align: center;
+        border-bottom: 2px solid #f4f4f4;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      .otp {
+        font-size: 24px;
+        font-weight: bold;
+        color: #007bff;
+        text-align: center;
+        margin: 20px 0;
+      }
+      .email-footer {
+        text-align: center;
+        font-size: 12px;
+        color: #999;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="email-container">
+      <div class="email-header">
+        <h2>Welcome to {{ merchant_name }} Portal!</h2>
+      </div>
+      <p>Hi {{ recipient_name }},</p>
+      <p>
+        Thank you for signing in. Use the OTP code below to complete your login
+        process:
+      </p>
+      <div class="otp">{{ otp }}</div>
+      <p>
+        If you didn't request this OTP, please contact our support team
+        immediately.
+      </p>
+      <div class="email-footer">
+        <p>&copy; {{ merchant_name }}. All rights reserved.</p>
+      </div>
+    </div>
+  </body>
+</html>
