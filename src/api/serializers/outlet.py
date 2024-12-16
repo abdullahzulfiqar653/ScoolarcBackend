@@ -18,7 +18,7 @@ class OutletSerializer(serializers.ModelSerializer):
         merchant = self.context.get("request").merchant
         validated_data["merchant"] = merchant
 
-        merchant_member = merchant.merchant_member.first()
+        merchant_member = merchant.members.first()
         outlet = super().create(validated_data)
         merchant_member.outlets.add(outlet)
         merchant_member.save()
