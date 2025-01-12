@@ -11,7 +11,6 @@ class OTP(BaseModel):
     )
     code = models.CharField(max_length=6)
     is_used = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now=True)
 
     def is_valid(self) -> bool:
         """Check if the OTP is valid based on time and usage."""
