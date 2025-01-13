@@ -3,14 +3,14 @@ from django.contrib import admin
 from api.models.lookup import Lookup
 from api.models.merchant import Merchant
 from api.models.outlet import Outlet
-from api.models.merchant_member import MerchantMember
+from api.models.merchant_member import Member
 
 admin.site.register(Outlet)
 
 
-class MerchantMemberForm(forms.ModelForm):
+class MemberForm(forms.ModelForm):
     class Meta:
-        model = MerchantMember
+        model = Member
         fields = "__all__"
 
     def __init__(self, *args, **kwargs):
@@ -24,8 +24,8 @@ class MerchantMemberForm(forms.ModelForm):
 
 
 @admin.register(MerchantMember)
-class MerchantMemberAdmin(admin.ModelAdmin):
-    form = MerchantMemberForm
+class MemberAdmin(admin.ModelAdmin):
+    form = MemberForm
 
 
 @admin.register(Merchant)

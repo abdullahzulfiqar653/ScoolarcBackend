@@ -1,8 +1,8 @@
 from django.db import models
-from api.models.merchant_member import MerchantMember
+from api.models.merchant_member import Member
 
 
-class Student(MerchantMember):
+class Student(Member):
     father_name = models.CharField(max_length=255)
     mother_name = models.CharField(max_length=255)
     roll_number = models.CharField(max_length=255, unique=True,editable=False)
@@ -18,7 +18,9 @@ class Student(MerchantMember):
     )
 
     def save(self, *args, **kwargs):
-        self.roll_number = f"{self.section.code}-{str(self.id).zfill(4)}"
+
+
+
         super().save(*args, **kwargs)
 
     def __str__(self):

@@ -1,14 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-
 from api.models.lookup import Lookup
 from api.models.outlet import Outlet
 from api.models.merchant import Merchant
 from api.models.abstract.base import BaseModel
 
 
-class MerchantMember(BaseModel):
+class Member(BaseModel):
     user = models.OneToOneField(
         User, on_delete=models.SET_NULL, related_name="profile", null=True
     )
@@ -41,7 +40,7 @@ class MerchantMember(BaseModel):
         return f"{self.user.username} - {self.role.name} of {self.merchant.name}."
 
     class Meta:
-        verbose_name = "MerchantsMembersRegister"
+        verbose_name = "MembersRegister"
         unique_together = [["user", "merchant", "role", "cnic"]]
 
     def clean(self):

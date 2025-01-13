@@ -1,7 +1,7 @@
 from django.db import models
-from api.models.merchant_member import MerchantMember
+from api.models.merchant_member import Member
 
-class Staff(MerchantMember):
+class Staff(Member):
     section = models.ManyToManyField(
         "api.Sections",
         related_name="staff_sections",

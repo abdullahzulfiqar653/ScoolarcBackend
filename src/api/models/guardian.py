@@ -1,8 +1,8 @@
 from django.db import models
-from api.models.merchant_member import MerchantMember
+from api.models.merchant_member import Member
 
 
-class Guardian(MerchantMember):
+class Guardian(Member):
     occupation = models.CharField(max_length=255)
 
     def __str__(self):
