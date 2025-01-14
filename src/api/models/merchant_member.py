@@ -14,7 +14,7 @@ class Member(BaseModel):
     merchant = models.ForeignKey(
         Merchant, on_delete=models.CASCADE, related_name="members"
     )
-    outlets = models.ManyToManyField(Outlet, related_name="members")
+    outlets = models.ManyToManyField(Outlet, related_name="outlet_members")
     role = models.ForeignKey(
         Lookup, on_delete=models.SET_NULL, null=True
     )  # Dynamic role reference[merchant, principal, admin, teacher, student]

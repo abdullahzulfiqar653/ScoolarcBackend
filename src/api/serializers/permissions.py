@@ -3,12 +3,12 @@ from rest_framework import serializers
 from rest_framework.exceptions import PermissionDenied
 
 from django.contrib.auth.models import Permission
-from api.models.merchant_member import MerchantMember
+from api.models.merchant_member import Member
 
 
 class PermissionSerializer(serializers.ModelSerializer):
     member_ids = serializers.PrimaryKeyRelatedField(
-        queryset=MerchantMember.objects.all(), many=True, write_only=True
+        queryset=Member.objects.all(), many=True, write_only=True
     )
     permission_ids = serializers.PrimaryKeyRelatedField(
         queryset=Permission.objects.all(), many=True, write_only=True

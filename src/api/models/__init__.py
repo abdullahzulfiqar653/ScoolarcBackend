@@ -10,7 +10,7 @@ from api.models.sections import Sections
 from api.models.student import Student
 from api.models.classes import Classes
 from api.models.invoice import Invoice
-from api.models.guardian import Guardian
+from api.models.guardian import Guardians
 from api.models.transaction_history import TransactionHistory
 
 
@@ -24,7 +24,7 @@ __all__ = [
     "Invoice",
     "Student",
     "Sections",
-    "Guardian",
+    "Guardians",
     "Merchant",
     "MerchantConfig",
     "Member",

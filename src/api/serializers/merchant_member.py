@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 from api.models.lookup import Lookup
 from django.contrib.auth.models import Group
-from api.models.merchant_member import MerchantMember
+from api.models.merchant_member import Member
 
 from api.serializers.user import UserSerializer
 from django.core.exceptions import ValidationError
@@ -26,7 +26,7 @@ class MerchantMemberSerializer(serializers.ModelSerializer):
     phone_network = serializers.PrimaryKeyRelatedField(queryset=Lookup.objects.all())
 
     class Meta:
-        model = MerchantMember
+        model = Member
         fields = [
             "id",
             "user",
@@ -141,7 +141,7 @@ class MerchantMemberSerializer(serializers.ModelSerializer):
         user.groups.add(Group.objects.get(name=role.name))
 
         validated_data["user"] = user
-        merchant_member = MerchantMember.objects.create(**validated_data)
+        merchant_member = Member.objects.create(**validated_data)
         merchant_member.outlets.add(outlet)
 
         return merchant_member

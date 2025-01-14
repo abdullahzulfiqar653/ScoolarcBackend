@@ -4,13 +4,13 @@ from api.models.abstract.base import BaseModel
 
 class Invoice(BaseModel):
     guardian = models.ForeignKey(
-        "api.Guardian",
+        "api.Guardians",
         on_delete=models.CASCADE,
-        related_name="invoices",
+        related_name="guardian_invoices",
     )
     students = models.ManyToManyField(
         "api.Student",
-        related_name="invoices",
+        related_name="student_invoices",
     )
     total_amount = models.DecimalField(max_digits=10, decimal_places=2)
 

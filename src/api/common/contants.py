@@ -5,4 +5,12 @@ MODEL_CODES = {
     "Outlet": "201",
     "MerchantMember": "202",
     "MerchantConfig": "203",
+    "classes": "204",
+    "staff": "205",
+    "sections": "206",
+    "student": "207",
+    "books": "208",
+    "invoice": "209",
+    "guardian": "210",
+    "transaction_history": "211",
 }

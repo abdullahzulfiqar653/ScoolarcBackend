@@ -23,7 +23,7 @@ class MemberForm(forms.ModelForm):
         self.fields["role"].queryset = Lookup.objects.filter(type=role_type)
 
 
-@admin.register(MerchantMember)
+@admin.register(Member)
 class MemberAdmin(admin.ModelAdmin):
     form = MemberForm
 

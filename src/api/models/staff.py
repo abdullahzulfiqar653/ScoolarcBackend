@@ -4,7 +4,8 @@ from api.models.merchant_member import Member
 class Staff(Member):
     section = models.ManyToManyField(
         "api.Sections",
-        related_name="staff_sections",
+        # TODO add custom many to many for through
+        related_name="staff_sections"
     )
     books = models.ManyToManyField(
         "api.Books",

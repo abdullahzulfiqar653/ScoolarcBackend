@@ -1,13 +1,13 @@
 from api.models.merchant_config import MerchantConfig
 from django.template.loader import render_to_string
-from api.models.merchant_member import MerchantMember
+from api.models.merchant_member import Member
 from django.core.mail import EmailMessage, get_connection
 from django.conf import settings
 from api.senders.base import OTPSender
 
 
 class EmailOTPSender(OTPSender):
-    def send_otp(self, member: MerchantMember, otp: str) -> None:
+    def send_otp(self, member: Member, otp: str) -> None:
         merchant = member.merchant
         email_configs = merchant.configs.filter(config_type="email")
         email_settings = {config.key: config.value for config in email_configs}
