@@ -4,11 +4,12 @@ from api.models.merchant_member import Member
 class Staff(Member):
     section = models.ManyToManyField(
         "api.Sections",
-        # TODO add custom many to many for through
-        related_name="staff_sections"
+        related_name="staff_sections",
+        through="api.StaffAndSections"
+
     )
     books = models.ManyToManyField(
-        "api.Books",
+        "api.Subject",
         related_name="staff_books",
     )
     basic_salary = models.DecimalField(max_digits=10, decimal_places=2)

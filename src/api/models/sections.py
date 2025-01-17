@@ -11,7 +11,7 @@ class Sections(BaseModel):
         related_name="sections",
     )
     books = models.ManyToManyField(
-        "api.Books",
+        "api.Subject",
         related_name="sections",
 
     )
