@@ -1,9 +1,9 @@
 from django import forms
 from django.contrib import admin
-from apis.models.lookup import Lookup
-from apis.models.merchant import Merchant
-from apis.models.outlet import Outlet
-from apis.models.member import Member
+from api.models.lookup import Lookup
+from api.models.merchant import Merchant
+from api.models.outlet import Outlet
+from api.models.member import Member
 
 admin.site.register(Outlet)
 

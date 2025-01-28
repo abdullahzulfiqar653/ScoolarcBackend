@@ -1,8 +1,8 @@
 from django.db import models
 from datetime import timedelta
 from django.utils.timezone import now
-from apis.models.abstract.base import BaseModel
-from apis.models.member import Member
+from api.models.abstract.base import BaseModel
+from api.models.member import Member
 
 
 class OTP(BaseModel):
