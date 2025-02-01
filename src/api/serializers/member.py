@@ -12,7 +12,7 @@ from api.serializers.outlet import OutletSerializer
 from api.serializers.merchant import MerchantSerializer
 
 
-class MerchantMemberSerializer(serializers.ModelSerializer):
+class MemberSerializer(serializers.ModelSerializer):
     user = UserSerializer()
     merchant = MerchantSerializer(read_only=True)
     outlets = OutletSerializer(many=True, read_only=True)

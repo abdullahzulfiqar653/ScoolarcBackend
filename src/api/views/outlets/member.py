@@ -1,10 +1,10 @@
 from rest_framework import generics
-from api.serializers.merchant_member import MerchantMemberSerializer
+from api.serializers.member import MemberSerializer
 from api.permissions import isMerchantMember, RolePermission, IsOutletMember
 
 
-class MerchantMemberListCreateView(generics.ListCreateAPIView):
-    serializer_class = MerchantMemberSerializer
+class MemberListCreateView(generics.ListCreateAPIView):
+    serializer_class = MemberSerializer
     permission_classes = [isMerchantMember, IsOutletMember, RolePermission]
 
     def get_queryset(self):

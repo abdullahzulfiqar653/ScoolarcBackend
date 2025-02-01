@@ -27,8 +27,8 @@ urlpatterns = [
         name="outlet-retrieve-update-destroy",
     ),
     path(
-        "outlets/<str:pk>/merchant-member",
-        MerchantMemberListCreateView.as_view(),
+        "outlets/<str:pk>/member",
+        MemberListCreateView.as_view(),
         name="merchant-member-list-create",
     ),
 ]

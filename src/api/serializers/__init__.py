@@ -3,7 +3,7 @@ from api.serializers.user import UserSerializer
 from api.serializers.outlet import OutletSerializer
 from api.serializers.merchant import MerchantSerializer
 from api.serializers.permissions import PermissionSerializer
-from api.serializers.merchant_member import MerchantMemberSerializer
+from api.serializers.member import MemberSerializer
 from api.serializers.lookup import LookupSerializer, LookupOperationSerializer
 
 __all__ = [
@@ -11,7 +11,7 @@ __all__ = [
     "OutletSerializer",
     "LookupSerializer",
     "MerchantSerializer",
-    "MerchantMemberSerializer",
+    "MemberSerializer",
     "LookupOperationSerializer",
     "PermissionSerializer",
     "OTPSerializer",
