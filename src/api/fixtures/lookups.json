@@ -1,0 +1,163 @@
+[
+    {
+        "model": "api.lookup",
+        "pk": "100abcdefijklm1",
+        "fields": {
+            "name": "Role",
+            "type": null,
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "api.lookup",
+        "pk": "100abcdefijklm2",
+        "fields": {
+            "name": "Merchant",
+            "type":"100abcdefijklm1",
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "api.lookup",
+        "pk": "100abcdefijklm3",
+        "fields": {
+            "name": "Principal",
+            "type":"100abcdefijklm1",
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "api.lookup",
+        "pk": "100abcdefijklm4",
+        "fields": {
+            "name": "Registrar",
+            "type":"100abcdefijklm1",
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "api.lookup",
+        "pk": "100abcdefijklm5",
+        "fields": {
+            "name": "Teacher",
+            "type":"100abcdefijklm1",
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "api.lookup",
+        "pk": "100abcdefijklm6",
+        "fields": {
+            "name": "Student",
+            "type":"100abcdefijklm1",
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "api.lookup",
+        "pk": "100abcdefijkl16",
+        "fields": {
+            "name": "Parent",
+            "type":"100abcdefijklm1",
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "api.lookup",
+        "pk": "100abcdefijklm7",
+        "fields": {
+            "name": "Gender",
+            "type": null,
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "api.lookup",
+        "pk": "100abcdefijklm8",
+        "fields": {
+            "name": "Male",
+            "type":"100abcdefijklm7",
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "api.lookup",
+        "pk": "100abcdefijklm9",
+        "fields": {
+            "name": "Female",
+            "type":"100abcdefijklm7",
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "api.lookup",
+        "pk": "100abcdefijklm10",
+        "fields": {
+            "name": "Other",
+            "type":"100abcdefijklm7",
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "api.lookup",
+        "pk": "100abcdefijkl11",
+        "fields": {
+            "name": "PhoneNetwork",
+            "type": null,
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "api.lookup",
+        "pk": "100abcdefijkl12",
+        "fields": {
+            "name": "Telenor",
+            "type": "100abcdefijkl11",
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "api.lookup",
+        "pk": "100abcdefijkl13",
+        "fields": {
+            "name": "Jazz",
+            "type": "100abcdefijkl11",
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "api.lookup",
+        "pk": "100abcdefijkl14",
+        "fields": {
+            "name": "Zong",
+            "type": "100abcdefijkl11",
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "api.lookup",
+        "pk": "100abcdefijkl15",
+        "fields": {
+            "name": "Ufone",
+            "type": "100abcdefijkl11",
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    }
+
+]

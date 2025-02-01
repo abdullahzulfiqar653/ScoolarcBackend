@@ -13,6 +13,7 @@ env = environ.Env(
 )
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 DEBUG = env("DEBUG")
 SECRET_KEY = env("SECRET_KEY")
@@ -39,6 +40,7 @@ MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
+    "core.middlewares.merchant_domain.MerchantDomainMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
@@ -51,7 +53,7 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
-            BASE_DIR / "api" / "templates",
+            BASE_DIR / "src" / "templates",
         ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -83,6 +85,10 @@ DATABASES = {
         "PASSWORD": env("DB_PASSWORD", default=""),
         "HOST": env("DB_HOST", default=""),
         "PORT": env("DB_PORT", default=""),
+        "ATOMIC_REQUESTS": True,
+        "OPTIONS": {
+            "isolation_level": env("ISOLATION_LEVEL", default="EXCLUSIVE"),
+        },
     }
 }
 
@@ -143,3 +149,10 @@ if DEBUG:
     INTERNAL_IPS = [
         "127.0.0.1",
     ]
+
+DEFAULT_EMAIL_PORT = 587
+DEFAULT_EMAIL_TLS = True
+DEFAULT_EMAIL_SSL = False
+DEFAULT_EMAIL_HOST = env("DEFAULT_EMAIL_HOST")
+DEFAULT_EMAIL_USER = env("DEFAULT_EMAIL_USER")
+DEFAULT_EMAIL_PASSWORD = env("DEFAULT_EMAIL_PASSWORD")
