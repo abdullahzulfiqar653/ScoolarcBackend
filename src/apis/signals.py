@@ -5,17 +5,17 @@ from django.dispatch import receiver
 from django.core.management import call_command
 from django.db.models.signals import post_migrate, post_save
 
-from api.models.lookup import Lookup
-from api.models.merchant import Merchant
+from apis.models.lookup import Lookup
+from apis.models.merchant import Merchant
 from django.contrib.auth.models import Group
-from api.models.member import Member
+from apis.models.member import Member
 
 
-@receiver(post_migrate, sender=apps.get_app_config("api"))
+@receiver(post_migrate, sender=apps.get_app_config("apis"))
 def load_data_from_fixture(sender, **kwargs):
-    lookups_data = os.path.join("api", "fixtures", "lookups.json")
-    groups_data = os.path.join("api", "fixtures", "groups.json")
-    call_command("loaddata", lookups_data, app_label="api")
+    lookups_data = os.path.join("apis", "fixtures", "lookups.json")
+    groups_data = os.path.join("apis", "fixtures", "groups.json")
+    call_command("loaddata", lookups_data, app_label="apis")
     call_command("loaddata", groups_data, app_label="auth")
 
 

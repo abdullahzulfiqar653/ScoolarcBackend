@@ -1,10 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from api.models.lookup import Lookup
-from api.models.outlet import Outlet
-from api.models.merchant import Merchant
-from api.models.abstract.base import BaseModel
+from apis.models.lookup import Lookup
+from apis.models.outlet import Outlet
+from apis.models.merchant import Merchant
+from apis.models.abstract.base import BaseModel
 
 
 class Member(BaseModel):
@@ -15,25 +15,28 @@ class Member(BaseModel):
         Merchant, on_delete=models.CASCADE, related_name="members"
     )
     outlets = models.ManyToManyField(Outlet, related_name="outlet_members")
+    # TODO - Change role to a CharField
     role = models.ForeignKey(
         Lookup, on_delete=models.SET_NULL, null=True
     )  # Dynamic role reference[merchant, principal, admin, teacher, student]
-    address = models.TextField(null=True)
+    address = models.TextField(null=True, blank=True)
+    # TODO Change staus to CharField, and Insert default lookups in fixtures
     status = models.BooleanField(default=True)
-    is_verified = models.BooleanField(default=False)
     cnic = models.CharField(max_length=13, null=True)
     avatar = models.ImageField(upload_to="protected/avatars", null=True)
     emergency_contact = models.CharField(max_length=10, null=True)
     emergency_contact_name = models.CharField(max_length=100, null=True)
     blood_group = models.CharField(max_length=3, null=True)
     date_of_birth = models.DateField(null=True)
+    # TODO Make gender to Charfield and insert default lookups in fixtures
     gender = models.ForeignKey(
         Lookup, on_delete=models.SET_NULL, related_name="gender", null=True
     )  # Gender reference from Lookup [Male, Female, Other]
     phone = models.CharField(max_length=10, null=True, verbose_name="Primary Phone")
+    # TODO Make phone_network to Charfield and insert default lookups in fixtures
     phone_network = models.ForeignKey(
         Lookup, on_delete=models.SET_NULL, related_name="network", null=True
-    )  # Network reference from Lookup
+    )  # Phone network reference from Lookup [Jazz, Zong, Ufone, Telenor, Warid]
     registration_number = models.CharField(max_length=50, null=True)
 
     def __str__(self):

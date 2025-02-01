@@ -2,14 +2,14 @@ import secrets
 from rest_framework import serializers
 from django.contrib.auth.models import User
 
-from api.models.lookup import Lookup
+from apis.models.lookup import Lookup
 from django.contrib.auth.models import Group
-from api.models.member import Member
+from apis.models.member import Member
 
-from api.serializers.user import UserSerializer
+from apis.serializers.user import UserSerializer
 from django.core.exceptions import ValidationError
-from api.serializers.outlet import OutletSerializer
-from api.serializers.merchant import MerchantSerializer
+from apis.serializers.outlet import OutletSerializer
+from apis.serializers.merchant import MerchantSerializer
 
 
 class MerchantMemberSerializer(serializers.ModelSerializer):

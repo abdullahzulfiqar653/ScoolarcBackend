@@ -1,9 +1,9 @@
-from api.models.merchant_config import MerchantConfig
+from apis.models.merchant_config import MerchantConfig
 from django.template.loader import render_to_string
-from api.models.member import Member
+from apis.models.member import Member
 from django.core.mail import EmailMessage, get_connection
 from django.conf import settings
-from api.senders.base import OTPSender
+from apis.senders.base import OTPSender
 
 
 class EmailOTPSender(OTPSender):
