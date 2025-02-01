@@ -2,7 +2,7 @@ from django.db import models
 from datetime import timedelta
 from django.utils.timezone import now
 from api.models.abstract.base import BaseModel
-from api.models.merchant_member import Member
+from api.models.member import Member
 
 
 class OTP(BaseModel):

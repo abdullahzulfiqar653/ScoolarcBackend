@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 from api.models.lookup import Lookup
 from django.contrib.auth.models import Group
-from api.models.merchant_member import Member
+from api.models.member import Member
 
 from api.serializers.user import UserSerializer
 from django.core.exceptions import ValidationError

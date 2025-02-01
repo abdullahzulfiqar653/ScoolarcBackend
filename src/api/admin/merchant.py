@@ -3,7 +3,7 @@ from django.contrib import admin
 from api.models.lookup import Lookup
 from api.models.merchant import Merchant
 from api.models.outlet import Outlet
-from api.models.merchant_member import Member
+from api.models.member import Member
 
 admin.site.register(Outlet)
 

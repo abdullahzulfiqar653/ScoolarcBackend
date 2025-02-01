@@ -1,5 +1,5 @@
 from django.db import models
-from api.models.merchant_member import Member
+from api.models.member import Member
 
 
 class Guardians(Member):

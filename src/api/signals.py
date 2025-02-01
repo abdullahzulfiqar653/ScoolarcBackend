@@ -8,7 +8,7 @@ from django.db.models.signals import post_migrate, post_save
 from api.models.lookup import Lookup
 from api.models.merchant import Merchant
 from django.contrib.auth.models import Group
-from api.models.merchant_member import Member
+from api.models.member import Member
 
 
 @receiver(post_migrate, sender=apps.get_app_config("api"))
