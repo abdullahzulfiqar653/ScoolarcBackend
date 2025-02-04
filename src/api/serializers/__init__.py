@@ -5,14 +5,18 @@ from api.serializers.merchant import MerchantSerializer
 from api.serializers.permissions import PermissionSerializer
 from api.serializers.member import MemberSerializer
 from api.serializers.lookup import LookupSerializer, LookupOperationSerializer
+from api.serializers.classes import ClassesSerializer
+from api.serializers.sections import SectionsSerializer
 
 __all__ = [
+    "OTPSerializer",
     "UserSerializer",
     "OutletSerializer",
     "LookupSerializer",
-    "MerchantSerializer",
     "MemberSerializer",
-    "LookupOperationSerializer",
+    "ClassesSerializer",
+    "SectionsSerializer",
+    "MerchantSerializer",
     "PermissionSerializer",
-    "OTPSerializer",
+    "LookupOperationSerializer",
 ]

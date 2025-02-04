@@ -31,4 +31,23 @@ urlpatterns = [
         MemberListCreateView.as_view(),
         name="merchant-member-list-create",
     ),
+    path(
+        "outlets/<str:pk>/classes",
+        ClassesListCreateView.as_view(),
+        name="merchant-classes-list-create",
+    ),
+    # =====================================================
+    # Classes
+    # =====================================================
+    path(
+        "classes/<str:pk>/",
+        ClassesRetrieveUpdateDestroyView.as_view(),
+        name="classes-retrieve-update-destroy"
+        ),
+    path(
+        "classes/<str:pk>/sections",
+        ListCreateSectionView.as_view(),
+        name="classes-section-list-create",
+    ),
+
 ]
