@@ -17,6 +17,6 @@ class ClassesSerializer(serializers.ModelSerializer):
             'updated_at'
         ]
         read_only_fields = ['created_at', 'updated_at']
-        extra_kwargs = {
-            'outlet': {'required': True},
-        }
+
+    def create(self, validated_data):
+        return Classes.objects.create(**validated_data, outlet=self.context['request'].outlet)

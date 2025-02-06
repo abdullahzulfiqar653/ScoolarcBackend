@@ -49,5 +49,10 @@ urlpatterns = [
         ListCreateSectionView.as_view(),
         name="classes-section-list-create",
     ),
+    path(
+        "sections/<str:pk>/",
+        RetrieveUpdateDestroySectionView.as_view(),
+        name="sections-retrieve-update-destroy",
+    ),
 
 ]

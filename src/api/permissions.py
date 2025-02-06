@@ -67,13 +67,26 @@ class InOutletOrMerchant(permissions.BasePermission):
                 classes = request.classes
                 outlet = classes.outlet
                 merchant = outlet.merchant
+            case str(s) if s.startswith("/api/sections/"):
+                if not hasattr(request, "section"):
+                    Sections = apps.get_model("api", "Sections")
+                    section_id = view.kwargs.get("pk") or view.kwargs.get("id")
+                    request.section = get_instance(
+                        Sections.objects.select_related("classes__outlet__merchant"),
+                        section_id
+                    )
+                section = request.section
+                classes = section.classes
+                outlet = classes.outlet
+                merchant = outlet.merchant
 
             case _:
                 outlet = None
                 merchant = None
                 classes = None
+                section = None
 
-        return merchant, outlet, classes
+        return merchant, outlet, classes, section
 
     def is_authenticated(self, request):
         return bool(request.user and request.user.is_authenticated)

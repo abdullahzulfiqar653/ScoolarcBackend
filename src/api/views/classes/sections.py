@@ -10,5 +10,10 @@ class ListCreateSectionView(ListCreateAPIView):
     def get_queryset(self):
         return self.request.classes.sections.all()
 
-    def perform_create(self, serializer):
-        serializer.save(classes=self.request.classes)
+
+class RetrieveUpdateDestroySectionView(RetrieveUpdateDestroyAPIView):
+    serializer_class = SectionsSerializer
+    permission_classes = [IsOutletMember, RolePermission]
+
+    def get_queryset(self):
+        return self.request.classes.sections.all()

@@ -11,6 +11,7 @@ from api.views.outlets.classes import (
 )
 from api.views.classes.sections import (
     ListCreateSectionView,
+    RetrieveUpdateDestroySectionView,
 )
 __all__ = [
     "OutletListCreateView",
@@ -21,4 +22,6 @@ __all__ = [
     "ClassesListCreateView",
     "ClassesRetrieveUpdateDestroyView",
     "ListCreateSectionView",
+    "RetrieveUpdateDestroySectionView",
+
 ]

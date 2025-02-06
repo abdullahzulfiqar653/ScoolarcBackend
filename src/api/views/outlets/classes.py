@@ -9,8 +9,6 @@ class ClassesListCreateView(ListCreateAPIView):
 
     def get_queryset(self):
         return self.request.outlet.classes.all()
-    def perform_create(self, serializer):
-        serializer.save(outlet=self.request.outlet)
 
 class ClassesRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
     serializer_class = ClassesSerializer

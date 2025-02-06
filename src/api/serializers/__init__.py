@@ -7,13 +7,19 @@ from api.serializers.member import MemberSerializer
 from api.serializers.lookup import LookupSerializer, LookupOperationSerializer
 from api.serializers.classes import ClassesSerializer
 from api.serializers.sections import SectionsSerializer
+from api.serializers.staff import StaffSerializer
+from api.serializers.subjects import SubjectSerializer
+from api.serializers.sections import SectionsSerializer
 
 __all__ = [
     "OTPSerializer",
+    "SubjectSerializer",
+    "StaffSerializer",
     "UserSerializer",
     "OutletSerializer",
     "LookupSerializer",
     "MemberSerializer",
+    "SectionsSerializer",
     "ClassesSerializer",
     "SectionsSerializer",
     "MerchantSerializer",
