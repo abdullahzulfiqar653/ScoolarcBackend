@@ -1,5 +1,5 @@
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
-from api.permissions import IsOutletMember, RolePermission, InOutletOrMerchant
+from rest_framework.generics import ListCreateAPIView
+from api.permissions import IsOutletMember, RolePermission
 from api.serializers import SectionsSerializer
 
 

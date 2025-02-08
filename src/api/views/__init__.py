@@ -2,26 +2,23 @@ from api.views.outlets.outlet import (
     OutletListCreateView,
     OutletRetrieveUpdateDestroyView,
 )
-from api.views.outlets.member import MemberListCreateView
+from api.views.outlets.member import OutletMemberListCreateView
 from api.views.permissions import PermissionsListAPIView
 from api.views.otp import OTPView
 from api.views.outlets.classes import (
-    ClassesListCreateView,
-    ClassesRetrieveUpdateDestroyView,
+    OutletClassesListCreateView,
 )
 from api.views.classes.sections import (
-    ListCreateSectionView,
-    RetrieveUpdateDestroySectionView,
+    ClassListCreateSectionView,
 )
+
 __all__ = [
     "OutletListCreateView",
     "OutletRetrieveUpdateDestroyView",
-    "MemberListCreateView",
+    "OutletMemberListCreateView",
     "PermissionsListAPIView",
     "OTPView",
-    "ClassesListCreateView",
-    "ClassesRetrieveUpdateDestroyView",
-    "ListCreateSectionView",
-    "RetrieveUpdateDestroySectionView",
+    "OutletClassesListCreateView",
+    "ClassListCreateSectionView",
 
 ]

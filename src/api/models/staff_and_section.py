@@ -2,7 +2,7 @@ from django.db import models
 from api.models.abstract.base import BaseModel
 
 
-class StaffAndSections(BaseModel):
+class StaffAndSection(BaseModel):
     staff = models.ForeignKey(
         "api.Staff",
         on_delete=models.CASCADE,

@@ -5,12 +5,11 @@ from rest_framework import serializers
 class SubjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subject
-        fields = [
+        fields = (
             "id",
-            "name",
             "code",
+            'title',
             "created_at",
             "updated_at",
-        ]
+        )
         read_only_fields = ("created_at", "updated_at")
-        extra_kwargs = {"service": {"required": False}}

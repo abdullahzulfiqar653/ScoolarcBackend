@@ -1,11 +1,11 @@
 from rest_framework import serializers
-from api.models.sections import Sections
+from api.models.section import Section
 from api.models.subject import Subject
 from api.serializers import StaffSerializer
 from api.serializers import SubjectSerializer
 
 
-class SectionsSerializer(serializers.ModelSerializer):
+class SectionSerializer(serializers.ModelSerializer):
     coordinator = StaffSerializer(read_only=True)
     books = SubjectSerializer(many=True, read_only=True)
     books_ids = serializers.PrimaryKeyRelatedField(
@@ -13,7 +13,7 @@ class SectionsSerializer(serializers.ModelSerializer):
     )
 
     class Meta:
-        model = Sections
+        model = Section
         fields = (
             "id",
             "name",

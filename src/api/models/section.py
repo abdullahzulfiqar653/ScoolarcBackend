@@ -2,7 +2,7 @@ from django.db import models
 from api.models.abstract.base import BaseModel
 
 
-class Sections(BaseModel):
+class Section(BaseModel):
     name = models.CharField(max_length=128)
     code = models.CharField(max_length=24)
     coordinator = models.ForeignKey(

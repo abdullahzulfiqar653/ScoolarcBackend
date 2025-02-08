@@ -1,10 +1,10 @@
-from api.models.guardian import Guardians
+from api.models.guardian import Guardian
 from rest_framework import serializers
 
 
 class GuardianSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Guardians
+        model = Guardian
         fields = (
             "id",
             "cnic",

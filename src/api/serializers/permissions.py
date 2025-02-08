@@ -16,15 +16,15 @@ class PermissionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Permission
-        fields = [
+        fields = (
             "id",
             "name",
             "codename",
             "member_ids",
             "content_type",
             "permission_ids",
-        ]
-        read_only_fields = ["name", "codename", "content_type"]
+        )
+        read_only_fields = ("name", "codename", "content_type")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

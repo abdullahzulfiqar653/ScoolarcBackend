@@ -2,7 +2,7 @@ from django.db import models
 from api.models.member import Member
 
 
-class Guardians(Member):
+class Guardian(Member):
     occupation = models.CharField(max_length=255)
 
     def __str__(self):

@@ -27,7 +27,7 @@ class MemberSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Member
-        fields = [
+        fields = (
             "id",
             "user",
             "role",
@@ -46,8 +46,8 @@ class MemberSerializer(serializers.ModelSerializer):
             "emergency_contact",
             "registration_number",
             "emergency_contact_name",
-        ]
-        read_only_fields = ["id", "registration_number"]
+        )
+        read_only_fields = ("id", "registration_number")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

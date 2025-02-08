@@ -6,10 +6,10 @@ from api.serializers.permissions import PermissionSerializer
 from api.serializers.member import MemberSerializer
 from api.serializers.lookup import LookupSerializer, LookupOperationSerializer
 from api.serializers.classes import ClassesSerializer
-from api.serializers.sections import SectionsSerializer
+from api.serializers.section import SectionsSerializer
 from api.serializers.staff import StaffSerializer
 from api.serializers.subject import SubjectSerializer
-from api.serializers.sections import SectionsSerializer
+from api.serializers.section import SectionsSerializer
 
 __all__ = [
     "OTPSerializer",
