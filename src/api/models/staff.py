@@ -1,12 +1,10 @@
 from django.db import models
 from api.models.member import Member
 
+
 class Staff(Member):
     section = models.ManyToManyField(
-        "api.Sections",
-        related_name="staff_sections",
-        through="api.StaffAndSections"
-
+        "api.Sections", related_name="staff_sections", through="api.StaffAndSections"
     )
     books = models.ManyToManyField(
         "api.Subject",
@@ -17,4 +15,4 @@ class Staff(Member):
     bonus = models.DecimalField(max_digits=10, decimal_places=2)
 
     class Meta:
-        db_table = 'staff'
+        db_table = "staff"

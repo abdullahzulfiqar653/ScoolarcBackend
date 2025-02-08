@@ -56,24 +56,25 @@ class InOutletOrMerchant(permissions.BasePermission):
                     request.outlet = get_instance(queryset, outlet_id)
                 outlet = request.outlet
                 merchant = outlet.merchant
+
             case str(s) if s.startswith("/api/classes/"):
                 if not hasattr(request, "classes"):
                     Classes = apps.get_model("api", "Classes")
                     class_id = view.kwargs.get("pk") or view.kwargs.get("id")
                     request.classes = get_instance(
-                        Classes.objects.select_related("outlet__merchant"),
-                        class_id
+                        Classes.objects.select_related("outlet__merchant"), class_id
                     )
                 classes = request.classes
                 outlet = classes.outlet
                 merchant = outlet.merchant
+
             case str(s) if s.startswith("/api/sections/"):
                 if not hasattr(request, "section"):
                     Sections = apps.get_model("api", "Sections")
                     section_id = view.kwargs.get("pk") or view.kwargs.get("id")
                     request.section = get_instance(
                         Sections.objects.select_related("classes__outlet__merchant"),
-                        section_id
+                        section_id,
                     )
                 section = request.section
                 classes = section.classes

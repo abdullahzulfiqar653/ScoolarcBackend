@@ -6,9 +6,7 @@ from api.models.member import Member
 
 
 class OTP(BaseModel):
-    member = models.OneToOneField(
-        Member, on_delete=models.CASCADE, related_name="otp"
-    )
+    member = models.OneToOneField(Member, on_delete=models.CASCADE, related_name="otp")
     code = models.CharField(max_length=6)
     is_used = models.BooleanField(default=False)
 

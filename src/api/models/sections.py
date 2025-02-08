@@ -3,8 +3,8 @@ from api.models.abstract.base import BaseModel
 
 
 class Sections(BaseModel):
-    name = models.CharField(max_length=255)
-    code = models.CharField(max_length=255)
+    name = models.CharField(max_length=128)
+    code = models.CharField(max_length=24)
     coordinator = models.ForeignKey(
         "api.Staff",
         on_delete=models.CASCADE,
@@ -13,7 +13,6 @@ class Sections(BaseModel):
     books = models.ManyToManyField(
         "api.Subject",
         related_name="sections",
-
     )
     section_class = models.ForeignKey(
         "api.Classes",
@@ -27,7 +26,6 @@ class Sections(BaseModel):
     class Meta:
         unique_together = [["name", "section_class"]]
         indexes = [
-            models.Index(fields=['-created_at']),
-
+            models.Index(fields=["-created_at"]),
         ]
-        db_table = 'sections'
+        db_table = "sections"

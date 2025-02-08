@@ -11,10 +11,11 @@ class Subject(BaseModel):
         related_name="class_subject",
         null=True,
     )
+
     def __str__(self):
         return self.title
 
     class Meta:
         indexes = [
-            models.Index(fields=['-created_at']),
+            models.Index(fields=["-created_at"]),
         ]

@@ -4,7 +4,7 @@ from api.models.outlet import Outlet
 from api.models.merchant import Merchant
 from api.models.member import Member
 from api.models.merchant_config import MerchantConfig
-from api.models.subjacts import Subject
+from api.models.subject import Subject
 from api.models.staff import Staff
 from api.models.sections import Sections
 from api.models.student import Student

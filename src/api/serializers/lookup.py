@@ -6,7 +6,7 @@ class LookupSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Lookup
-        fields = ["id", "name"]
+        fields = ("id", "name")
 
 
 class LookupOperationSerializer(serializers.ModelSerializer):
@@ -14,7 +14,7 @@ class LookupOperationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Lookup
-        fields = ["id", "type", "name", "sub_types"]
+        fields = ("id", "type", "name", "sub_types")
         depth = 1
 
     def get_sub_types(self, obj):

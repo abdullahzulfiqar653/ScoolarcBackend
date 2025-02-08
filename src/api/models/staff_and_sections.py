@@ -17,5 +17,5 @@ class StaffAndSections(BaseModel):
 
     class Meta:
         indexes = [
-            models.Index(fields=['-created_at']),
+            models.Index(fields=["-created_at"]),
         ]

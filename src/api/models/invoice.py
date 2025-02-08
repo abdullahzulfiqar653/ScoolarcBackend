@@ -9,6 +9,7 @@ INVOICE_STATUS = (
     ("OVERDUE", "Overdue"),
 )
 
+
 class Invoice(BaseModel):
     guardian = models.ForeignKey(
         "api.Guardians",
@@ -20,7 +21,9 @@ class Invoice(BaseModel):
         related_name="student_invoices",
     )
     amount = models.DecimalField(max_digits=10, decimal_places=2)
-    invoice_status = models.CharField(max_length=255, choices=INVOICE_STATUS, default="PENDING")
+    invoice_status = models.CharField(
+        max_length=255, choices=INVOICE_STATUS, default="PENDING"
+    )
     due_date = models.DateTimeField(null=True, blank=True)
     paid_date = models.DateTimeField(null=True, blank=True)
     due_amount = models.DecimalField(max_digits=10, decimal_places=2)
@@ -31,5 +34,5 @@ class Invoice(BaseModel):
 
     class Meta:
         indexes = [
-            models.Index(fields=['-created_at']),
+            models.Index(fields=["-created_at"]),
         ]
