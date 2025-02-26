@@ -30,8 +30,8 @@ class MemberSerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "user",
-            "role",
             "cnic",
+            "role",
             "phone",
             "status",
             "avatar",
