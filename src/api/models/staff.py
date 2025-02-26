@@ -4,7 +4,7 @@ from api.models.member import Member
 
 class Staff(Member):
     section = models.ManyToManyField(
-        "api.Sections", related_name="staff_sections", through="api.StaffAndSections"
+        "api.Section", related_name="staff_sections", through="api.StaffAndSection"
     )
     books = models.ManyToManyField(
         "api.Subject",

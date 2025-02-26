@@ -3,15 +3,15 @@ from api.models.abstract.base import BaseModel
 
 
 class StaffAndSection(BaseModel):
-    staff = models.ForeignKey(
+    section_staff = models.ForeignKey(
         "api.Staff",
         on_delete=models.CASCADE,
-        related_name="staff_sections",
+        related_name="staff_and_sections",
     )
-    section = models.ForeignKey(
-        "api.Sections",
+    staff_section = models.ForeignKey(
+        "api.Section",
         on_delete=models.CASCADE,
-        related_name="section_staff",
+        related_name="section_and_staff",
     )
     is_head = models.BooleanField(default=False)
 

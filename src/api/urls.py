@@ -20,7 +20,7 @@ urlpatterns = [
     # =====================================================
     # Outllets
     # =====================================================
-    path("outlets/", OutletListCreateView.as_view(), name="outlet-list-create"),
+    path("outlets/", MerchantOutletListCreateView.as_view(), name="outlet-list-create"),
     path(
         "outlets/<str:pk>/",
         OutletRetrieveUpdateDestroyView.as_view(),
@@ -28,12 +28,12 @@ urlpatterns = [
     ),
     path(
         "outlets/<str:pk>/member",
-        MemberListCreateView.as_view(),
+        OutletMemberListCreateView.as_view(),
         name="merchant-member-list-create",
     ),
     path(
         "outlets/<str:pk>/classes",
-        ClassesListCreateView.as_view(),
+        OutletClassesListCreateView.as_view(),
         name="merchant-classes-list-create",
     ),
     # =====================================================
@@ -41,12 +41,12 @@ urlpatterns = [
     # =====================================================
     path(
         "classes/<str:pk>/",
-        ClassesRetrieveUpdateDestroyView.as_view(),
+        OutletRetrieveUpdateDestroyView.as_view(),
         name="classes-retrieve-update-destroy"
         ),
     path(
         "classes/<str:pk>/sections",
-        ListCreateSectionView.as_view(),
+        ClassListCreateSectionView.as_view(),
         name="classes-section-list-create",
     ),
     # =====================================================
@@ -54,8 +54,21 @@ urlpatterns = [
     # =====================================================
     path(
         "sections/<str:pk>/",
-        RetrieveUpdateDestroySectionView.as_view(),
+        SectionRetrieveUpdateDestroyView.as_view(),
         name="sections-retrieve-update-destroy",
+    ),
+    path(
+        "sections/<str:pk>/students",
+        SectionListCreateStudentView.as_view(),
+        name="sections-student-list-create",
+    ),
+    # =====================================================
+    # Students
+    # =====================================================
+    path(
+        "students/<str:pk>/",
+        StudentRetrieveUpdateDestroyView.as_view(),
+        name="students-retrieve-update-destroy",
     ),
 
 ]

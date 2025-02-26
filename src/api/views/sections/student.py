@@ -1,14 +1,11 @@
 from rest_framework.generics import ListCreateAPIView
 from api.permissions import IsOutletMember, RolePermission
-from api.serializers import SectionSerializer
+from api.serializers.student import StudentSerializer
 
 
-class ClassListCreateSectionView(ListCreateAPIView):
-    serializer_class = SectionSerializer
+class SectionListCreateStudentView(ListCreateAPIView):
+    serializer_class = StudentSerializer
     permission_classes = [IsOutletMember, RolePermission]
 
     def get_queryset(self):
-        return self.request.classes.sections.all()
-
-
-
+        return self.request.section.students.all()

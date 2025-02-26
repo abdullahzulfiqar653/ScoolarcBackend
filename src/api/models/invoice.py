@@ -11,8 +11,8 @@ INVOICE_STATUS = (
 
 
 class Invoice(BaseModel):
-    guardian = models.ForeignKey(
-        "api.Guardians",
+    invoice_guardian = models.ForeignKey(
+        "api.Guardian",
         on_delete=models.CASCADE,
         related_name="guardian_invoices",
     )
@@ -30,7 +30,7 @@ class Invoice(BaseModel):
     mata_data = models.JSONField(null=True, blank=True)
 
     def __str__(self):
-        return self.guardian.user.first_name + " " + self.guardian.user.last_name
+        return self.invoice_guardian.user.first_name + " " + self.invoice_guardian.user.last_name
 
     class Meta:
         indexes = [

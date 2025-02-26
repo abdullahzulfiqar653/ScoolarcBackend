@@ -1,4 +1,4 @@
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import ListCreateAPIView
 from api.serializers import ClassesSerializer
 from api.permissions import isMerchantMember, RolePermission, IsOutletMember
 

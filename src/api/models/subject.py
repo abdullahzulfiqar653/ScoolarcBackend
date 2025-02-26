@@ -8,7 +8,7 @@ class Subject(BaseModel):
     subject_class = models.ForeignKey(
         "api.Classes",
         on_delete=models.CASCADE,
-        related_name="class_subject",
+        related_name="class_subjects",
         null=True,
     )
 

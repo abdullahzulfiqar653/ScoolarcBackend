@@ -3,7 +3,7 @@ from api.serializers.outlet import OutletSerializer
 from api.permissions import isMerchantMember
 
 
-class OutletListCreateView(generics.ListCreateAPIView):
+class MerchantOutletListCreateView(generics.ListCreateAPIView):
     serializer_class = OutletSerializer
     permission_classes = [isMerchantMember]
 

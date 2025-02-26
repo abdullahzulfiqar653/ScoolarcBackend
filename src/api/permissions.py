@@ -56,6 +56,8 @@ class InOutletOrMerchant(permissions.BasePermission):
                     request.outlet = get_instance(queryset, outlet_id)
                 outlet = request.outlet
                 merchant = outlet.merchant
+                classes = None
+                section = None
 
             case str(s) if s.startswith("/api/classes/"):
                 if not hasattr(request, "classes"):
@@ -67,6 +69,7 @@ class InOutletOrMerchant(permissions.BasePermission):
                 classes = request.classes
                 outlet = classes.outlet
                 merchant = outlet.merchant
+                section = None
 
             case str(s) if s.startswith("/api/sections/"):
                 if not hasattr(request, "section"):

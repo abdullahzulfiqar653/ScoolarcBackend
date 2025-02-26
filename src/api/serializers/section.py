@@ -1,8 +1,8 @@
 from rest_framework import serializers
 from api.models.section import Section
 from api.models.subject import Subject
-from api.serializers import StaffSerializer
-from api.serializers import SubjectSerializer
+from api.serializers.staff import StaffSerializer
+from api.serializers.subject import SubjectSerializer
 
 
 class SectionSerializer(serializers.ModelSerializer):
@@ -26,7 +26,7 @@ class SectionSerializer(serializers.ModelSerializer):
         read_only_fields = ("created_at", "updated_at")
 
     def create(self, validated_data):
-        books = validated_data.pop("books", [])
-        section = Sections.objects.create(**validated_data)
+        books = validated_data.pop("books_ids", [])
+        section = Section.objects.create(**validated_data)
         section.books.set(books)
         return section

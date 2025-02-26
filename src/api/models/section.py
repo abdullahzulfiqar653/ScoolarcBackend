@@ -8,16 +8,16 @@ class Section(BaseModel):
     coordinator = models.ForeignKey(
         "api.Staff",
         on_delete=models.CASCADE,
-        related_name="sections",
+        related_name="coordinator_sections",
     )
     books = models.ManyToManyField(
         "api.Subject",
-        related_name="sections",
+        related_name="books_sections",
     )
     section_class = models.ForeignKey(
         "api.Classes",
         on_delete=models.CASCADE,
-        related_name="sections",
+        related_name="class_sections",
     )
 
     def __str__(self):
