@@ -3,7 +3,7 @@ MODEL_CODES = {
     "OTP": "101",
     "Merchant": "200",
     "Outlet": "201",
-    "MerchantMember": "202",
+    "Member": "202",
     "MerchantConfig": "203",
     "classes": "204",
     "staff": "205",
