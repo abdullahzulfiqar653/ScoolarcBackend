@@ -23,15 +23,14 @@ class IsMerchantMemberAnonymous(permissions.BasePermission):
     def has_permission(self, request, view):
         if not hasattr(request, "merchant") or not request.merchant:
             return False
-        email = request.data.get("email", "")
-        phone = request.data.get("phone", "")
+        username = request.data.get("username", "")
 
         query = request.merchant.members.filter(
-            Q(user__email=email) | Q(phone=phone),
+            Q(user__email=username) | Q(user__username=username),
         )
 
         if not query.exists():
-            self.message = "User is not a member of the merchant."
+            self.message = "User not exist."
             return False
         request.member = query.first()
         return True

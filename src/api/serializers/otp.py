@@ -8,12 +8,12 @@ from api.factories import OTPSenderFactory
 
 
 class OTPSerializer(serializers.Serializer):
-    email = serializers.EmailField(write_only=True)
+    access = serializers.CharField(read_only=True)
+    refresh = serializers.CharField(read_only=True)
+    message = serializers.CharField(read_only=True)
+    username = serializers.CharField(write_only=True)
     platform = serializers.CharField(default="email", write_only=True)
     otp = serializers.CharField(max_length=6, required=False, write_only=True)
-    refresh = serializers.CharField(read_only=True)
-    access = serializers.CharField(read_only=True)
-    message = serializers.CharField(read_only=True)
 
     def create(self, validated_data):
         request = self.context.get("request")
@@ -33,8 +33,8 @@ class OTPSerializer(serializers.Serializer):
                 raise ValidationError({"otp": "OTP expired"})
 
             refresh = RefreshToken.for_user(request.member.user)
-            otp_record.is_used = True
-            otp_record.save()
+            # otp_record.is_used = True
+            # otp_record.save()
             return {
                 "refresh": str(refresh),
                 "access": str(refresh.access_token),

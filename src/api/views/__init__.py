@@ -20,6 +20,8 @@ from api.views.sections.student import (
 from api.views.student import (
     StudentRetrieveUpdateDestroyView
 )
+from api.views.referesh_token import RefreshTokenAPIView
+
 __all__ = [
     "MerchantOutletListCreateView",
     "OutletRetrieveUpdateDestroyView",
@@ -27,6 +29,7 @@ __all__ = [
     "OutletMemberListCreateView",
     "PermissionsListAPIView",
     "OTPView",
+    "RefreshTokenAPIView",
     "OutletClassesListCreateView",
     "ClassListCreateSectionView",
     "SectionRetrieveUpdateDestroyView",
