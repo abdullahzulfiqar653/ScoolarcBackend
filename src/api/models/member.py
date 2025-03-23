@@ -41,7 +41,7 @@ class Member(BaseModel):
 
     def clean(self):
         # Enforce that a student can only have one outlet
-        if self.role.name.lower() == "student" and self.outlets.count() > 1:
+        if self.role.lower() == "student" and self.outlets.count() > 1:
             raise ValidationError("A student can only be linked to one outlet.")
         super().clean()
 
