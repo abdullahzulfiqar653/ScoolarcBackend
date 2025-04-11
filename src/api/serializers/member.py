@@ -21,9 +21,6 @@ class MemberSerializer(serializers.ModelSerializer):
     emergency_contact = serializers.CharField(
         required=False, max_length=10, min_length=10
     )
-    role = serializers.PrimaryKeyRelatedField(queryset=Lookup.objects.all())
-    gender = serializers.PrimaryKeyRelatedField(queryset=Lookup.objects.all())
-    phone_network = serializers.PrimaryKeyRelatedField(queryset=Lookup.objects.all())
 
     class Meta:
         model = Member
@@ -52,13 +49,6 @@ class MemberSerializer(serializers.ModelSerializer):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.fields["role"].queryset = Lookup.objects.filter(type__name="Role").exclude(
-            name="Merchant"
-        )
-        self.fields["gender"].queryset = Lookup.objects.filter(type__name="Gender")
-        self.fields["phone_network"].queryset = Lookup.objects.filter(
-            type__name="PhoneNetwork"
-        )
 
     def validate_cnic(self, value):
         if not value:
@@ -96,7 +86,7 @@ class MemberSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Ensure this field has numbers only.")
 
     def validate_role(self, value):
-        user_role = self.context["request"].user.profile.role.name
+        user_role = self.context["request"].user.profile.role
         role_permissions = {
             "Merchant": ["Principal", "Registrar", "Teacher", "Student", "Parent"],
             "Principal": ["Principal", "Registrar", "Teacher", "Student", "Parent"],
@@ -106,9 +96,9 @@ class MemberSerializer(serializers.ModelSerializer):
             "Parent": [],
         }
 
-        if value.name not in role_permissions.get(user_role, []):
+        if value not in role_permissions.get(user_role, []):
             raise ValidationError(
-                f"Users with the role '{user_role}' are not allowed to create members with the role '{value.name}'."
+                f"Users with the role '{user_role}' are not allowed to create members with the role '{value}'."
             )
 
         return value
@@ -127,7 +117,7 @@ class MemberSerializer(serializers.ModelSerializer):
 
         role = validated_data.get("role")
         prefix_map = {"Student": "STD", "Parent": "PAR"}
-        prefix = prefix_map.get(role.name, "EMP")
+        prefix = prefix_map.get(role, "EMP")
 
         member = (
             merchant.members.filter(role=role).order_by("registration_number").last()
@@ -138,7 +128,7 @@ class MemberSerializer(serializers.ModelSerializer):
         user = User.objects.create_user(
             username=self.generate_unique_username(), **user
         )
-        user.groups.add(Group.objects.get(name=role.name))
+        user.groups.add(Group.objects.get(name=role))
 
         validated_data["user"] = user
         merchant_member = Member.objects.create(**validated_data)

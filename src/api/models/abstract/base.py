@@ -11,6 +11,7 @@ class BaseModel(SoftDeleteModel, UIDMixin):
     deleted_at = models.DateTimeField(blank=True, null=True, editable=False)
     restored_at = models.DateTimeField(blank=True, null=True, editable=False)
     transaction_id = models.UUIDField(blank=True, null=True, editable=False)
+    meta_data = models.JSONField(blank=True, null=True)
 
     class Meta:
         abstract = True

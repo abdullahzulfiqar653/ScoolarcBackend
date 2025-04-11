@@ -8,7 +8,7 @@ class OutletClassesListCreateView(ListCreateAPIView):
     permission_classes = [isMerchantMember, IsOutletMember, RolePermission]
 
     def get_queryset(self):
-        return self.request.outlet.classes.all()
+        return self.request.outlet.outlet_classes.all()
 
 
 

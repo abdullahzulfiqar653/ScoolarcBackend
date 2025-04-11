@@ -5,7 +5,7 @@ MODEL_CODES = {
     "Outlet": "201",
     "Member": "202",
     "MerchantConfig": "203",
-    "classes": "204",
+    "Classes": "204",
     "staff": "205",
     "sections": "206",
     "student": "207",

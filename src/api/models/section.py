@@ -9,6 +9,7 @@ class Section(BaseModel):
         "api.Staff",
         on_delete=models.CASCADE,
         related_name="coordinator_sections",
+        null=True,
     )
     books = models.ManyToManyField(
         "api.Subject",
@@ -18,6 +19,7 @@ class Section(BaseModel):
         "api.Classes",
         on_delete=models.CASCADE,
         related_name="class_sections",
+        null=True,
     )
 
     def __str__(self):

@@ -33,7 +33,7 @@ class Member(BaseModel):
     registration_number = models.CharField(max_length=50, null=True)
 
     def __str__(self):
-        return f"{self.user.username} - {self.role.name} of {self.merchant.name}."
+        return f"{self.user.username} - {self.role} of {self.merchant.name}."
 
     class Meta:
         verbose_name = "MembersRegister"

@@ -98,9 +98,17 @@ class InOutletOrMerchant(permissions.BasePermission):
         if not self.is_authenticated(request):
             return False
 
-        merchant, outlet = self.get_merchant_outlet(request, view)
+        merchant, outlet, classes, sections = self.get_merchant_outlet(request, view)
         if outlet:
             if outlet in request.user.profile.outlets.all():
+                if classes:
+                    if classes in outlet.outlet_classes.all():
+                        return classes
+                elif sections:
+                    if sections in classes.sections.all():
+                        return sections
+                else:
+                    return outlet
                 return outlet
             else:
                 raise exceptions.NotFound
@@ -128,6 +136,7 @@ class InOutletOrMerchant(permissions.BasePermission):
 class IsOutletMember(InOutletOrMerchant):
     def has_permission(self, request, view):
         outlet = self.is_in_outlet(request, view)
+        print(outlet)
         if not outlet:
             return False
         return True
