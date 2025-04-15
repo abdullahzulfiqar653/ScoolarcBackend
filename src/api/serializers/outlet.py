@@ -4,11 +4,16 @@ from api.serializers.merchant import MerchantSerializer
 
 
 class OutletSerializer(serializers.ModelSerializer):
-
+    merchant = MerchantSerializer(read_only=True)
+    merchant_id = serializers.PrimaryKeyRelatedField(
+        source="merchant",
+        queryset=MerchantSerializer.Meta.model.objects.all(),
+        write_only=True,
+    )
     class Meta:
         model = Outlet
-        fields = ("id", "name", "province", "city", "location", "code")
-        read_only_fields = ("code")
+        fields = ("id", "name", "province", "city", "location", "code", "merchant", "merchant_id")
+        read_only_fields = ["code"]
 
     def validate_name(self, name):
         outlet = self.context.get("request").merchant.outlets.filter(name=name)
