@@ -13,7 +13,7 @@ class OutletSerializer(serializers.ModelSerializer):
     class Meta:
         model = Outlet
         fields = ("id", "name", "province", "city", "location", "code", "merchant", "merchant_id")
-        read_only_fields = ("code",)
+        read_only_fields = ("code", "merchant_id",)
 
     def validate_name(self, name):
         outlet = self.context.get("request").merchant.outlets.filter(name=name)
