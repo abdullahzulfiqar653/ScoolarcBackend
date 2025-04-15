@@ -8,7 +8,7 @@ class OutletSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Outlet
-        fields = ("id", "name", "province", "city", "location", "code", "merchant",)
+        fields = ("id", "name", "province", "city", "location", "code")
         read_only_fields = ("code")
 
     def validate_name(self, name):
