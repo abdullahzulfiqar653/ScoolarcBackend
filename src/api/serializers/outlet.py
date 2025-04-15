@@ -4,7 +4,6 @@ from api.serializers.merchant import MerchantSerializer
 
 
 class OutletSerializer(serializers.ModelSerializer):
-    merchant = MerchantSerializer(read_only=True)
 
     class Meta:
         model = Outlet
