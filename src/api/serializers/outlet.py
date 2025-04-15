@@ -5,11 +5,7 @@ from api.serializers.merchant import MerchantSerializer
 
 class OutletSerializer(serializers.ModelSerializer):
     merchant = MerchantSerializer(read_only=True)
-    merchant_id = serializers.PrimaryKeyRelatedField(
-        source="merchant",
-        queryset=MerchantSerializer.Meta.model.objects.all(),
-        write_only=True,
-    )
+
     class Meta:
         model = Outlet
         fields = ("id", "name", "province", "city", "location", "code", "merchant",)
