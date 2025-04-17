@@ -66,5 +66,8 @@ urlpatterns = [
         StudentRetrieveUpdateDestroyView.as_view(),
         name="students-retrieve-update-destroy",
     ),
-
+    # =====================================================
+    # Lookups
+    # =====================================================
+    path("lookup/<str:flag>/", LookupListAPIView.as_view(), name="lookup-list"),
 ]

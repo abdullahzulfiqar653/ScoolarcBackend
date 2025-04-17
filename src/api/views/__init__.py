@@ -5,6 +5,7 @@ from api.views.outlets.outlet import (
 from api.views.outlets.member import OutletMemberListCreateView
 from api.views.permissions import PermissionsListAPIView
 from api.views.otp import OTPView
+from api.views.lookup import LookupListAPIView
 from api.views.outlets.classes import (
     OutletClassesListCreateView,
 )
@@ -29,6 +30,7 @@ __all__ = [
     "OutletMemberListCreateView",
     "PermissionsListAPIView",
     "OTPView",
+    "LookupListAPIView",
     "RefreshTokenAPIView",
     "OutletClassesListCreateView",
     "ClassListCreateSectionView",
