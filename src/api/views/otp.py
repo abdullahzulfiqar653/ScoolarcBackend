@@ -40,9 +40,7 @@ class OTPView(CreateAPIView):
     def create(self, request, *args, **kwargs):
         response = super().create(request, *args, **kwargs)
         refresh_token = response.data.pop("refresh", None)
-        print(refresh_token)
         response.set_cookie(
             "scoolarc_refresh_token", refresh_token, httponly=True
         )
         return response
-

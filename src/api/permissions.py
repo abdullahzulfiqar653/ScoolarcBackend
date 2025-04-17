@@ -22,7 +22,8 @@ class IsMerchantMemberAnonymous(permissions.BasePermission):
 
     def has_permission(self, request, view):
         if not hasattr(request, "merchant") or not request.merchant:
-            return False
+            raise exceptions.NotFound({"detail": ["Entity not found."]})
+
         username = request.data.get("username", "")
 
         query = request.merchant.members.filter(
@@ -30,8 +31,7 @@ class IsMerchantMemberAnonymous(permissions.BasePermission):
         )
 
         if not query.exists():
-            self.message = "User not exist."
-            return False
+            raise exceptions.NotFound({"username": ["User not found."]})
         request.member = query.first()
         return True
 
