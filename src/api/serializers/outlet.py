@@ -1,6 +1,5 @@
-from rest_framework import serializers
 from api.models.outlet import Outlet
-from api.serializers.merchant import MerchantSerializer
+from rest_framework import serializers
 
 
 class OutletSerializer(serializers.ModelSerializer):

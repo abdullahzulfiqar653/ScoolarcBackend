@@ -6,9 +6,16 @@ from rest_framework import permissions, exceptions
 class isMerchantMember(permissions.BasePermission):
     message = "You do not have permission to access this merchant's resources."
 
+    def is_authenticated(self, request):
+        return bool(request.user and request.user.is_authenticated)
+
     def has_permission(self, request, view):
+        if not self.is_authenticated(request):
+            return False
+
         if not request.merchant:
             return False
+
         if request.user.profile.merchant != request.merchant:
             return False
         return True
@@ -55,8 +62,7 @@ class InOutletOrMerchant(permissions.BasePermission):
                     request.outlet = get_instance(queryset, outlet_id)
                 outlet = request.outlet
                 merchant = outlet.merchant
-                classes = None
-                section = None
+
 
             case str(s) if s.startswith("/api/classes/"):
                 if not hasattr(request, "classes"):
@@ -65,10 +71,8 @@ class InOutletOrMerchant(permissions.BasePermission):
                     request.classes = get_instance(
                         Classes.objects.select_related("outlet__merchant"), class_id
                     )
-                classes = request.classes
                 outlet = classes.outlet
                 merchant = outlet.merchant
-                section = None
 
             case str(s) if s.startswith("/api/sections/"):
                 if not hasattr(request, "section"):
@@ -86,10 +90,8 @@ class InOutletOrMerchant(permissions.BasePermission):
             case _:
                 outlet = None
                 merchant = None
-                classes = None
-                section = None
 
-        return merchant, outlet, classes, section
+        return merchant, outlet
 
     def is_authenticated(self, request):
         return bool(request.user and request.user.is_authenticated)
@@ -98,17 +100,9 @@ class InOutletOrMerchant(permissions.BasePermission):
         if not self.is_authenticated(request):
             return False
 
-        merchant, outlet, classes, sections = self.get_merchant_outlet(request, view)
+        merchant, outlet = self.get_merchant_outlet(request, view)
         if outlet:
             if outlet in request.user.profile.outlets.all():
-                if classes:
-                    if classes in outlet.outlet_classes.all():
-                        return classes
-                elif sections:
-                    if sections in classes.sections.all():
-                        return sections
-                else:
-                    return outlet
                 return outlet
             else:
                 raise exceptions.NotFound
@@ -136,7 +130,6 @@ class InOutletOrMerchant(permissions.BasePermission):
 class IsOutletMember(InOutletOrMerchant):
     def has_permission(self, request, view):
         outlet = self.is_in_outlet(request, view)
-        print(outlet)
         if not outlet:
             return False
         return True
