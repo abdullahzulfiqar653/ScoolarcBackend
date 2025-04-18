@@ -29,7 +29,7 @@ class Member(BaseModel):
     phone = models.CharField(max_length=10, null=True, verbose_name="Primary Phone")
     phone_network = models.CharField(
         max_length=10
-    )  # [ Jazz, Ufone, Zong, Telenor, Warid]
+    )  # [Jazz, Ufone, Zong, Telenor, Warid]
     registration_number = models.CharField(max_length=50, null=True)
 
     def __str__(self):
