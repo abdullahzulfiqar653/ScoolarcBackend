@@ -7,10 +7,17 @@ class OutletSerializer(serializers.ModelSerializer):
         model = Outlet
         fields = ("id", "name", "province", "city", "location")
 
+    def check_outlet_existance(self, outlet):
+        if outlet:
+            if self.instance:
+                if not outlet.id == self.instance.id:
+                    raise serializers.ValidationError("Outlet with this name already exist.")
+            else:
+                raise serializers.ValidationError("Outlet with this name already exist.")
+
     def validate_name(self, name):
-        outlet = self.context.get("request").merchant.outlets.filter(name=name)
-        if not self.instance and outlet:
-            raise serializers.ValidationError("Outlet with this name already exist.")
+        outlet = self.context.get("request").merchant.outlets.filter(name=name).first()
+        self.check_outlet_existance(outlet)
         return name
 
     def create(self, validated_data):
