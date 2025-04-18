@@ -11,7 +11,7 @@ class MerchantOutletListCreateView(generics.ListCreateAPIView):
         return self.request.user.profile.outlets.all()
 
 
-class OutletRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+class OutletRetrieveUpdateDestroyView(generics.RetrieveUpdateAPIView):
     serializer_class = OutletSerializer
     permission_classes = [isMerchantMember]
 
