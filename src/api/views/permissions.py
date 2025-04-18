@@ -1,10 +1,10 @@
-from rest_framework.generics import ListAPIView, CreateAPIView
+from rest_framework.generics import ListCreateAPIView
 from django.contrib.auth.models import Permission
 from api.serializers.permissions import PermissionSerializer
 from api.permissions import isMerchantMember, RolePermission
 
 
-class PermissionsListAPIView(ListAPIView, CreateAPIView):
+class PermissionsListAPIView(ListCreateAPIView):
     serializer_class = PermissionSerializer
     permission_classes = [isMerchantMember, RolePermission]
 

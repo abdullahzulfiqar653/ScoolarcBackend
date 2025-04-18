@@ -29,7 +29,7 @@ class IsMerchantMemberAnonymous(permissions.BasePermission):
 
     def has_permission(self, request, view):
         if not hasattr(request, "merchant") or not request.merchant:
-            raise exceptions.NotFound({"detail": ["Entity not found."]})
+            raise exceptions.NotFound({"detail": "Entity not found."})
 
         username = request.data.get("username", "")
 
@@ -62,7 +62,6 @@ class InOutletOrMerchant(permissions.BasePermission):
                     request.outlet = get_instance(queryset, outlet_id)
                 outlet = request.outlet
                 merchant = outlet.merchant
-
 
             case str(s) if s.startswith("/api/classes/"):
                 if not hasattr(request, "classes"):

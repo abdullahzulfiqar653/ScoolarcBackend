@@ -14,9 +14,19 @@ MODEL_CODES = {
     "guardian": "210",
     "transaction_history": "211",
 }
+STAFF = "Staff"
+PARENT = "Parent"
+STUDENT = "Student"
+MERCHANT = "Merchant"
+PRINCIPLE = "Principal"
+REGISTRAR = "Registrar"
+
+ROLES_NOT_ALLOWED_TO_HAVE_PERMISSIONS = [STUDENT, PARENT]
+ROLES_ALLOWED_TO_ASSIGN_PERMISSIONS = [MERCHANT, PRINCIPLE, REGISTRAR]
+
 
 ROLE_BASED_PERMISSIONS = {
-    "Merchant": [
+    MERCHANT: [
         "api.add_classes",
         "api.change_classes",
         "api.delete_classes",
@@ -64,6 +74,6 @@ ROLE_BASED_PERMISSIONS = {
         "api.change_transactionhistory",
         "api.view_transactionhistory",
         "auth.add_permission",
-        "auth.view_permission"
+        "auth.view_permission",
     ]
 }
