@@ -3,6 +3,8 @@ from api.models.abstract.base import BaseModel
 
 
 class Section(BaseModel):
+    UID_PREFIX = 108
+
     name = models.CharField(max_length=128)
     code = models.CharField(max_length=24)
     coordinator = models.ForeignKey(

@@ -1,19 +1,21 @@
 MODEL_CODES = {
     "Lookup": "100",
     "OTP": "101",
-    "Merchant": "200",
-    "Outlet": "201",
-    "Member": "202",
-    "MerchantConfig": "203",
-    "Classes": "204",
-    "staff": "205",
-    "sections": "206",
-    "student": "207",
-    "books": "208",
-    "invoice": "209",
-    "guardian": "210",
-    "transaction_history": "211",
+    "Merchant": "102",
+    "Outlet": "103",
+    "Member": "104",
+    "MerchantConfig": "105",
+    "Classes": "106",
+    "Staff": "107",
+    "Section": "108",
+    "Student": "109",
+    "Subject": "110",
+    "Invoice": "111",
+    "Guardian": "112",
+    "TransactionHistory": "113",
+    "StaffAndSection": "114",
 }
+
 STAFF = "Staff"
 PARENT = "Parent"
 STUDENT = "Student"

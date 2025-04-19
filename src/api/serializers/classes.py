@@ -1,23 +1,38 @@
+import secrets
 from api.models.classes import Classes
+from api.models.section import Section
+
 from rest_framework import serializers
-from api.serializers.outlet import OutletSerializer
+from api.serializers.section import SectionSerializer
 
 
 class ClassesSerializer(serializers.ModelSerializer):
-    """This serializer is used to serialize the classes."""
-
-    outlet = OutletSerializer(read_only=True)
-    outlet_id = serializers.PrimaryKeyRelatedField(
-        source="outlet",
-        queryset=OutletSerializer.Meta.model.objects.all(),
-        write_only=True,
-    )
-
+    class_sections = SectionSerializer(many=True)
     class Meta:
         model = Classes
-        fields = ("id", "name", "outlet", "created_at", "updated_at", "outlet_id")
-        read_only_fields = ("created_at", "updated_at")
+        fields = ("id", "name", "class_sections", )
+        # read_only_fields = ("created_at", )
 
+    def validate_class_sections(self, value):
+        # Check for duplicate section names in the incoming payload
+        section_names = [section["name"] for section in value]
+        duplicates = [name for name in set(section_names) if section_names.count(name) > 1]
+        if duplicates:
+            raise serializers.ValidationError(f"Duplicate section names not allowed: {', '.join(duplicates)}")
+        return value
+    
     def create(self, validated_data):
-        validated_data["outlet"] = self.context["request"].outlet
-        return super().create(validated_data)
+        request = self.context.get("request")
+        validated_data["outlet"] = request.outlet
+        sections = validated_data.pop("class_sections")
+        created_class = super().create(validated_data)
+        sections_data = []
+        for section in sections:
+            sections_data.append(Section(
+                id=f"{Section.UID_PREFIX}{secrets.token_hex(6)}",
+                name=section["name"],
+                section_class=created_class,
+            ))
+        Section.objects.bulk_create(sections_data)
+        return created_class
+
