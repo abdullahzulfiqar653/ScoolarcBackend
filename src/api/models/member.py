@@ -15,21 +15,24 @@ class Member(BaseModel):
         max_length=20
     )  # [merchant, principal, admin, teacher, student]
     address = models.TextField(null=True)
+    city = models.CharField(max_length=50)
+    area = models.CharField(max_length=50)
+    religion = models.CharField(max_length=50)
     status = models.BooleanField(default=True)
+    date_of_birth = models.DateField(null=True)
+    first_name = models.CharField(max_length=50)
     is_verified = models.BooleanField(default=False)
     cnic = models.CharField(max_length=13, null=True)
-    avatar = models.ImageField(upload_to="protected/avatars", null=True)
-    emergency_contact = models.CharField(max_length=10, null=True)
-    emergency_contact_name = models.CharField(max_length=100, null=True)
+    email = models.EmailField(max_length=50, null=True)
+    last_name = models.CharField(max_length=50, null=True)
     blood_group = models.CharField(max_length=3, null=True)
-    date_of_birth = models.DateField(null=True)
+    emergency_contact = models.CharField(max_length=10, null=True)
+    avatar = models.CharField(max_length=256, blank=True, null=True)
+    emergency_contact_name = models.CharField(max_length=100, null=True)
     gender = models.CharField(
         max_length=10
     )  # Gender reference from Lookup [Male, Female, Other]
-    phone = models.CharField(max_length=10, null=True, verbose_name="Primary Phone")
-    phone_network = models.CharField(
-        max_length=10
-    )  # [Jazz, Ufone, Zong, Telenor, Warid]
+    primary_phone = models.CharField(max_length=10, null=True, verbose_name="Primary Phone")
     registration_number = models.CharField(max_length=50, null=True)
 
     def __str__(self):

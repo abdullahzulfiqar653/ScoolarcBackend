@@ -2,10 +2,10 @@ from api.views.outlets import (
     MerchantOutletListCreateView,
     OutletClassesListCreateAPIView,
     OutletRetrieveUpdateDestroyView,
-    
+
 )
 from api.views.classes import ClassesRetrieveUpdateAPIView
-
+from api.views.outlets import OutletStudentListCreateAPIView
 from api.views.outlets.member import OutletMemberListCreateView
 from api.views.permissions import PermissionsListAPIView
 from api.views.otp import OTPView
@@ -17,9 +17,7 @@ from api.views.classes.sections import (
 from api.views.sections.section import (
     SectionRetrieveUpdateDestroyView,
 )
-from api.views.sections.student import (
-    SectionListCreateStudentView
-)
+
 from api.views.student import (
     StudentRetrieveUpdateDestroyView
 )
@@ -34,7 +32,7 @@ __all__ = [
     "OutletMemberListCreateView",
     "ClassesRetrieveUpdateAPIView",
     "MerchantOutletListCreateView",
-    "SectionListCreateStudentView",
+    "OutletStudentListCreateAPIView",
     "OutletClassesListCreateAPIView",
     "OutletRetrieveUpdateDestroyView",
     "SectionRetrieveUpdateDestroyView",

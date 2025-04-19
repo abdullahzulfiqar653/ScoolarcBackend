@@ -1,6 +1,5 @@
 from api.serializers import ClassesSerializer
 from api.permissions import RolePermission, IsOutletMember
-
 from rest_framework.generics import ListCreateAPIView
 
 

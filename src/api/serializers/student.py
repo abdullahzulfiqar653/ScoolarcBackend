@@ -1,53 +1,59 @@
-from api.models import Student, Guardian  # Import the correct Guardian model
+import re
+import secrets
 from rest_framework import serializers
-from api.serializers.section import SectionSerializer
+
+from django.contrib.auth.models import User
+from api.models.student import Student
+from api.models.guardian import Guardian
+from api.models.section import Section
 from api.serializers.guardian import GuardianSerializer
 
 
 class StudentSerializer(serializers.ModelSerializer):
-    student_section = SectionSerializer(read_only=True)
-    student_guardian = GuardianSerializer(read_only=True)
-    guardian_id = serializers.PrimaryKeyRelatedField(
-        queryset=Guardian.objects.all(), write_only=True, source="guardian"
-    )
+    student_guardian = GuardianSerializer(write_only=True)
 
     class Meta:
         model = Student
         fields = [
+            "id",
+            "city",
+            "area",
+            "avatar",
+            "gender",
+            "b_form",
+            "address",
+            "last_name",
+            "first_name",
+            "blood_group",
             "father_name",
             "mother_name",
             "father_cnic",
-            "b_form",
             "roll_number",
+            "date_of_birth",
             "student_section",
             "student_guardian",
-            "guardian_id",
         ]
-        read_only_fields = ("created_at", "updated_at")
-
-
-    def validate(self, data):
-        """Perform multiple field validations at once."""
-        father_cnic = data.get("father_cnic")
-        b_form = data.get("b_form")
-
-        # Validate father's CNIC
-        if father_cnic and (not father_cnic.isdigit() or len(father_cnic) != 13):
-            raise serializers.ValidationError({"father_cnic": "Father's CNIC must be a 13-digit number."})
-        # Validate B-Form file (if provided)
-        if b_form:
-            allowed_types = ["application/pdf", "image/jpeg", "image/png"]
-            max_size = 5 * 1024 * 1024  # 5MB
-
-            if b_form.content_type not in allowed_types:
-                raise serializers.ValidationError({"b_form": "Only PDF, JPEG, or PNG files are allowed."})
-            if b_form.size > max_size:
-                raise serializers.ValidationError({"b_form": "File size must not exceed 5MB."})
-
-        return data
+        read_only_fields = ("created_at", "updated_at", "roll_number")
 
     def create(self, validated_data):
         """Custom create method to assign section and guardian correctly."""
-        section = self.context.get("request").section
-        student = Student.objects.create(**validated_data, section=section)
+        request = self.context.get("request")
+        student_guardian = validated_data.pop("student_guardian", None)
+        user = User.objects.create_user(
+            username=student_guardian["primary_phone"],
+            email=student_guardian.get("email", None),
+            first_name=student_guardian["first_name"],
+        )
+        guardian = Guardian.objects.create(**student_guardian, user=user, merchant=request.merchant)
+        guardian.outlets.add(request.outlet)
+        user = User.objects.create_user(
+            username=f'{student_guardian["primary_phone"]}{secrets.token_hex(6)}',
+            first_name=validated_data["first_name"],
+            last_name=validated_data["last_name"],
+        )
+        validated_data["user"] = user
+        validated_data["student_guardian"] = guardian
+        validated_data["merchant"] = request.merchant
+        student = Student.objects.create(**validated_data)
+        student.outlets.add(request.outlet)
         return student

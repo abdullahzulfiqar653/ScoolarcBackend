@@ -82,9 +82,8 @@ class InOutletOrMerchant(permissions.BasePermission):
                         Sections.objects.select_related("classes__outlet__merchant"),
                         section_id,
                     )
-                section = request.section
-                classes = section.classes
-                outlet = classes.outlet
+                    
+                outlet = request.section.classes.outlet
                 merchant = outlet.merchant
 
             case _:

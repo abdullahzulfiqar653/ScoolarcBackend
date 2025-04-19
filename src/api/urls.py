@@ -1,6 +1,18 @@
 from django.urls import path, include
-from api.views import *
-
+from api.views import (
+    OTPView,
+    LookupListAPIView,
+    RefreshTokenAPIView,
+    PermissionsListAPIView,
+    ClassListCreateSectionView,
+    MerchantOutletListCreateView,
+    ClassesRetrieveUpdateAPIView,
+    OutletStudentListCreateAPIView,
+    OutletClassesListCreateAPIView,
+    OutletRetrieveUpdateDestroyView,
+    SectionRetrieveUpdateDestroyView,
+    StudentRetrieveUpdateDestroyView,
+)
 
 urlpatterns = [
     # =====================================================
@@ -32,14 +44,19 @@ urlpatterns = [
         OutletClassesListCreateAPIView.as_view(),
         name="merchant-classes-list-create",
     ),
+    path(
+        "outlets/<str:pk>/students",
+        OutletStudentListCreateAPIView.as_view(),
+        name="outlets-student-list-create",
+    ),
     # =====================================================
     # Classes
     # =====================================================
     path(
         "classes/<str:pk>/",
         ClassesRetrieveUpdateAPIView.as_view(),
-        name="classes-retrieve-update-destroy"
-        ),
+        name="classes-retrieve-update-destroy",
+    ),
     path(
         "classes/<str:pk>/sections",
         ClassListCreateSectionView.as_view(),
@@ -52,11 +69,6 @@ urlpatterns = [
         "sections/<str:pk>/",
         SectionRetrieveUpdateDestroyView.as_view(),
         name="sections-retrieve-update-destroy",
-    ),
-    path(
-        "sections/<str:pk>/students",
-        SectionListCreateStudentView.as_view(),
-        name="sections-student-list-create",
     ),
     # =====================================================
     # Students

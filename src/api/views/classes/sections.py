@@ -9,6 +9,3 @@ class ClassListCreateSectionView(ListCreateAPIView):
 
     def get_queryset(self):
         return self.request.classes.class_sections.all()
-
-
-
