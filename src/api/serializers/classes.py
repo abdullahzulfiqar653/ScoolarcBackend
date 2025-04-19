@@ -8,10 +8,24 @@ from api.serializers.section import SectionSerializer
 
 class ClassesSerializer(serializers.ModelSerializer):
     class_sections = SectionSerializer(many=True)
+
     class Meta:
         model = Classes
         fields = ("id", "name", "class_sections", )
-        # read_only_fields = ("created_at", )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        method = None
+        view = self.context.get("view")
+        request = self.context.get("request")
+        swagger_fake_view = getattr(view, "swagger_fake_view", False)
+
+        if request:
+            method = request.method
+        print("-----------------------------", method)
+        if method in ("PATCH", "PUT"):
+            self.fields["class_sections"].read_only = True
 
     def validate_class_sections(self, value):
         # Check for duplicate section names in the incoming payload
@@ -20,7 +34,7 @@ class ClassesSerializer(serializers.ModelSerializer):
         if duplicates:
             raise serializers.ValidationError(f"Duplicate section names not allowed: {', '.join(duplicates)}")
         return value
-    
+
     def create(self, validated_data):
         request = self.context.get("request")
         validated_data["outlet"] = request.outlet
@@ -35,4 +49,3 @@ class ClassesSerializer(serializers.ModelSerializer):
             ))
         Section.objects.bulk_create(sections_data)
         return created_class
-

@@ -22,14 +22,14 @@ urlpatterns = [
         OutletRetrieveUpdateDestroyView.as_view(),
         name="outlet-retrieve-update-destroy",
     ),
-    path(
-        "outlets/<str:pk>/member",
-        OutletMemberListCreateView.as_view(),
-        name="merchant-member-list-create",
-    ),
+    # path(
+    #     "outlets/<str:pk>/member",
+    #     OutletMemberListCreateView.as_view(),
+    #     name="merchant-member-list-create",
+    # ),
     path(
         "outlets/<str:pk>/classes",
-        OutletClassesListCreateView.as_view(),
+        OutletClassesListCreateAPIView.as_view(),
         name="merchant-classes-list-create",
     ),
     # =====================================================
@@ -37,7 +37,7 @@ urlpatterns = [
     # =====================================================
     path(
         "classes/<str:pk>/",
-        OutletRetrieveUpdateDestroyView.as_view(),
+        ClassesRetrieveUpdateAPIView.as_view(),
         name="classes-retrieve-update-destroy"
         ),
     path(

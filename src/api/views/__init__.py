@@ -4,6 +4,7 @@ from api.views.outlets import (
     OutletRetrieveUpdateDestroyView,
     
 )
+from api.views.classes import ClassesRetrieveUpdateAPIView
 
 from api.views.outlets.member import OutletMemberListCreateView
 from api.views.permissions import PermissionsListAPIView
@@ -31,6 +32,7 @@ __all__ = [
     "PermissionsListAPIView",
     "ClassListCreateSectionView",
     "OutletMemberListCreateView",
+    "ClassesRetrieveUpdateAPIView",
     "MerchantOutletListCreateView",
     "SectionListCreateStudentView",
     "OutletClassesListCreateAPIView",
