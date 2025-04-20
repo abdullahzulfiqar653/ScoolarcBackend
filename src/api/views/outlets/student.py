@@ -16,55 +16,55 @@ class OutletStudentListCreateAPIView(ListCreateAPIView):
 
     @extend_schema(
         description="""
-        **Request:**
-        - Accepts the following **body parameters** (all fields marked ✅ are required):
+**Request:**
+- Accepts the following **body parameters** (all fields marked ✅ are required):
 
-        | Parameter         | Type     | Required | Notes                                                             |
-        |------------------|----------|----------|-------------------------------------------------------------------|
-        | city             | string   | ✅ Yes   | Cannot be blank                                                   |
-        | area             | string   | ✅ Yes   | Cannot be blank                                                   |
-        | gender           | string   | ✅ Yes   | "Male", "Female", or "Other"                                      |
-        | first_name       | string   | ✅ Yes   | Cannot be blank                                                   |
-        | last_name        | string   | ❌ No    | If provided, cannot be blank                                      |
-        | father_name      | string   | ✅ Yes   | Cannot be blank                                                   |
-        | mother_name      | string   | ✅ Yes   | Cannot be blank                                                   |
-        | father_cnic      | string   | ✅ Yes   | Cannot be blank                                                   |
-        | b_form[Image Url]| string   | ❌ No    | Send `null` if not applicable, empty string not allowed           |
-        | date_of_birth    | string   | ✅ Yes   | Format: YYYY-MM-DD                                                |
-        | blood_group      | string   | ❌ No    | If provided, cannot be blank                                      |
-        | address          | string   | ❌ No    | If provided, cannot be blank                                      |
-        | student_section  | string   | ✅ Yes   | Must be a valid Section ID (PK), not null                         |
-        | student_guardian | object   | ✅ Yes   | Nested guardian object (see below)                                |
+| Parameter         | Type     | Required | Notes                                                             |
+|------------------|----------|----------|-------------------------------------------------------------------|
+| city             | string   | ✅ Yes   | Cannot be blank                                                   |
+| area             | string   | ✅ Yes   | Cannot be blank                                                   |
+| gender           | string   | ✅ Yes   | "Male", "Female", or "Other"                                      |
+| first_name       | string   | ✅ Yes   | Cannot be blank                                                   |
+| last_name        | string   | ❌ No    | If provided, cannot be blank                                      |
+| father_name      | string   | ✅ Yes   | Cannot be blank                                                   |
+| mother_name      | string   | ✅ Yes   | Cannot be blank                                                   |
+| father_cnic      | string   | ✅ Yes   | Cannot be blank                                                   |
+| b_form[Image Url]| string   | ❌ No    | Send `null` if not applicable, empty string not allowed           |
+| date_of_birth    | string   | ✅ Yes   | Format: YYYY-MM-DD                                                |
+| blood_group      | string   | ❌ No    | If provided, cannot be blank                                      |
+| address          | string   | ❌ No    | If provided, cannot be blank                                      |
+| student_section  | string   | ✅ Yes   | Must be a valid Section ID (PK), not null                         |
+| student_guardian | object   | ✅ Yes   | Nested guardian object (see below)                                |
 
-        **Nested `student_guardian` object:**
+**Nested `student_guardian` object:**
 
-        | Field                  | Type     | Required | Notes                                     |
-        |------------------------|----------|----------|-------------------------------------------|
-        | city                   | string   | ✅ Yes   | Cannot be blank                           |
-        | area                   | string   | ✅ Yes   | Cannot be blank                           |
-        | gender                 | string   | ✅ Yes   | "Male", "Female", or "Other"              |
-        | occupation             | string   | ✅ Yes   | Cannot be blank                           |
-        | first_name             | string   | ✅ Yes   | Cannot be blank                           |
-        | blood_group            | string   | ❌ No    | If provided, cannot be blank              |
-        | primary_phone          | string   | ✅ Yes   | exact 10 digits like 3454545653           |
-        | emergency_contact      | string   | ❌ No    | exact 10 digits like 3454545653           |
-        | emergency_contact_name | string   | ❌ No    | If provided, cannot be blank              |
-        | email                  | string   | ❌ No    | Must be valid email format if provided    |
-        | cnic                   | string   | ✅ Yes   | exact 13 digits like 313033059281         |
-        | address                | string   | ❌ No    | If provided, cannot be blank              |
-        | date_of_birth          | string   | ❌ No    | Format: YYYY-MM-DD                        |
+| Field                  | Type     | Required | Notes                                     |
+|------------------------|----------|----------|-------------------------------------------|
+| city                   | string   | ✅ Yes   | Cannot be blank                           |
+| area                   | string   | ✅ Yes   | Cannot be blank                           |
+| gender                 | string   | ✅ Yes   | "Male", "Female", or "Other"              |
+| occupation             | string   | ✅ Yes   | Cannot be blank                           |
+| first_name             | string   | ✅ Yes   | Cannot be blank                           |
+| blood_group            | string   | ❌ No    | If provided, cannot be blank              |
+| primary_phone          | string   | ✅ Yes   | exact 10 digits like 3454545653           |
+| emergency_contact      | string   | ❌ No    | exact 10 digits like 3454545653           |
+| emergency_contact_name | string   | ❌ No    | If provided, cannot be blank              |
+| email                  | string   | ❌ No    | Must be valid email format if provided    |
+| cnic                   | string   | ✅ Yes   | exact 13 digits like 313033059281         |
+| address                | string   | ❌ No    | If provided, cannot be blank              |
+| date_of_birth          | string   | ❌ No    | Format: YYYY-MM-DD                        |
 
-        **Validation Notes:**
-        - Fields marked as ❌ Optional will still raise validation errors if passed as empty string `""`. Use `null` instead.
-        - `student_guardian` is a nested object, not just a primary key.
-        - `student_section` must reference an existing Section record (validated via PK).
+**Validation Notes:**
+- Fields marked as ❌ Optional will still raise validation errors if passed as empty string `""`. Use `null` instead.
+- `student_guardian` is a nested object, not just a primary key.
+- `student_section` must reference an existing Section record (validated via PK).
 
-        **Headers:**
-        - Authorization: Token your_auth_token *(Required)*
+**Headers:**
+- Authorization: Token your_auth_token *(Required)*
 
-        **Response:**
-        - On success: returns the created student record.
-        - On error: returns validation errors for missing/blank/invalid fields.
+**Response:**
+- On success: returns the created student record.
+- On error: returns validation errors for missing/blank/invalid fields.
         """,
         examples=[
             OpenApiExample(
@@ -98,12 +98,25 @@ class OutletStudentListCreateAPIView(ListCreateAPIView):
                         "primary_phone": "3001234567",
                         "date_of_birth": "1980-12-05",
                         "emergency_contact": "3012345678",
-                        "emergency_contact_name": "Adeel"
-                    }
+                        "emergency_contact_name": "Adeel",
+                    },
                 },
-                request_only=True
+                request_only=True,
             )
-        ]
+        ],
     )
     def post(self, request, *args, **kwargs):
         return super().post(request, *args, **kwargs)
+
+    @extend_schema(
+        description="""
+**Retrieve all students linked to the current outlet.**
+
+### 🔐 Headers
+- `Authorization`: Token your_auth_token *(Required)*
+
+### 📄 Response
+- Returns a list of student records"""
+    )
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
