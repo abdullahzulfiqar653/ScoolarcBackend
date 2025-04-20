@@ -1,6 +1,7 @@
 from api.serializers.otp import OTPSerializer
 from api.serializers.user import UserSerializer
 from api.serializers.staff import StaffSerializer
+from api.serializers.images import ImagesSerializer
 from api.serializers.member import MemberSerializer
 from api.serializers.lookup import LookupSerializer
 from api.serializers.outlet import OutletSerializer
@@ -16,6 +17,7 @@ __all__ = [
     "OTPSerializer",
     "StaffSerializer",
     "UserSerializer",
+    "ImagesSerializer",
     "OutletSerializer",
     "LookupSerializer",
     "MemberSerializer",

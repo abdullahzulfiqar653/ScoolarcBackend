@@ -20,6 +20,7 @@ ipython = "^8.27.0"
 django-soft-delete = "^1.0.14"
 pillow = "^10.4.0"
 requests = "^2.32.3"
+boto3 = "^1.37.37"
 
 
 [tool.poetry.group.dev.dependencies]

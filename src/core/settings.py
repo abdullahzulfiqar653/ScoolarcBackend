@@ -1,4 +1,5 @@
 import os
+import boto3
 import environ
 from pathlib import Path
 from datetime import timedelta
@@ -157,3 +158,17 @@ DEFAULT_EMAIL_SSL = False
 DEFAULT_EMAIL_HOST = env("DEFAULT_EMAIL_HOST")
 DEFAULT_EMAIL_USER = env("DEFAULT_EMAIL_USER")
 DEFAULT_EMAIL_PASSWORD = env("DEFAULT_EMAIL_PASSWORD")
+
+AWS_S3_REGION_NAME = "nyc3"
+AWS_STORAGE_BUCKET_NAME = "testing-projects"
+OBJECT_STORAGE_URL = os.getenv("OBJECT_STORAGE_URL")
+OBJECT_STORAGE_ACCESS_KEY = os.getenv("OBJECT_STORAGE_ACCESS_KEY")
+OBJECT_STORAGE_SECRET_KEY = os.getenv("OBJECT_STORAGE_SECRET_KEY")
+
+S3_CLIENT = boto3.client(
+    "s3",
+    region_name=AWS_S3_REGION_NAME,
+    endpoint_url=OBJECT_STORAGE_URL,
+    aws_access_key_id=OBJECT_STORAGE_ACCESS_KEY,
+    aws_secret_access_key=OBJECT_STORAGE_SECRET_KEY,
+)

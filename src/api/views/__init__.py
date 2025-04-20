@@ -22,11 +22,13 @@ from api.views.student import (
     StudentRetrieveUpdateDestroyView
 )
 from api.views.referesh_token import RefreshTokenAPIView
+from api.views.images import ImagesCreateAPIView
 
 __all__ = [
     "OTPView",
     "LookupListAPIView",
     "RefreshTokenAPIView",
+    "ImagesCreateAPIView",
     "PermissionsListAPIView",
     "ClassListCreateSectionView",
     "OutletMemberListCreateView",

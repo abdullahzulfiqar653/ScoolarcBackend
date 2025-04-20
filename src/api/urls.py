@@ -2,6 +2,7 @@ from django.urls import path, include
 from api.views import (
     OTPView,
     LookupListAPIView,
+    ImagesCreateAPIView,
     RefreshTokenAPIView,
     PermissionsListAPIView,
     ClassListCreateSectionView,
@@ -21,6 +22,9 @@ urlpatterns = [
     path("auth/", include("rest_framework.urls")),
     path("auth/token/", OTPView.as_view(), name="token_obtain_pair"),
     path("auth/token/refresh/", RefreshTokenAPIView.as_view(), name="token_refresh"),
+    path(
+        "auth/image-upload/", ImagesCreateAPIView.as_view(), name="presigned-url"
+    ),
     # =====================================================
     # Permissions
     # =====================================================
