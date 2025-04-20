@@ -53,6 +53,7 @@ class ClassesSerializer(serializers.ModelSerializer):
             queryset = queryset.exclude(id=self.instance.id)
         if queryset.exists():
             raise serializers.ValidationError("Class name already exists.")
+        return value
 
     def create(self, validated_data):
         request = self.context.get("request")
