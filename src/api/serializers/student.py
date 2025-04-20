@@ -1,11 +1,10 @@
 import re
 import secrets
 from rest_framework import serializers
-
 from django.contrib.auth.models import User
+
 from api.models.student import Student
 from api.models.guardian import Guardian
-from api.models.section import Section
 from api.serializers.guardian import GuardianSerializer
 
 
