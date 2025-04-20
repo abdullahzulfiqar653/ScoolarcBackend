@@ -31,7 +31,10 @@ class ClassesSerializer(serializers.ModelSerializer):
             self.fields["class_sections"].read_only = True
 
     def validate_class_sections(self, value):
-        # Check for duplicate section names in the incoming payload
+
+        if self.instance is None and not value:
+            raise serializers.ValidationError("At least one section is required.")
+
         section_names = [section["name"] for section in value]
         duplicates = [
             name for name in set(section_names) if section_names.count(name) > 1
@@ -40,7 +43,16 @@ class ClassesSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 f"Duplicate section names not allowed: {', '.join(duplicates)}"
             )
+
         return value
+    
+    def validate_name(self, value):
+        request = self.context.get("request")
+        queryset = request.outlet.outlet_classes.filter(name=value)
+        if self.instance:
+            queryset = queryset.exclude(id=self.instance.id)
+        if queryset.exists():
+            raise serializers.ValidationError("Class name already exists.")
 
     def create(self, validated_data):
         request = self.context.get("request")
