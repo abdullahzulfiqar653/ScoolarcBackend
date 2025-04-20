@@ -6,7 +6,8 @@ from api.permissions import isMerchantMember
 class MerchantOutletListCreateView(generics.ListCreateAPIView):
     serializer_class = OutletSerializer
     permission_classes = [isMerchantMember]
-
+    pagination_class = None
+    
     def get_queryset(self):
         return self.request.user.profile.outlets.all()
 

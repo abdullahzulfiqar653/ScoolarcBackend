@@ -133,7 +133,9 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.IsAuthenticated",
     ],
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-    "EXCEPTION_HANDLER": "api.utils.exception_handler.custom_exception_handler"
+    "EXCEPTION_HANDLER": "api.utils.exception_handler.custom_exception_handler",
+    "DEFAULT_PAGINATION_CLASS": "core.pagination.CustomPagination",
+    # "PAGE_SIZE": 230,
 }
 
 SIMPLE_JWT = {
