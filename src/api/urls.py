@@ -10,10 +10,10 @@ from api.views import (
     OutletParentsRetrieveAPIView,
     MerchantOutletListCreateView,
     ClassesRetrieveUpdateAPIView,
+    SectionRetrieveUpdateAPIView,
     OutletStudentListCreateAPIView,
     OutletClassesListCreateAPIView,
     OutletRetrieveUpdateDestroyView,
-    SectionRetrieveUpdateDestroyView,
     StudentRetrieveUpdateDestroyView,
 )
 
@@ -24,9 +24,7 @@ urlpatterns = [
     path("auth/", include("rest_framework.urls")),
     path("auth/token/", OTPView.as_view(), name="token_obtain_pair"),
     path("auth/token/refresh/", RefreshTokenAPIView.as_view(), name="token_refresh"),
-    path(
-        "auth/image-upload/", ImagesCreateAPIView.as_view(), name="presigned-url"
-    ),
+    path("auth/image-upload/", ImagesCreateAPIView.as_view(), name="presigned-url"),
     # =====================================================
     # Permissions
     # =====================================================
@@ -40,11 +38,6 @@ urlpatterns = [
         OutletRetrieveUpdateDestroyView.as_view(),
         name="outlet-retrieve-update-destroy",
     ),
-    # path(
-    #     "outlets/<str:pk>/member",
-    #     OutletMemberListCreateView.as_view(),
-    #     name="merchant-member-list-create",
-    # ),
     path(
         "outlets/<str:outlet_id>/classes",
         OutletClassesListCreateAPIView.as_view(),
@@ -83,7 +76,7 @@ urlpatterns = [
     # =====================================================
     path(
         "sections/<str:pk>/",
-        SectionRetrieveUpdateDestroyView.as_view(),
+        SectionRetrieveUpdateAPIView.as_view(),
         name="sections-retrieve-update-destroy",
     ),
     # =====================================================

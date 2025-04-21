@@ -70,20 +70,22 @@ class InOutletOrMerchant(permissions.BasePermission):
                     class_id = view.kwargs.get("pk") or view.kwargs.get("class_id")
                     queryset = Classes.objects.select_related("outlet__merchant")
                     request.classes = get_instance(queryset, class_id)
-                
+
                 outlet = request.classes.outlet
                 merchant = outlet.merchant
 
             case str(s) if s.startswith("/api/sections/"):
                 if not hasattr(request, "section"):
-                    Sections = apps.get_model("api", "Sections")
-                    section_id = view.kwargs.get("pk") or view.kwargs.get("id")
+                    Section = apps.get_model("api", "Section")
+                    section_id = view.kwargs.get("pk") or view.kwargs.get("section_id")
                     request.section = get_instance(
-                        Sections.objects.select_related("classes__outlet__merchant"),
+                        Section.objects.select_related(
+                            "section_class__outlet__merchant"
+                        ),
                         section_id,
                     )
-                    
-                outlet = request.section.classes.outlet
+
+                outlet = request.section.section_class.outlet
                 merchant = outlet.merchant
 
             case _:

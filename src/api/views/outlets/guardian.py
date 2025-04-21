@@ -1,11 +1,11 @@
-from rest_framework.generics import ListAPIView, RetrieveAPIView
-
-from api.permissions import IsOutletMember, RolePermission
-from api.serializers.guardian import GuardianSerializer
-from api.models.guardian import Guardian
 from api.common.contants import PARENT
+from api.models.guardian import Guardian
+from api.serializers.guardian import GuardianSerializer
+from api.permissions import IsOutletMember, RolePermission
+
 from drf_spectacular.utils import extend_schema
 from rest_framework.exceptions import NotFound
+from rest_framework.generics import ListAPIView, RetrieveAPIView
 
 
 class OutletParentsListAPIView(ListAPIView):
@@ -17,7 +17,7 @@ class OutletParentsListAPIView(ListAPIView):
 
     @extend_schema(
         description="""
-**Retrieve all students linked to the current outlet.**
+**Retrieve all Parents linked to the current outlet.**
 
 ### 🔐 Headers
 - `Authorization`: Token your_auth_token *(Required)*
