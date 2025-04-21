@@ -3,48 +3,48 @@
         "model": "auth.group",
         "pk": 1,
         "fields": {
-            "name": "Merchant",
-            "permissions": []  
+            "name": "merchant",
+            "permissions": []
         }
     },
     {
         "model": "auth.group",
         "pk": 2,
         "fields": {
-            "name": "Principal",
-            "permissions": []  
+            "name": "principal",
+            "permissions": []
         }
     },
     {
         "model": "auth.group",
         "pk": 3,
         "fields": {
-            "name": "Registrar",
-            "permissions": []  
+            "name": "registrar",
+            "permissions": []
         }
     },
     {
         "model": "auth.group",
         "pk": 4,
         "fields": {
-            "name": "Teacher",
-            "permissions": []  
+            "name": "teacher",
+            "permissions": []
         }
     },
     {
         "model": "auth.group",
         "pk": 5,
         "fields": {
-            "name": "Student",
-            "permissions": []  
+            "name": "student",
+            "permissions": []
         }
     },
     {
         "model": "auth.group",
         "pk": 6,
         "fields": {
-            "name": "Parent",
-            "permissions": []  
+            "name": "parent",
+            "permissions": []
         }
     }
 ]

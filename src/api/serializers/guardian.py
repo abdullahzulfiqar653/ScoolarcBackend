@@ -5,6 +5,7 @@ from rest_framework import serializers
 
 
 class GuardianSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Guardian
         fields = (
@@ -12,6 +13,7 @@ class GuardianSerializer(serializers.ModelSerializer):
             "city",
             "area",
             "cnic",
+            "role",
             "email",
             "avatar",
             "gender",
@@ -35,6 +37,17 @@ class GuardianSerializer(serializers.ModelSerializer):
         )
         extra_kwargs = {"user": {"required": False}}
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        request = self.context.get("request")
+        if request and request.method == "GET":
+            from api.serializers.student import StudentSerializer
+
+            # Dynamically add write-only student_guardian field
+            self.fields["guardian_students"] = StudentSerializer(
+                read_only=True, many=True
+            )
+
     def validate_emergency_contact(self, value):
         if value:
             if not re.match(r"^\d{10}$", value):
@@ -42,7 +55,9 @@ class GuardianSerializer(serializers.ModelSerializer):
                     "Primary phone must be exactly 10 digits long and numeric."
                 )
             if value.strip().startswith("0"):
-                raise serializers.ValidationError("Contact number cannot start with '0'.")
+                raise serializers.ValidationError(
+                    "Contact number cannot start with '0'."
+                )
         return value
 
     def validate_cnic(self, value):

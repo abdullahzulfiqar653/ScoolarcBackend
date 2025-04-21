@@ -5,7 +5,9 @@ from api.views import (
     ImagesCreateAPIView,
     RefreshTokenAPIView,
     PermissionsListAPIView,
+    OutletParentsListAPIView,
     ClassListCreateSectionView,
+    OutletParentsRetrieveAPIView,
     MerchantOutletListCreateView,
     ClassesRetrieveUpdateAPIView,
     OutletStudentListCreateAPIView,
@@ -44,14 +46,24 @@ urlpatterns = [
     #     name="merchant-member-list-create",
     # ),
     path(
-        "outlets/<str:pk>/classes",
+        "outlets/<str:outlet_id>/classes",
         OutletClassesListCreateAPIView.as_view(),
         name="merchant-classes-list-create",
     ),
     path(
-        "outlets/<str:pk>/students",
+        "outlets/<str:outlet_id>/students",
         OutletStudentListCreateAPIView.as_view(),
         name="outlets-student-list-create",
+    ),
+    path(
+        "outlets/<str:outlet_id>/parents",
+        OutletParentsListAPIView.as_view(),
+        name="outlets-parents-list",
+    ),
+    path(
+        "outlets/<str:outlet_id>/parents/<str:phone>/",
+        OutletParentsRetrieveAPIView.as_view(),
+        name="outlets-parents-retrieve",
     ),
     # =====================================================
     # Classes

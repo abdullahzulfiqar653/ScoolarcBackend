@@ -16,12 +16,13 @@ MODEL_CODES = {
     "StaffAndSection": "114",
 }
 
-STAFF = "Staff"
-PARENT = "Parent"
-STUDENT = "Student"
-MERCHANT = "Merchant"
-PRINCIPLE = "Principal"
-REGISTRAR = "Registrar"
+STAFF = "staff"
+PARENT = "parent"
+STUDENT = "student"
+TEACHER = "teacher"
+MERCHANT = "merchant"
+PRINCIPLE = "principal"
+REGISTRAR = "registrar"
 
 ROLES_NOT_ALLOWED_TO_HAVE_PERMISSIONS = [STUDENT, PARENT]
 ROLES_ALLOWED_TO_ASSIGN_PERMISSIONS = [MERCHANT, PRINCIPLE, REGISTRAR]
