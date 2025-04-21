@@ -7,7 +7,6 @@ from api.models.student import Student
 from api.models.member import Member
 
 
-
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
@@ -33,14 +32,20 @@ class StudentSerializer(serializers.ModelSerializer):
         ]
         read_only_fields = ("created_at", "updated_at", "roll_number", "role")
 
-    def __init__(self, instance=None, data=..., **kwargs):
-        super().__init__(instance, data, **kwargs)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         request = self.context.get("request")
-        if request and request.method == "POST":
-            from api.serializers.guardian import GuardianSerializer
+        if request:
+            if request.method == "POST":
+                from api.serializers.guardian import GuardianSerializer
 
-            # Dynamically add write-only student_guardian field
-            self.fields["student_guardian"] = GuardianSerializer()
+                # Dynamically add write-only student_guardian field
+                self.fields["student_guardian"] = GuardianSerializer()
+
+            elif request.method in ("PUT", "PATCH"):
+                # Mark fields as read-only for update
+                self.fields["student_section"].read_only = True
+                self.fields["student_guardian"].read_only = True
 
     def create(self, validated_data):
         """Custom create method to assign section and guardian correctly."""
@@ -54,7 +59,10 @@ class StudentSerializer(serializers.ModelSerializer):
             first_name=student_guardian["first_name"],
         )
         guardian = Guardian.objects.create(
-            **student_guardian, user=user, merchant=request.merchant, role=Member.RoleChoices.PARENT
+            **student_guardian,
+            user=user,
+            merchant=request.merchant,
+            role=Member.RoleChoices.PARENT,
         )
         guardian.outlets.add(request.outlet)
         user = User.objects.create_user(
@@ -66,7 +74,7 @@ class StudentSerializer(serializers.ModelSerializer):
         validated_data["student_guardian"] = guardian
         validated_data["merchant"] = request.merchant
         validated_data["role"] = Member.RoleChoices.STUDENT
-    
+
         student = super().create(validated_data)
         student.outlets.add(request.outlet)
         return student

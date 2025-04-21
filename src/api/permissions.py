@@ -88,6 +88,20 @@ class InOutletOrMerchant(permissions.BasePermission):
                 outlet = request.section.section_class.outlet
                 merchant = outlet.merchant
 
+            case str(s) if s.startswith("/api/students/"):
+                if not hasattr(request, "student"):
+                    Student = apps.get_model("api", "Student")
+                    student_id = view.kwargs.get("pk") or view.kwargs.get("student_id")
+                    request.student = get_instance(
+                        Student.objects.select_related(
+                            "student_section__section_class__outlet__merchant",
+                        ).prefetch_related("outlets"),
+                        student_id,
+                    )
+
+                outlet = request.student.student_section.section_class.outlet
+                merchant = outlet.merchant
+
             case _:
                 outlet = None
                 merchant = None

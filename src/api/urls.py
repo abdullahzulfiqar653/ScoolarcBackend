@@ -11,10 +11,10 @@ from api.views import (
     MerchantOutletListCreateView,
     ClassesRetrieveUpdateAPIView,
     SectionRetrieveUpdateAPIView,
+    StudentRetrieveUpdateAPIView,
     OutletStudentListCreateAPIView,
     OutletClassesListCreateAPIView,
     OutletRetrieveUpdateDestroyView,
-    StudentRetrieveUpdateDestroyView,
 )
 
 urlpatterns = [
@@ -77,15 +77,15 @@ urlpatterns = [
     path(
         "sections/<str:pk>/",
         SectionRetrieveUpdateAPIView.as_view(),
-        name="sections-retrieve-update-destroy",
+        name="sections-retrieve-update",
     ),
     # =====================================================
     # Students
     # =====================================================
     path(
         "students/<str:pk>/",
-        StudentRetrieveUpdateDestroyView.as_view(),
-        name="students-retrieve-update-destroy",
+        StudentRetrieveUpdateAPIView.as_view(),
+        name="students-retrieve-update",
     ),
     # =====================================================
     # Lookups
