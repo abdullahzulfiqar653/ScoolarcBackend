@@ -2,8 +2,8 @@ from api.models.student import Student
 from api.serializers.student import StudentSerializer
 from api.permissions import RolePermission, IsOutletMember
 
+from drf_spectacular.utils import extend_schema
 from rest_framework.generics import RetrieveUpdateAPIView
-from drf_spectacular.utils import extend_schema, OpenApiExample
 
 
 @extend_schema(
@@ -15,7 +15,7 @@ from drf_spectacular.utils import extend_schema, OpenApiExample
     methods=["PUT", "PATCH"],
     description=(
         "Update a student's profile. "
-        "`student_section` and `student_guardian` fields are read-only in update requests."
+        "`student_section` and `student_guardian` fields are not required in update requests."
     ),
     request=StudentSerializer,
     responses={200: StudentSerializer},

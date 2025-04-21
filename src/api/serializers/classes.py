@@ -30,6 +30,16 @@ class ClassesSerializer(serializers.ModelSerializer):
         if method in ("PATCH", "PUT"):
             self.fields["class_sections"].read_only = True
 
+    def get_outlet(self):
+        """
+        Helper method to retrieve the outlet from the context.
+        """
+        request = self.context.get("request")
+        if hasattr(request, "outlet"):
+            return request.outlet
+        if hasattr(request, "classes"):
+            return request.classes.outlet
+
     def validate_class_sections(self, value):
 
         if self.instance is None and not value:
@@ -45,10 +55,10 @@ class ClassesSerializer(serializers.ModelSerializer):
             )
 
         return value
-    
+
     def validate_name(self, value):
-        request = self.context.get("request")
-        queryset = request.outlet.outlet_classes.filter(name=value)
+        outlet = self.get_outlet()
+        queryset = outlet.outlet_classes.filter(name=value)
         if self.instance:
             queryset = queryset.exclude(id=self.instance.id)
         if queryset.exists():

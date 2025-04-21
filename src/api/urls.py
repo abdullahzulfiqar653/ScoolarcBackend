@@ -6,7 +6,6 @@ from api.views import (
     RefreshTokenAPIView,
     PermissionsListAPIView,
     OutletParentsListAPIView,
-    ClassListCreateSectionView,
     OutletParentsRetrieveAPIView,
     MerchantOutletListCreateView,
     ClassesRetrieveUpdateAPIView,
@@ -65,11 +64,6 @@ urlpatterns = [
         "classes/<str:pk>/",
         ClassesRetrieveUpdateAPIView.as_view(),
         name="classes-retrieve-update-destroy",
-    ),
-    path(
-        "classes/<str:pk>/sections",
-        ClassListCreateSectionView.as_view(),
-        name="classes-section-list-create",
     ),
     # =====================================================
     # Sections
