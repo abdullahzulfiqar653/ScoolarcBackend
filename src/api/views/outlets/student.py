@@ -34,7 +34,8 @@ class OutletStudentListCreateAPIView(ListCreateAPIView):
 | b_form[Image Url]| string   | ❌ No    | Send `null` if not applicable, empty string not allowed           |
 | date_of_birth    | string   | ✅ Yes   | Format: YYYY-MM-DD                                                |
 | blood_group      | string   | ❌ No    | If provided, cannot be blank                                      |
-| address          | string   | ❌ No    | If provided, cannot be blank                                      |
+| address          | string   | ❌ No    | If provided, cannot be blank    
+| religion         | string   | ❌ No    | If provided, cannot be blank                                      |
 | student_section  | string   | ✅ Yes   | Must be a valid Section ID (PK), not null                         |
 | student_guardian | object   | ✅ Yes   | Nested guardian object (see below)                                |
 
@@ -54,6 +55,7 @@ class OutletStudentListCreateAPIView(ListCreateAPIView):
 | email                  | string   | ❌ No    | Must be valid email format if provided    |
 | cnic                   | string   | ✅ Yes   | exact 13 digits like 313033059281         |
 | address                | string   | ❌ No    | If provided, cannot be blank              |
+| religion               | string   | ❌ No    | If provided, cannot be blank              |
 | date_of_birth          | string   | ❌ No    | Format: YYYY-MM-DD                        |
 
 **Validation Notes:**
@@ -86,6 +88,7 @@ class OutletStudentListCreateAPIView(ListCreateAPIView):
                     "father_cnic": "4210112345671",
                     "date_of_birth": "2025-04-20",
                     "student_section": "108sdzhv8wcjhb",  # replace with real PK
+                    "religion": "Islam",
                     "student_guardian": {
                         "city": "Karachi",
                         "area": "DHA",
@@ -93,6 +96,7 @@ class OutletStudentListCreateAPIView(ListCreateAPIView):
                         "email": "guardian@example.com",
                         "avatar": "https://cdn.example.com/imgs/guardian-avatar.png",
                         "gender": "Male",
+                        "religion": "Islam",
                         "address": "Flat 202, Sunset Towers",
                         "occupation": "Engineer",
                         "first_name": "Hamid",
