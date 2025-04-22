@@ -18,6 +18,7 @@ class GuardianSerializer(serializers.ModelSerializer):
             "avatar",
             "gender",
             "address",
+            "gender",
             "occupation",
             "first_name",
             "blood_group",

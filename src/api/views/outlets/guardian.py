@@ -3,6 +3,7 @@ from api.models.guardian import Guardian
 from api.serializers.guardian import GuardianSerializer
 from api.permissions import IsOutletMember, RolePermission
 
+from rest_framework import filters
 from drf_spectacular.utils import extend_schema
 from rest_framework.exceptions import NotFound
 from rest_framework.generics import ListAPIView, RetrieveAPIView
@@ -11,6 +12,8 @@ from rest_framework.generics import ListAPIView, RetrieveAPIView
 class OutletParentsListAPIView(ListAPIView):
     serializer_class = GuardianSerializer
     permission_classes = [IsOutletMember, RolePermission]
+    filter_backends = [filters.SearchFilter]
+    search_fields = ["address", "city", "primary_phone", "first_name", "area", "email"]
 
     def get_queryset(self):
         return Guardian.objects.filter(merchant=self.request.merchant)

@@ -1,10 +1,9 @@
-import re
 import secrets
 from rest_framework import serializers
 from django.contrib.auth.models import User
 
-from api.models.student import Student
 from api.models.member import Member
+from api.models.student import Student
 
 
 class StudentSerializer(serializers.ModelSerializer):
@@ -19,6 +18,7 @@ class StudentSerializer(serializers.ModelSerializer):
             "gender",
             "b_form",
             "address",
+            "religion",
             "last_name",
             "first_name",
             "blood_group",
@@ -30,7 +30,7 @@ class StudentSerializer(serializers.ModelSerializer):
             "student_section",
             "student_guardian",
         ]
-        read_only_fields = ("created_at", "updated_at", "roll_number", "role")
+        read_only_fields = ("created_at", "roll_number", "role")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

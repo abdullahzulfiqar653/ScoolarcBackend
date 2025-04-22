@@ -11,12 +11,12 @@ from django.contrib.auth.models import Group
 from api.models.member import Member
 
 
-@receiver(post_migrate, sender=apps.get_app_config("api"))
-def load_data_from_fixture(sender, **kwargs):
-    lookups_data = os.path.join("api", "fixtures", "lookups.json")
-    groups_data = os.path.join("api", "fixtures", "groups.json")
-    call_command("loaddata", lookups_data, app_label="api")
-    call_command("loaddata", groups_data, app_label="auth")
+# @receiver(post_migrate, sender=apps.get_app_config("api"))
+# def load_data_from_fixture(sender, **kwargs):
+#     lookups_data = os.path.join("api", "fixtures", "lookups.json")
+#     groups_data = os.path.join("api", "fixtures", "groups.json")
+#     call_command("loaddata", lookups_data, app_label="api")
+#     call_command("loaddata", groups_data, app_label="auth")
 
 
 @receiver(post_save, sender=Merchant)

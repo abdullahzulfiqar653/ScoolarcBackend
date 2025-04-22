@@ -1,12 +1,15 @@
 from api.serializers import ClassesSerializer
 from api.permissions import RolePermission, IsOutletMember
 
+from rest_framework import filters
 from rest_framework.generics import ListCreateAPIView
 from drf_spectacular.utils import extend_schema, OpenApiExample
 
 class OutletClassesListCreateAPIView(ListCreateAPIView):
+    pagination_class = None
     serializer_class = ClassesSerializer
     permission_classes = [IsOutletMember, RolePermission]
+
 
     def get_queryset(self):
         return self.request.outlet.outlet_classes.all()

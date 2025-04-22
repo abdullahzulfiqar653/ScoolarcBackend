@@ -1,19 +1,31 @@
-from api.models import Staff
+from api.models.staff import Staff
 from rest_framework import serializers
-from api.serializers.user import UserSerializer
 
 
 class StaffSerializer(serializers.ModelSerializer):
-    profile = UserSerializer()
-
     class Meta:
         model = Staff
         fields = (
             "id",
+            "cnic",
+            "city",
+            "area",
+            "email",
             "bonus",
-            "profile",
+            "gender",
+            "status",
+            "avatar",
+            "address",
+            "country",
+            "religion",
+            "last_name",
+            "first_name",
             "created_at",
-            "updated_at",
+            "blood_group",
             "basic_salary",
+            "date_of_birth",
+            "primary_phone",
+            "emergency_contact",
+            "emergency_contact_name",
         )
-        read_only_fields = ("created_at", "updated_at")
+        read_only_fields = ("created_at",)
