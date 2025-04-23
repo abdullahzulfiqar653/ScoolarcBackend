@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 
 from api.models.member import Member
 from api.models.student import Student
+from api.serializers.section import SectionSerializer
 
 
 class StudentSerializer(serializers.ModelSerializer):
@@ -35,6 +36,11 @@ class StudentSerializer(serializers.ModelSerializer):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         request = self.context.get("request")
+        view = self.context.get("view")
+        swagger_fake_view = getattr(view, "swagger_fake_view", False)
+        if swagger_fake_view:
+            self.fields["student_section"] = SectionSerializer(read_only=True)
+
         if request:
             if request.method == "POST":
                 from api.serializers.guardian import GuardianSerializer
@@ -44,8 +50,10 @@ class StudentSerializer(serializers.ModelSerializer):
 
             elif request.method in ("PUT", "PATCH"):
                 # Mark fields as read-only for update
-                self.fields["student_section"].read_only = True
                 self.fields["student_guardian"].read_only = True
+
+            if request.method in ("GET"):
+                self.fields["student_section"] = SectionSerializer(read_only=True)
 
     def create(self, validated_data):
         """Custom create method to assign section and guardian correctly."""

@@ -108,7 +108,47 @@ class OutletStudentListCreateAPIView(ListCreateAPIView):
                     },
                 },
                 request_only=True,
-            )
+            ),
+            OpenApiExample(
+                name="Success Response Example",
+                value={
+                    "count": 8,
+                    "next": None,
+                    "previous": None,
+                    "results": [
+                        {
+                            "id": "109ERuX8QhsPQWd",
+                            "city": "string",
+                            "area": "string",
+                            "role": "",
+                            "avatar": "string",
+                            "gender": "string",
+                            "b_form": "string",
+                            "address": "string",
+                            "religion": "",
+                            "last_name": "string",
+                            "first_name": "Hahahaha",
+                            "blood_group": "str",
+                            "father_name": "string",
+                            "mother_name": "string",
+                            "father_cnic": "string",
+                            "roll_number": "0001",
+                            "date_of_birth": "2025-04-21",
+                            "student_section": {
+                                "id": "1081bba33ee9ae9",
+                                "name": "testing section",
+                                "code": "",
+                                "section_class": {
+                                    "id": "106vdfXJxPhL42a",
+                                    "name": "updated class name",
+                                },
+                            },
+                            "student_guardian": "1125v6Xnwfw6svm",
+                        }
+                    ],
+                },
+                response_only=True,
+            ),
         ],
     )
     def post(self, request, *args, **kwargs):
@@ -122,7 +162,42 @@ class OutletStudentListCreateAPIView(ListCreateAPIView):
 - `Authorization`: Token your_auth_token *(Required)*
 
 ### 📄 Response
-- Returns a list of student records"""
+- Returns a list of student records""",
+        examples=[
+            OpenApiExample(
+                name="Success Response Example",
+                value={
+                    "id": "109ERuX8QhsPQWd",
+                    "city": "string",
+                    "area": "string",
+                    "role": "",
+                    "avatar": "string",
+                    "gender": "string",
+                    "b_form": "string",
+                    "address": "string",
+                    "religion": "",
+                    "last_name": "string",
+                    "first_name": "Hahahaha",
+                    "blood_group": "str",
+                    "father_name": "string",
+                    "mother_name": "string",
+                    "father_cnic": "string",
+                    "roll_number": "0001",
+                    "date_of_birth": "2025-04-21",
+                    "student_section": {
+                        "id": "1081bba33ee9ae9",
+                        "name": "testing section",
+                        "code": "",
+                        "section_class": {
+                            "id": "106vdfXJxPhL42a",
+                            "name": "updated class name",
+                        },
+                    },
+                    "student_guardian": "1125v6Xnwfw6svm",
+                },
+                response_only=True,
+            ),
+        ],
     )
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)
