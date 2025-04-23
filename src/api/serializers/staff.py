@@ -57,7 +57,7 @@ class StaffSerializer(serializers.ModelSerializer):
 
     def validate_primary_phone(self, value):
         merchant = self.context.get("request").merchant
-        if not re.match(r"^\d{10}$", value):
+        if value and not re.match(r"^\d{10}$", value):
             raise serializers.ValidationError(
                 "Primary phone must be exactly 10 digits long and numeric."
             )
