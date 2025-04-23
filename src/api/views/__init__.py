@@ -20,7 +20,7 @@ from api.views.refresh_token import RefreshTokenAPIView
 
 from api.views.staff import (
     StaffRetrieveUpdateAPIView,
-    StaffClassesHeadCoordinatorCreateAPIView,
+    StaffClassesHeadCoordinatorListCreateAPIView,
 )
 from api.views.permissions import PermissionsListAPIView
 from api.views.section import SectionRetrieveUpdateAPIView
@@ -44,5 +44,5 @@ __all__ = [
     "OutletStudentListCreateAPIView",
     "OutletClassesListCreateAPIView",
     "OutletRetrieveUpdateDestroyView",
-    "StaffClassesHeadCoordinatorCreateAPIView",
+    "StaffClassesHeadCoordinatorListCreateAPIView",
 ]

@@ -1,10 +1,12 @@
 from api.models.staff import Staff
+from api.models.classes import Classes
 from api.serializers.staff import StaffSerializer
 from api.permissions import RolePermission, IsOutletMember
+from api.serializers.classes_minimal import ClassMinimalSerializer
 from api.serializers.classes_head_coordinator import ClassesHeadCoordinatorSerializer
 
-from drf_spectacular.utils import extend_schema
-from rest_framework.generics import RetrieveUpdateAPIView, CreateAPIView
+from drf_spectacular.utils import extend_schema, OpenApiResponse
+from rest_framework.generics import RetrieveUpdateAPIView, ListCreateAPIView
 
 
 @extend_schema(
@@ -63,7 +65,64 @@ class StaffRetrieveUpdateAPIView(RetrieveUpdateAPIView):
         return Staff.objects.filter(outlets=self.request.staff.outlets.first())
 
 
-class StaffClassesHeadCoordinatorCreateAPIView(CreateAPIView):
+@extend_schema(
+    methods=["GET"],
+    description="""
+Retrieve a list of classes for which the authenticated staff member is the head coordinator.
+
+This endpoint returns a minimal representation of classes (ID and name only) coordinated by the current staff.
+
+**Authorization:**  
+Requires the user to be a member of the outlet and have a valid staff role.
+
+**Response:**  
+- 200 OK: A list of classes with fields: `id`, `name`.
+""",
+    responses={200: ClassMinimalSerializer(many=True)},
+)
+@extend_schema(
+    methods=["POST"],
+    description="""
+Assign a list of classes to the authenticated staff member as head coordinator.
+
+### 🔄 Behavior:
+- This **replaces any existing coordinator assignments** of this staff member in the current outlet.
+- Any previous classes where the staff was coordinator will have their coordinator cleared.
+- New classes (passed via `classes`) will now have this staff as their coordinator.
+
+**Fields:**
+
+| Field   | Type    | Required | Notes                                                 |
+|---------|---------|----------|-------------------------------------------------------|
+| classes | list of IDs | ✅ Yes   | IDs of class records to assign to the staff         |
+
+**Validation Notes:**
+- All class IDs must belong to the current outlet.
+- Only users with appropriate permissions can perform this action.
+
+**Response:**
+- 200 OK: Empty object `{}` on success.
+- 400 Bad Request: On validation errors (e.g., invalid class IDs).
+""",
+    request=ClassesHeadCoordinatorSerializer,
+    responses={
+        200: OpenApiResponse(response={}, description="Coordinator assignments updated")
+    },
+)
+class StaffClassesHeadCoordinatorListCreateAPIView(ListCreateAPIView):
+    pagination_class = None
     queryset = Staff.objects.none()
-    serializer_class = ClassesHeadCoordinatorSerializer
     permission_classes = [IsOutletMember, RolePermission]
+
+    def get_serializer_class(self):
+        if self.request.method == "GET":
+            return ClassMinimalSerializer
+        return ClassesHeadCoordinatorSerializer
+
+    def list(self, request, *args, **kwargs):
+        # Replace the queryset manually because we have to return classes coordinated by the staff
+        # and not the classes of the outlet
+        self.queryset = Classes.objects.filter(
+            coordinator=request.staff, outlet=request.staff.outlets.first()
+        )
+        return super().list(request, *args, **kwargs)

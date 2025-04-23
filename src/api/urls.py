@@ -16,7 +16,7 @@ from api.views import (
     OutletStudentListCreateAPIView,
     OutletClassesListCreateAPIView,
     OutletRetrieveUpdateDestroyView,
-    StaffClassesHeadCoordinatorCreateAPIView,
+    StaffClassesHeadCoordinatorListCreateAPIView,
 )
 
 urlpatterns = [
@@ -74,9 +74,9 @@ urlpatterns = [
         name="staff-retrieve-update",
     ),
     path(
-        "staff/<str:pk>/make-head-coordinator/",
-        StaffClassesHeadCoordinatorCreateAPIView.as_view(),
-        name="staff-classes-header-coordinator-create",
+        "staff/<str:staff_id>/classes-head-coordinator/",
+        StaffClassesHeadCoordinatorListCreateAPIView.as_view(),
+        name="staff-classes-head-coordinator-list-create",
     ),
     # =====================================================
     # Classes

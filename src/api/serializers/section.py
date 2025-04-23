@@ -1,13 +1,7 @@
 from rest_framework import serializers
 
 from api.models.section import Section
-from api.models.classes import Classes
-
-
-class ClassMinimalSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Classes  # import it at the top
-        fields = ("id", "name")
+from .classes_minimal import ClassMinimalSerializer
 
 
 class SectionSerializer(serializers.ModelSerializer):
