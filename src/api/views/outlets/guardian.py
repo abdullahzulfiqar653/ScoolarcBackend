@@ -25,6 +25,9 @@ class OutletParentsListAPIView(ListAPIView):
 ### 🔐 Headers
 - `Authorization`: Token your_auth_token *(Required)*
 
+### 🔎 Filters Supported:
+- `search`: You can search using `first_name`, `last_name`, `primary_phone`, `email`, `area`, `address`.
+
 ### 📄 Response
 - Returns a list of student records"""
     )

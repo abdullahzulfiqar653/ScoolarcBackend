@@ -41,7 +41,7 @@ class Member(BaseModel):
     status = models.BooleanField(default=True)
     date_of_birth = models.DateField(null=True)
     first_name = models.CharField(max_length=50)
-    is_verified = models.BooleanField(default=False)
+    is_verified = models.BooleanField(default=True)
     cnic = models.CharField(max_length=13, null=True)
     email = models.EmailField(max_length=50, null=True)
     last_name = models.CharField(max_length=50, null=True)
@@ -58,7 +58,7 @@ class Member(BaseModel):
     registration_number = models.CharField(max_length=50, null=True)
 
     def __str__(self):
-        return f"{self.user.username} - {self.role} of {self.merchant.name}."
+        return f" - {self.role} of {self.merchant.name}."
 
     class Meta:
         verbose_name = "MembersRegister"

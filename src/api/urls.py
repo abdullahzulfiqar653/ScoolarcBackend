@@ -6,14 +6,17 @@ from api.views import (
     RefreshTokenAPIView,
     PermissionsListAPIView,
     OutletParentsListAPIView,
+    StaffRetrieveUpdateAPIView,
     OutletParentsRetrieveAPIView,
     MerchantOutletListCreateView,
     ClassesRetrieveUpdateAPIView,
     SectionRetrieveUpdateAPIView,
     StudentRetrieveUpdateAPIView,
+    OutletStaffListCreateAPIView,
     OutletStudentListCreateAPIView,
     OutletClassesListCreateAPIView,
     OutletRetrieveUpdateDestroyView,
+    StaffClassesHeadCoordinatorCreateAPIView,
 )
 
 urlpatterns = [
@@ -48,6 +51,11 @@ urlpatterns = [
         name="outlets-student-list-create",
     ),
     path(
+        "outlets/<str:outlet_id>/staff",
+        OutletStaffListCreateAPIView.as_view(),
+        name="outlets-student-list-create",
+    ),
+    path(
         "outlets/<str:outlet_id>/parents",
         OutletParentsListAPIView.as_view(),
         name="outlets-parents-list",
@@ -58,12 +66,25 @@ urlpatterns = [
         name="outlets-parents-retrieve",
     ),
     # =====================================================
+    # Staff
+    # =====================================================
+    path(
+        "staff/<str:pk>/",
+        StaffRetrieveUpdateAPIView.as_view(),
+        name="staff-retrieve-update",
+    ),
+    path(
+        "staff/<str:pk>/make-head-coordinator/",
+        StaffClassesHeadCoordinatorCreateAPIView.as_view(),
+        name="staff-classes-header-coordinator-create",
+    ),
+    # =====================================================
     # Classes
     # =====================================================
     path(
         "classes/<str:pk>/",
         ClassesRetrieveUpdateAPIView.as_view(),
-        name="classes-retrieve-update-destroy",
+        name="classes-retrieve-update",
     ),
     # =====================================================
     # Sections

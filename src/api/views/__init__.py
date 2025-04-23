@@ -2,10 +2,10 @@ from api.views.outlets import (
     OutletParentsListAPIView,
     MerchantOutletListCreateView,
     OutletParentsRetrieveAPIView,
+    OutletStaffListCreateAPIView,
     OutletClassesListCreateAPIView,
     OutletStudentListCreateAPIView,
     OutletRetrieveUpdateDestroyView,
-    OutletClassesHeadCoordinatorCreateAPIView,
 )
 
 from api.views.classes import (
@@ -18,6 +18,10 @@ from api.views.lookup import LookupListAPIView
 from api.views.images import ImagesCreateAPIView
 from api.views.refresh_token import RefreshTokenAPIView
 
+from api.views.staff import (
+    StaffRetrieveUpdateAPIView,
+    StaffClassesHeadCoordinatorCreateAPIView,
+)
 from api.views.permissions import PermissionsListAPIView
 from api.views.section import SectionRetrieveUpdateAPIView
 from api.views.student import StudentRetrieveUpdateAPIView
@@ -30,6 +34,8 @@ __all__ = [
     "PermissionsListAPIView",
     "OutletParentsListAPIView",
     "ClassListCreateSectionView",
+    "StaffRetrieveUpdateAPIView",
+    "OutletStaffListCreateAPIView",
     "OutletParentsRetrieveAPIView",
     "ClassesRetrieveUpdateAPIView",
     "SectionRetrieveUpdateAPIView",
@@ -38,5 +44,5 @@ __all__ = [
     "OutletStudentListCreateAPIView",
     "OutletClassesListCreateAPIView",
     "OutletRetrieveUpdateDestroyView",
-    "OutletClassesHeadCoordinatorCreateAPIView",
+    "StaffClassesHeadCoordinatorCreateAPIView",
 ]

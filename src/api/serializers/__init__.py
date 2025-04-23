@@ -12,6 +12,7 @@ from api.serializers.student import StudentSerializer
 from api.serializers.merchant import MerchantSerializer
 from api.serializers.permissions import PermissionSerializer
 from api.serializers.refresh_token import RefreshTokenSerializer
+from api.serializers.classes_head_coordinator import ClassesHeadCoordinatorSerializer
 
 __all__ = [
     "OTPSerializer",
@@ -28,4 +29,5 @@ __all__ = [
     "MerchantSerializer",
     "PermissionSerializer",
     "RefreshTokenSerializer",
+    "ClassesHeadCoordinatorSerializer",
 ]

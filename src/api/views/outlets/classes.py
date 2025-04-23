@@ -2,7 +2,7 @@ from api.serializers import ClassesSerializer
 from api.permissions import RolePermission, IsOutletMember
 
 from rest_framework import filters
-from rest_framework.generics import ListCreateAPIView
+from rest_framework.generics import ListCreateAPIView, CreateAPIView
 from drf_spectacular.utils import extend_schema, OpenApiExample
 
 class OutletClassesListCreateAPIView(ListCreateAPIView):

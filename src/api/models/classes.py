@@ -7,7 +7,12 @@ class Classes(BaseModel):
     outlet = models.ForeignKey(
         "api.Outlet", on_delete=models.CASCADE, related_name="outlet_classes", null=True
     )
-
+    coordinator = models.ForeignKey(
+        "api.Staff",
+        on_delete=models.CASCADE,
+        related_name="coordinator_sections",
+        null=True,
+    )
     def __str__(self):
         return self.name
 

@@ -11,8 +11,6 @@ class Staff(Member):
         related_name="staff_books",
     )
     basic_salary = models.DecimalField(max_digits=10, decimal_places=2, null=True)
-    allowance = models.DecimalField(max_digits=10, decimal_places=2, null=True)
-    bonus = models.DecimalField(max_digits=10, decimal_places=2, null=True)
 
     class Meta:
         db_table = "staff"

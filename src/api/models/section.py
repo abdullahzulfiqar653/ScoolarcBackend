@@ -7,12 +7,6 @@ class Section(BaseModel):
 
     name = models.CharField(max_length=128)
     code = models.CharField(max_length=24)
-    coordinator = models.ForeignKey(
-        "api.Staff",
-        on_delete=models.CASCADE,
-        related_name="coordinator_sections",
-        null=True,
-    )
     books = models.ManyToManyField(
         "api.Subject",
         related_name="books_sections",
