@@ -1,9 +1,12 @@
-from rest_framework.generics import ListCreateAPIView
-from api.models.staff import Staff
-from api.permissions import IsOutletMember, RolePermission
-from api.serializers.staff import StaffSerializer
-from drf_spectacular.utils import extend_schema, OpenApiExample
 from rest_framework import filters
+from rest_framework.generics import ListCreateAPIView
+from rest_framework.exceptions import ValidationError
+from drf_spectacular.utils import extend_schema, OpenApiExample, OpenApiParameter
+
+from api.models.staff import Staff
+from api.common.contants import STAFF_ROLES
+from api.serializers.staff import StaffSerializer
+from api.permissions import IsOutletMember, RolePermission
 
 
 class OutletStaffListCreateAPIView(ListCreateAPIView):
@@ -13,7 +16,16 @@ class OutletStaffListCreateAPIView(ListCreateAPIView):
     search_fields = ["first_name", "last_name", "primary_phone", "email", "role"]
 
     def get_queryset(self):
-        return Staff.objects.filter(outlets=self.request.outlet)
+        role = self.request.query_params.get("role")
+
+        if not role:
+            raise ValidationError({"detail": "Role is required."})
+        if role not in STAFF_ROLES:
+            raise ValidationError(
+                {"detail": f"Invalid role. Allowed roles are: {', '.join(STAFF_ROLES)}"}
+            )
+
+        return Staff.objects.filter(outlets=self.request.outlet, role=role)
 
     @extend_schema(
         description="""
@@ -83,7 +95,17 @@ class OutletStaffListCreateAPIView(ListCreateAPIView):
 
 ### 📄 Response:
 Returns a list of staff records.
-"""
+""",
+        parameters=[
+            OpenApiParameter(
+                name="role",
+                required=True,
+                type=str,
+                description=f"Role of staff. Allowed: {', '.join(STAFF_ROLES)}",
+                enum=STAFF_ROLES,  # 🎯 this makes dropdown automatically!
+                location=OpenApiParameter.QUERY,
+            )
+        ],
     )
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)
