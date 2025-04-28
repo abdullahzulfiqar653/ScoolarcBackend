@@ -1,5 +1,5 @@
 from django.apps import apps
-from django.db.models import Q
+from django.db.models import Q, Prefetch
 from rest_framework import permissions, exceptions
 
 
@@ -100,6 +100,28 @@ class InOutletOrMerchant(permissions.BasePermission):
                     )
 
                 outlet = request.student.student_section.section_class.outlet
+                merchant = outlet.merchant
+
+            case str(s) if s.startswith("/api/parents/"):
+                if not hasattr(request, "parent"):
+                    print("-" * 100)
+                    Guardian = apps.get_model("api", "Guardian")
+                    Student = apps.get_model("api", "Student")
+                    parent_id = view.kwargs.get("pk") or view.kwargs.get("parent_id")
+                    request.parent = get_instance(
+                        Guardian.objects.prefetch_related(
+                            Prefetch(
+                                "guardian_students",
+                                queryset=Student.objects.select_related(
+                                    "student_section__section_class__outlet__merchant"
+                                ),
+                            )
+                        ),
+                        parent_id,
+                    )
+                # Now you can access easily:
+                first_student = request.parent.guardian_students.first()
+                outlet = first_student.student_section.section_class.outlet
                 merchant = outlet.merchant
 
             case str(s) if s.startswith("/api/staff/"):

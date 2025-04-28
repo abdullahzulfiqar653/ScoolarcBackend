@@ -13,6 +13,7 @@ from api.views.classes import (
     ClassesRetrieveUpdateAPIView,
 )
 
+from api.views.guardian import ParentsRetrieveUpdateAPIView
 from api.views.otp import OTPView
 from api.views.lookup import LookupListAPIView
 from api.views.images import ImagesCreateAPIView
@@ -41,6 +42,7 @@ __all__ = [
     "SectionRetrieveUpdateAPIView",
     "MerchantOutletListCreateView",
     "StudentRetrieveUpdateAPIView",
+    "ParentsRetrieveUpdateAPIView",
     "OutletStudentListCreateAPIView",
     "OutletClassesListCreateAPIView",
     "OutletRetrieveUpdateDestroyView",

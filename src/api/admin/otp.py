@@ -4,15 +4,15 @@ from api.models.otp import OTP
 
 class OTPAdmin(admin.ModelAdmin):
     list_display = (
-        "phone",
         "name",
         "password",
         "is_used",
         "updated_at",
+        "primary_phone",
     )
     search_fields = (
         "code",
-        "member__phone",
+        "member__primary_phone",
         "member__user__first_name",
     )  # You can adjust this based on your model relationships
     list_filter = ("is_used",)
@@ -26,8 +26,8 @@ class OTPAdmin(admin.ModelAdmin):
     def name(self, obj):
         return obj.member.user.first_name
 
-    def phone(self, obj):
-        return obj.member.phone
+    def primary_phone(self, obj):
+        return obj.member.primary_phone
 
     def password(self, obj):
         return obj.code

@@ -13,6 +13,7 @@ from api.views import (
     SectionRetrieveUpdateAPIView,
     StudentRetrieveUpdateAPIView,
     OutletStaffListCreateAPIView,
+    ParentsRetrieveUpdateAPIView,
     OutletStudentListCreateAPIView,
     OutletClassesListCreateAPIView,
     OutletRetrieveUpdateDestroyView,
@@ -100,7 +101,15 @@ urlpatterns = [
     path(
         "students/<str:pk>/",
         StudentRetrieveUpdateAPIView.as_view(),
-        name="students-retrieve-update",
+        name="students-retrieve-update-view",
+    ),
+    # =====================================================
+    # Parents
+    # =====================================================
+    path(
+        "parents/<str:pk>/",
+        ParentsRetrieveUpdateAPIView.as_view(),
+        name="parents-retrieve-update-view",
     ),
     # =====================================================
     # Lookups
