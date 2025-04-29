@@ -1,2 +1,2 @@
 from .classes import *
-from .sections import *
+from .subject import *

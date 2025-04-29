@@ -8,10 +8,7 @@ from api.views.outlets import (
     OutletRetrieveUpdateDestroyView,
 )
 
-from api.views.classes import (
-    ClassListCreateSectionView,
-    ClassesRetrieveUpdateAPIView,
-)
+from api.views.classes import ClassesRetrieveUpdateAPIView, SubjectListCreateAPIView
 
 from api.views.guardian import ParentsRetrieveUpdateAPIView
 from api.views.otp import OTPView
@@ -34,6 +31,7 @@ __all__ = [
     "ImagesCreateAPIView",
     "PermissionsListAPIView",
     "OutletParentsListAPIView",
+    "SubjectListCreateAPIView",
     "ClassListCreateSectionView",
     "StaffRetrieveUpdateAPIView",
     "OutletStaffListCreateAPIView",
