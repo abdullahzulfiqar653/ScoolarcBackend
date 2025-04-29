@@ -10,12 +10,14 @@ from api.views.outlets import (
 
 from api.views.subject import SubjectUpdateAPIView
 from api.views.guardian import ParentsRetrieveUpdateAPIView
+
 from api.views.classes import (
-    ClassSubjectListCreateAPIView,
-    ClassSubjectBulkCreateAPIView,
     ClassSectionCreateAPIView,
     ClassesRetrieveUpdateAPIView,
+    ClassSubjectListCreateAPIView,
+    ClassSubjectBulkCreateAPIView,
     ClassSectionBulkCreateAPIView,
+    ClassSectionResourceAssignmentRetrieveUpdateAPIView,
 )
 
 from api.views.otp import OTPView
@@ -55,4 +57,5 @@ __all__ = [
     OutletClassesListCreateAPIView,
     OutletRetrieveUpdateDestroyView,
     StaffClassesHeadCoordinatorListCreateAPIView,
+    ClassSectionResourceAssignmentRetrieveUpdateAPIView,
 ]

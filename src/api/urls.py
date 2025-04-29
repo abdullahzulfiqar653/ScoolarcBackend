@@ -22,6 +22,7 @@ from api.views import (
     OutletStudentListCreateAPIView,
     OutletClassesListCreateAPIView,
     OutletRetrieveUpdateDestroyView,
+    ClassSectionResourceAssignmentRetrieveUpdateAPIView,
     StaffClassesHeadCoordinatorListCreateAPIView,
 )
 
@@ -111,6 +112,11 @@ urlpatterns = [
         "classes/<str:pk>/sections/bulk-create",
         ClassSectionBulkCreateAPIView.as_view(),
         name="subject-bulk-create-view",
+    ),
+    path(
+        "classes/<str:pk>/sections/<str:section_id>/",
+        ClassSectionResourceAssignmentRetrieveUpdateAPIView.as_view(),
+        name="class-section-resource-assignment-view",
     ),
     # =====================================================
     # Sections

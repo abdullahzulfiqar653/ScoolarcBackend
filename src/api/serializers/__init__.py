@@ -21,6 +21,10 @@ from api.serializers.subject import (
     SubjectSerializer,
     BulkSubjectCreateSerializer,
 )
+from api.serializers.section_resource_assignment import (
+    ClassSectionResourceAssignmentSerializer,
+    ClassSectionResourceAssignmentRetrieveSerializer,
+)
 
 __all__ = [
     OTPSerializer,
@@ -41,4 +45,6 @@ __all__ = [
     BulkSectionCreateSerializer,
     BulkSubjectCreateSerializer,
     ClassesHeadCoordinatorSerializer,
+    ClassSectionResourceAssignmentSerializer,
+    ClassSectionResourceAssignmentRetrieveSerializer,
 ]

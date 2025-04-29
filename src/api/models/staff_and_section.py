@@ -3,6 +3,7 @@ from api.models.abstract.base import BaseModel
 
 
 class StaffAndSection(BaseModel):
+    UID_PREFIX = 114
     section_staff = models.ForeignKey(
         "api.Staff",
         on_delete=models.CASCADE,
