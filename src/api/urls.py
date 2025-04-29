@@ -8,6 +8,7 @@ from api.views import (
     PermissionsListAPIView,
     OutletParentsListAPIView,
     SubjectListCreateAPIView,
+    SubjectBulkCreateAPIView,
     StaffRetrieveUpdateAPIView,
     OutletParentsRetrieveAPIView,
     MerchantOutletListCreateView,
@@ -93,6 +94,11 @@ urlpatterns = [
         "classes/<str:pk>/subjects",
         SubjectListCreateAPIView.as_view(),
         name="subject-list-create-view",
+    ),
+    path(
+        "classes/<str:pk>/subjects/bulk-create",
+        SubjectBulkCreateAPIView.as_view(),
+        name="subject-bulk-create-view",
     ),
     # =====================================================
     # Sections

@@ -11,8 +11,9 @@ from api.views.outlets import (
 from api.views.subject import SubjectUpdateAPIView
 from api.views.guardian import ParentsRetrieveUpdateAPIView
 from api.views.classes import (
-    ClassesRetrieveUpdateAPIView,
     SubjectListCreateAPIView,
+    SubjectBulkCreateAPIView,
+    ClassesRetrieveUpdateAPIView,
 )
 
 from api.views.otp import OTPView
@@ -29,25 +30,25 @@ from api.views.section import SectionRetrieveUpdateAPIView
 from api.views.student import StudentRetrieveUpdateAPIView
 
 __all__ = [
-    "OTPView",
-    "LookupListAPIView",
-    "RefreshTokenAPIView",
-    "ImagesCreateAPIView",
-    "SubjectUpdateAPIView",
-    "PermissionsListAPIView",
-    "OutletParentsListAPIView",
-    "SubjectListCreateAPIView",
-    "ClassListCreateSectionView",
-    "StaffRetrieveUpdateAPIView",
-    "OutletStaffListCreateAPIView",
-    "OutletParentsRetrieveAPIView",
-    "ClassesRetrieveUpdateAPIView",
-    "SectionRetrieveUpdateAPIView",
-    "MerchantOutletListCreateView",
-    "StudentRetrieveUpdateAPIView",
-    "ParentsRetrieveUpdateAPIView",
-    "OutletStudentListCreateAPIView",
-    "OutletClassesListCreateAPIView",
-    "OutletRetrieveUpdateDestroyView",
-    "StaffClassesHeadCoordinatorListCreateAPIView",
+    OTPView,
+    LookupListAPIView,
+    RefreshTokenAPIView,
+    ImagesCreateAPIView,
+    SubjectUpdateAPIView,
+    PermissionsListAPIView,
+    OutletParentsListAPIView,
+    SubjectListCreateAPIView,
+    SubjectBulkCreateAPIView,
+    StaffRetrieveUpdateAPIView,
+    OutletStaffListCreateAPIView,
+    OutletParentsRetrieveAPIView,
+    ClassesRetrieveUpdateAPIView,
+    SectionRetrieveUpdateAPIView,
+    MerchantOutletListCreateView,
+    StudentRetrieveUpdateAPIView,
+    ParentsRetrieveUpdateAPIView,
+    OutletStudentListCreateAPIView,
+    OutletClassesListCreateAPIView,
+    OutletRetrieveUpdateDestroyView,
+    StaffClassesHeadCoordinatorListCreateAPIView,
 ]

@@ -7,7 +7,6 @@ from api.serializers.lookup import LookupSerializer
 from api.serializers.outlet import OutletSerializer
 from api.serializers.classes import ClassesSerializer
 from api.serializers.section import SectionSerializer
-from api.serializers.subject import SubjectSerializer
 from api.serializers.student import StudentSerializer
 from api.serializers.merchant import MerchantSerializer
 from api.serializers.permissions import PermissionSerializer
@@ -15,21 +14,27 @@ from api.serializers.refresh_token import RefreshTokenSerializer
 from api.serializers.classes_minimal import ClassMinimalSerializer
 from api.serializers.classes_head_coordinator import ClassesHeadCoordinatorSerializer
 
+from api.serializers.subject import (
+    SubjectSerializer,
+    BulkSubjectCreateSerializer,
+)
+
 __all__ = [
-    "OTPSerializer",
-    "StaffSerializer",
-    "UserSerializer",
-    "ImagesSerializer",
-    "OutletSerializer",
-    "LookupSerializer",
-    "MemberSerializer",
-    "StudentSerializer",
-    "SubjectSerializer",
-    "SectionSerializer",
-    "ClassesSerializer",
-    "MerchantSerializer",
-    "PermissionSerializer",
-    "ClassMinimalSerializer",
-    "RefreshTokenSerializer",
-    "ClassesHeadCoordinatorSerializer",
+    OTPSerializer,
+    UserSerializer,
+    StaffSerializer,
+    ImagesSerializer,
+    OutletSerializer,
+    LookupSerializer,
+    MemberSerializer,
+    StudentSerializer,
+    SubjectSerializer,
+    SectionSerializer,
+    ClassesSerializer,
+    MerchantSerializer,
+    PermissionSerializer,
+    ClassMinimalSerializer,
+    RefreshTokenSerializer,
+    BulkSubjectCreateSerializer,
+    ClassesHeadCoordinatorSerializer,
 ]

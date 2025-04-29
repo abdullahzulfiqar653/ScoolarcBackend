@@ -4,6 +4,8 @@ from api.models.abstract.base import BaseModel
 
 
 class Subject(BaseModel):
+    UID_PREFIX = 110
+
     title = models.CharField(max_length=255)
     code = models.CharField(max_length=255, unique=True, blank=True)
     subject_class = models.ForeignKey(
