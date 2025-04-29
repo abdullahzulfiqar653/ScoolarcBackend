@@ -3,7 +3,7 @@ from api.permissions import IsOutletMember, RolePermission
 from api.serializers.subject import SubjectSerializer, BulkSubjectCreateSerializer
 
 
-class SubjectListCreateAPIView(ListCreateAPIView):
+class ClassSubjectListCreateAPIView(ListCreateAPIView):
     pagination_class = None
     serializer_class = SubjectSerializer
     permission_classes = [IsOutletMember, RolePermission]
@@ -12,7 +12,7 @@ class SubjectListCreateAPIView(ListCreateAPIView):
         return self.request.classes.class_subjects.all()
 
 
-class SubjectBulkCreateAPIView(CreateAPIView):
+class ClassSubjectBulkCreateAPIView(CreateAPIView):
     serializer_class = BulkSubjectCreateSerializer
     permission_classes = [IsOutletMember, RolePermission]
 

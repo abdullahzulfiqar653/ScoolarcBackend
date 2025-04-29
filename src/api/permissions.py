@@ -104,7 +104,6 @@ class InOutletOrMerchant(permissions.BasePermission):
 
             case str(s) if s.startswith("/api/parents/"):
                 if not hasattr(request, "parent"):
-                    print("-" * 100)
                     Guardian = apps.get_model("api", "Guardian")
                     Student = apps.get_model("api", "Student")
                     parent_id = view.kwargs.get("pk") or view.kwargs.get("parent_id")
