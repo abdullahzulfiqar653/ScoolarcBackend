@@ -140,6 +140,20 @@ class InOutletOrMerchant(permissions.BasePermission):
                 outlet = request.staff.outlets.first()
                 merchant = outlet.merchant
 
+            case str(s) if s.startswith("/api/subjects/"):
+                if not hasattr(request, "subject"):
+                    Subject = apps.get_model("api", "Subject")
+                    subject_id = view.kwargs.get("pk") or view.kwargs.get("subject_id")
+                    request.subject = get_instance(
+                        Subject.objects.select_related(
+                            "subject_class__outlet__merchant"
+                        ),
+                        subject_id,
+                    )
+
+                outlet = request.subject.subject_class.outlet
+                merchant = outlet.merchant
+
             case _:
                 outlet = None
                 merchant = None

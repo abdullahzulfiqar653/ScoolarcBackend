@@ -4,6 +4,7 @@ from api.views import (
     LookupListAPIView,
     ImagesCreateAPIView,
     RefreshTokenAPIView,
+    SubjectUpdateAPIView,
     PermissionsListAPIView,
     OutletParentsListAPIView,
     SubjectListCreateAPIView,
@@ -116,6 +117,14 @@ urlpatterns = [
         "parents/<str:pk>/",
         ParentsRetrieveUpdateAPIView.as_view(),
         name="parents-retrieve-update-view",
+    ),
+    # =====================================================
+    # Subjects
+    # =====================================================
+    path(
+        "subjects/<str:pk>/",
+        SubjectUpdateAPIView.as_view(),
+        name="subject-update-view",
     ),
     # =====================================================
     # Lookups
