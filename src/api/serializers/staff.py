@@ -82,6 +82,7 @@ class StaffSerializer(serializers.ModelSerializer):
         return value
 
     def validate_role(self, value):
+        print("teacher role", value)
         if value not in STAFF_ROLES:
             raise serializers.ValidationError(
                 f"Invalid role. Allowed roles are: {', '.join(STAFF_ROLES)}"

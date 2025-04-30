@@ -1,5 +1,8 @@
 from django.contrib import admin
 from api.models.classes import Classes  # Adjust import path if needed
+from api.models.subject import Subject
+
+admin.site.register(Subject)
 
 
 @admin.register(Classes)

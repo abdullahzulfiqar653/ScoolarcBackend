@@ -13,7 +13,7 @@ MODEL_CODES = {
     "Invoice": "111",
     "Guardian": "112",
     "TransactionHistory": "113",
-    "StaffAndSection": "114",
+    "SectionStaffAndSubject": "114",
 }
 
 STAFF = "staff"
@@ -62,10 +62,10 @@ ROLE_BASED_PERMISSIONS = {
         "api.change_staff",
         "api.delete_staff",
         "api.view_staff",
-        "api.add_staffandsection",
-        "api.change_staffandsection",
-        "api.delete_staffandsection",
-        "api.view_staffandsection",
+        "api.add_sectionstaffandsubject",
+        "api.change_sectionstaffandsubject",
+        "api.delete_sectionstaffandsubject",
+        "api.view_sectionstaffandsubject",
         "api.add_student",
         "api.change_student",
         "api.delete_student",

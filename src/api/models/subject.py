@@ -20,10 +20,11 @@ class Subject(BaseModel):
 
     def save(self, *args, **kwargs):
         if self._state.adding and not self.code:
-            self.code = self.generate_unique_code()
+            self.code = Subject.get_unique_code()
         super().save(*args, **kwargs)
 
-    def generate_unique_code(self):
+    @staticmethod
+    def get_unique_code():
         while True:
             code = str(random.randint(1000, 9999))
             if not Subject.objects.filter(code=code).exists():

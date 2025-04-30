@@ -2,7 +2,7 @@ from django.db import models
 from api.models.abstract.base import BaseModel
 
 
-class StaffAndSection(BaseModel):
+class SectionStaffAndSubject(BaseModel):
     UID_PREFIX = 114
     section_staff = models.ForeignKey(
         "api.Staff",
@@ -13,6 +13,10 @@ class StaffAndSection(BaseModel):
         "api.Section",
         on_delete=models.CASCADE,
         related_name="section_and_staff",
+    )
+    subject = models.ForeignKey(
+        "api.Subject",
+        on_delete=models.CASCADE,
     )
     is_head = models.BooleanField(default=False)
 

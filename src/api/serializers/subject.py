@@ -31,14 +31,16 @@ class BulkSubjectCreateSerializer(serializers.Serializer):
         subject_class = request.classes
         subjects_data = validated_data["subjects"]
 
-        subjects = [
-            Subject(
-                id=f"{Subject.UID_PREFIX}{secrets.token_hex(6)}",
-                title=item["title"],
-                subject_class=subject_class,
+        subjects = []
+        for item in subjects_data:
+            subjects.append(
+                Subject(
+                    code=Subject.get_unique_code(),
+                    id=f"{Subject.UID_PREFIX}{secrets.token_hex(6)}",
+                    title=item["title"],
+                    subject_class=subject_class,
+                )
             )
-            for item in subjects_data
-        ]
         Subject.objects.bulk_create(subjects)
         return subjects
 

@@ -34,10 +34,9 @@ class ClassesRetrieveUpdateAPIView(RetrieveUpdateAPIView):
 @extend_schema(
     methods=["GET"],
     description=(
-        "Retrieve the assigned books, teachers, and coordinator of a section.\n\n"
+        "Retrieve the assigned teacher-subject pairs and coordinator of a section.\n\n"
         "**Notes:**\n"
-        "- `books`: List of Subject IDs currently linked to this section.\n"
-        "- `teachers`: List of Staff IDs currently assigned to this section.\n"
+        "- `section_teacher_and_subject`: A list of objects each containing a `teacher` (Staff ID) and a `book` (Subject ID).\n"
         "- `coordinator`: Staff ID who is set as the class coordinator."
     ),
     responses={200: ClassSectionResourceAssignmentRetrieveSerializer},
@@ -45,12 +44,11 @@ class ClassesRetrieveUpdateAPIView(RetrieveUpdateAPIView):
 @extend_schema(
     methods=["PUT", "PATCH"],
     description=(
-        "Assign books and teachers to a section, and set a class coordinator.\n\n"
+        "Assign teacher-subject pairs to a section, and set a class coordinator.\n\n"
         "**Notes:**\n"
-        "- `books` must be valid Subject IDs related to the class.\n"
-        "- `teachers` must be valid Staff IDs related to the class outlet.\n"
-        "- `coordinator` must be one of the provided teachers.\n"
-        "- Any previous books and teachers attached to the section will be removed and replaced with the provided ones.\n"
+        "- `section_teacher_and_subject` must be a list of objects, each with a `teacher` (Staff ID) and a `book` (Subject ID).\n"
+        "- `coordinator` must be a valid Staff ID from the `teacher` list.\n"
+        "- Any previous teacher-subject assignments for this section will be removed and replaced."
     ),
     request=ClassSectionResourceAssignmentSerializer,
     responses={200: ClassSectionResourceAssignmentSerializer},

@@ -12,8 +12,8 @@ from api.models.classes import Classes
 from api.models.invoice import Invoice
 from api.models.guardian import Guardian
 from api.models.transaction_history import TransactionHistory
-from api.models.staff_and_section import StaffAndSection
 
+from api.models.section_staff_and_subject import SectionStaffAndSubject
 
 __all__ = [
     "OTP",
@@ -29,6 +29,6 @@ __all__ = [
     "Merchant",
     "Guardian",
     "MerchantConfig",
-    "StaffAndSection",
     "TransactionHistory",
+    "SectionStaffAndSubject",
 ]

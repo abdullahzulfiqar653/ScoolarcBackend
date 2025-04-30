@@ -22,6 +22,6 @@ from api.models.member import Member
 @receiver(post_save, sender=Merchant)
 def create_merchant_member(sender, instance, created, **kwargs):
     if created:
-        role = Lookup.objects.filter(name="Merchant").first()
-        instance.owner.groups.add(Group.objects.get(name=role.name))
-        Member.objects.create(user=instance.owner, merchant=instance, role=role)
+        obj, _ = Group.objects.get_or_create(name="merchant")
+        instance.owner.groups.add(obj)
+        Member.objects.create(user=instance.owner, merchant=instance, role="merchant")

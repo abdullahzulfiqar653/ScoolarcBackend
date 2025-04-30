@@ -5,18 +5,27 @@ from api.models.staff import Staff
 from api.models.subject import Subject
 from api.models.section import Section
 from api.common.contants import TEACHER
-from api.models.staff_and_section import StaffAndSection
+from api.models.section_staff_and_subject import SectionStaffAndSubject
+
+
+class TeacherBookSerializer(serializers.Serializer):
+    teacher = serializers.PrimaryKeyRelatedField(queryset=Staff.objects.none())
+    book = serializers.PrimaryKeyRelatedField(queryset=Subject.objects.none())
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        context = self.context
+        if context.get("teacher_queryset"):
+            self.fields["teacher"].queryset = context["teacher_queryset"]
+        if context.get("subject_queryset"):
+            self.fields["book"].queryset = context["subject_queryset"]
 
 
 class ClassSectionResourceAssignmentSerializer(serializers.Serializer):
-    books = serializers.PrimaryKeyRelatedField(
-        queryset=Subject.objects.all(), many=True, write_only=True
-    )
-    teachers = serializers.PrimaryKeyRelatedField(
-        queryset=Staff.objects.all(), many=True, write_only=True
-    )
+    section_teacher_and_subject = TeacherBookSerializer(many=True, write_only=True)
     coordinator = serializers.PrimaryKeyRelatedField(
-        queryset=Staff.objects.all(), write_only=True
+        queryset=Staff.objects.none(),
+        write_only=True,
     )
 
     def __init__(self, *args, **kwargs):
@@ -24,60 +33,81 @@ class ClassSectionResourceAssignmentSerializer(serializers.Serializer):
         request = self.context.get("request")
         if request and hasattr(request, "classes"):
             section_class = request.classes
-            self.fields["books"].queryset = section_class.class_subjects.all()
-            self.fields["teachers"].queryset = Staff.objects.filter(
+            teacher_qs = Staff.objects.filter(
                 role=TEACHER, outlets=section_class.outlet
             )
-            self.fields["coordinator"].queryset = self.fields["teachers"].queryset
+            subject_qs = section_class.class_subjects.all()
+
+            self.fields["coordinator"].queryset = teacher_qs
+
+            if request.method in ("PUT", "PATCH"):
+                # Pass to child serializer via context
+                self.fields["section_teacher_and_subject"] = TeacherBookSerializer(
+                    many=True,
+                    context={
+                        **self.context,
+                        "teacher_queryset": teacher_qs,
+                        "subject_queryset": subject_qs,
+                    },
+                    write_only=True,
+                )
 
     def validate(self, data):
-        teacher_ids = data["teachers"]
-        coordinator_id = data["coordinator"]
-
-        if coordinator_id not in teacher_ids:
+        coordinator = data["coordinator"]
+        teachers = [entry["teacher"] for entry in data["section_teacher_and_subject"]]
+        if coordinator not in teachers:
             raise serializers.ValidationError(
-                {"coordinator": ["Coordinator must be one of the provided teachers."]}
+                {"coordinator": "Coordinator must be one of the provided teachers."}
             )
         return data
 
     def update(self, instance: Section, validated_data):
-        # 1. Update books
-        instance.books.set(validated_data["books"])
+        # 1. Clear previous assignments
+        SectionStaffAndSubject.objects.filter(staff_section=instance).hard_delete()
+        entries = validated_data["section_teacher_and_subject"]
+        coordinator = validated_data["coordinator"]
 
-        # 2. Clear and re-add teacher assignments manually
-        StaffAndSection.objects.filter(
-            staff_section=instance
-        ).hard_delete()  # Use hard_delete instead of delete
-
-        staff_objs = validated_data["teachers"]
-        for staff in staff_objs:
-            StaffAndSection.objects.create(
-                id=f"{StaffAndSection.UID_PREFIX}{secrets.token_hex(6)}",
+        new_links = [
+            SectionStaffAndSubject(
+                id=f"{SectionStaffAndSubject.UID_PREFIX}{secrets.token_hex(6)}",
                 staff_section=instance,
-                section_staff=staff,
-                is_head=(staff == validated_data["coordinator"]),
+                section_staff=entry["teacher"],
+                subject=entry["book"],
+                is_head=(entry["teacher"] == coordinator),
             )
+            for entry in entries
+        ]
+        SectionStaffAndSubject.objects.bulk_create(new_links)
 
-        # 3. Update coordinator at class level
+        # 2. Update coordinator at class level
         section_class = instance.section_class
-        section_class.coordinator = validated_data["coordinator"]
+        section_class.coordinator = coordinator
         section_class.save()
 
         return instance
 
 
+class SectionTeacherSubjectPairSerializer(serializers.Serializer):
+    teacher = serializers.CharField()
+    book = serializers.CharField()
+
+
 class ClassSectionResourceAssignmentRetrieveSerializer(serializers.Serializer):
-    books = serializers.ListField(child=serializers.CharField())
-    teachers = serializers.ListField(child=serializers.CharField())
+    section_teacher_and_subject = SectionTeacherSubjectPairSerializer(many=True)
     coordinator = serializers.CharField()
 
     def to_representation(self, instance):
-        subjects = instance.books.values_list("id", flat=True)
-        coordinator_id = instance.section_class.coordinator_id
-        teachers = instance.staff_sections.values_list("id", flat=True)
+        # Fetch teacher-book pairs from the through model
+        assignments = SectionStaffAndSubject.objects.filter(staff_section=instance)
+        section_teacher_and_subject = [
+            {
+                "teacher": str(assignment.section_staff_id),
+                "book": str(assignment.subject_id),
+            }
+            for assignment in assignments
+        ]
 
         return {
-            "books": list(subjects),
-            "teachers": list(teachers),
-            "coordinator": coordinator_id,
+            "section_teacher_and_subject": section_teacher_and_subject,
+            "coordinator": str(instance.section_class.coordinator_id),
         }

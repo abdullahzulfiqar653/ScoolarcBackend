@@ -17,15 +17,17 @@ class OutletStaffListCreateAPIView(ListCreateAPIView):
 
     def get_queryset(self):
         role = self.request.query_params.get("role")
-
-        if not role:
-            raise ValidationError({"detail": "Role is required."})
-        if role not in STAFF_ROLES:
-            raise ValidationError(
-                {"detail": f"Invalid role. Allowed roles are: {', '.join(STAFF_ROLES)}"}
-            )
-
-        return Staff.objects.filter(outlets=self.request.outlet, role=role)
+        if self.request.method == "GET":
+            if not role:
+                raise ValidationError({"detail": "Role is required."})
+            if role not in STAFF_ROLES:
+                raise ValidationError(
+                    {
+                        "detail": f"Invalid role. Allowed roles are: {', '.join(STAFF_ROLES)}"
+                    }
+                )
+            return Staff.objects.filter(outlets=self.request.outlet, role=role)
+        return Staff.objects.none()
 
     @extend_schema(
         description="""
