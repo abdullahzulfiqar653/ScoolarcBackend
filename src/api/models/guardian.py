@@ -6,4 +6,4 @@ class Guardian(Member):
     occupation = models.CharField(max_length=255)
 
     def __str__(self):
-        return self.user.first_name + " " + self.user.last_name
+        return self.first_name + " " + self.last_name

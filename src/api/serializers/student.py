@@ -61,22 +61,25 @@ class StudentSerializer(serializers.ModelSerializer):
 
         request = self.context.get("request")
         student_guardian = validated_data.pop("student_guardian", None)
-        user = User.objects.create_user(
+        user, created = User.objects.get_or_create(
             username=student_guardian["primary_phone"],
             email=student_guardian.get("email", None),
             first_name=student_guardian["first_name"],
         )
-        guardian = Guardian.objects.create(
-            **student_guardian,
-            user=user,
-            merchant=request.merchant,
-            role=Member.RoleChoices.PARENT,
-        )
+        if created:
+            guardian = Guardian.objects.create(
+                **student_guardian,
+                user=user,
+                merchant=request.merchant,
+                role=Member.RoleChoices.PARENT,
+            )
+        else:
+            guardian = Guardian.objects.get(user=user)
         guardian.outlets.add(request.outlet)
         user = User.objects.create_user(
             username=f'{student_guardian["primary_phone"]}{secrets.token_hex(6)}',
             first_name=validated_data["first_name"],
-            last_name=validated_data["last_name"],
+            last_name=validated_data.get("last_name", ""),
         )
         validated_data["user"] = user
         validated_data["student_guardian"] = guardian
