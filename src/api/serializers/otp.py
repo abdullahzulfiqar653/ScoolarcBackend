@@ -10,11 +10,13 @@ from api.utils import generate_otp
 from api.factories import OTPSenderFactory
 from rest_framework.exceptions import Throttled
 
+
 class OTPSerializer(serializers.Serializer):
     access = serializers.CharField(read_only=True)
     refresh = serializers.CharField(read_only=True)
     message = serializers.CharField(read_only=True)
     username = serializers.CharField(write_only=True)
+    member_id = serializers.CharField(read_only=True)
     remaining_time = serializers.CharField(read_only=True)
     platform = serializers.CharField(default="email", write_only=True)
     otp = serializers.CharField(max_length=6, required=False, write_only=True)
@@ -41,6 +43,7 @@ class OTPSerializer(serializers.Serializer):
             # otp_record.save()
             return {
                 "refresh": str(refresh),
+                "member_id": request.member.id,
                 "access": str(refresh.access_token),
             }
 
@@ -48,7 +51,10 @@ class OTPSerializer(serializers.Serializer):
             otp_record, created = OTP.objects.get_or_create(member=request.member)
             if not created and otp_record.updated_at >= now() - timedelta(minutes=2):
                 remaining_time = 120 - (now() - otp_record.updated_at).seconds
-                raise Throttled(detail=f"Please wait {remaining_time} seconds before trying again.", wait=remaining_time)
+                raise Throttled(
+                    detail=f"Please wait {remaining_time} seconds before trying again.",
+                    wait=remaining_time,
+                )
 
             otp_record.code = generate_otp()
             otp_record.is_used = False
