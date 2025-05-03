@@ -8,7 +8,7 @@ class SubjectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Subject
-        fields = ("id", "code", "title", "created_at", "updated_at")
+        fields = ("id", "code", "name", "created_at", "updated_at")
         read_only_fields = ("code", "created_at", "updated_at")
 
     def create(self, validated_data):
@@ -21,9 +21,9 @@ class BulkSubjectCreateSerializer(serializers.Serializer):
     subjects = SubjectSerializer(many=True)
 
     def validate_subjects(self, value):
-        titles = [v["title"] for v in value]
-        if len(titles) != len(set(titles)):
-            raise serializers.ValidationError("Duplicate titles are not allowed.")
+        names = [v["name"] for v in value]
+        if len(names) != len(set(names)):
+            raise serializers.ValidationError("Duplicate names are not allowed.")
         return value
 
     def create(self, validated_data):
@@ -37,7 +37,7 @@ class BulkSubjectCreateSerializer(serializers.Serializer):
                 Subject(
                     code=Subject.get_unique_code(),
                     id=f"{Subject.UID_PREFIX}{secrets.token_hex(6)}",
-                    title=item["title"],
+                    name=item["name"],
                     subject_class=subject_class,
                 )
             )

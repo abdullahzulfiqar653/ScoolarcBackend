@@ -6,7 +6,7 @@ from api.models.abstract.base import BaseModel
 class Subject(BaseModel):
     UID_PREFIX = 110
 
-    title = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
     code = models.CharField(max_length=255, unique=True, blank=True)
     subject_class = models.ForeignKey(
         "api.Classes",
@@ -16,7 +16,7 @@ class Subject(BaseModel):
     )
 
     def __str__(self):
-        return self.title
+        return self.name
 
     def save(self, *args, **kwargs):
         if self._state.adding and not self.code:
