@@ -1,8 +1,11 @@
 from rest_framework import generics
 from rest_framework.response import Response
+from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.exceptions import AuthenticationFailed
 from api.serializers.refresh_token import RefreshTokenSerializer
+
+User = get_user_model()
 
 
 class RefreshTokenAPIView(generics.RetrieveAPIView):
@@ -29,14 +32,14 @@ class RefreshTokenAPIView(generics.RetrieveAPIView):
 
     def retrieve(self, request, *args, **kwargs):
         refresh_token = request.COOKIES.get("scoolarc_refresh_token")
-        print(refresh_token)
         if not refresh_token:
             raise AuthenticationFailed({"detail": "No refresh token found in cookies"})
 
         try:
             refresh = RefreshToken(refresh_token)
+            user = User.objects.get(id=refresh["user_id"])
             access_token = str(refresh.access_token)
-            return Response({"access": access_token})
+            return Response({"access": access_token, "member_id": user.profile.id})
         except Exception as e:
             print(e)
             raise AuthenticationFailed({"detail": "Invalid Refresh Token."})
