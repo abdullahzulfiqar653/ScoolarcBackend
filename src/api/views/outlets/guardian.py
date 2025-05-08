@@ -16,7 +16,9 @@ class OutletParentsListAPIView(ListAPIView):
     search_fields = ["address", "city", "primary_phone", "first_name", "area", "email"]
 
     def get_queryset(self):
-        return Guardian.objects.filter(merchant=self.request.merchant)
+        first_student = self.request.parent.guardian_students.first()
+        outlet = first_student.student_section.section_class.outlet
+        return Guardian.objects.filter(outlets=outlet)
 
     @extend_schema(
         description="""
