@@ -2,11 +2,17 @@ from api.models.staff import Staff
 from api.models.classes import Classes
 from api.serializers.staff import StaffSerializer
 from api.permissions import RolePermission, IsOutletMember
+from api.serializers.permissions import PermissionSerializer
 from api.serializers.classes_minimal import ClassMinimalSerializer
 from api.serializers.classes_head_coordinator import ClassesHeadCoordinatorSerializer
 
+from django.contrib.auth.models import Permission
 from drf_spectacular.utils import extend_schema, OpenApiResponse
-from rest_framework.generics import RetrieveUpdateAPIView, ListCreateAPIView
+from rest_framework.generics import (
+    ListAPIView,
+    ListCreateAPIView,
+    RetrieveUpdateAPIView,
+)
 
 
 @extend_schema(
@@ -63,6 +69,33 @@ class StaffRetrieveUpdateAPIView(RetrieveUpdateAPIView):
         # You probably want to filter by outlet, depending on current user's outlet context
         # Assuming `request.outlet` is set by middleware (as in your previous code)
         return Staff.objects.filter(outlets=self.request.staff.outlets.first())
+
+
+@extend_schema(
+    methods=["GET"],
+    description="""
+Retrieve a list of all permissions assigned to the staff member.
+
+This includes both directly assigned permissions and those inherited from groups.
+
+**Authorization:**  
+Requires the user to be a member of the outlet and have staff role-based access.
+
+**Response:**  
+- 200 OK: A list of permissions with fields: `id`, `name`, `codename`, and `content_type`.
+""",
+    responses={200: PermissionSerializer(many=True)},
+)
+class StaffPermissionsListAPIView(ListAPIView):
+    serializer_class = PermissionSerializer
+    permission_classes = [IsOutletMember, RolePermission]
+
+    def get_queryset(self):
+        user = self.request.staff.user
+        user_permissions = user.user_permissions.all()
+        group_permissions = Permission.objects.filter(group__user=user)
+        all_permissions = user_permissions | group_permissions
+        return all_permissions.distinct()
 
 
 @extend_schema(

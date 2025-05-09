@@ -1,5 +1,6 @@
-from rest_framework.generics import ListCreateAPIView
 from django.contrib.auth.models import Permission
+from rest_framework.generics import ListCreateAPIView
+
 from api.serializers.permissions import PermissionSerializer
 from api.permissions import isMerchantMember, RolePermission
 

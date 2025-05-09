@@ -1,6 +1,9 @@
 import re
-from api.models.staff import Staff
+import secrets
 from rest_framework import serializers
+from django.contrib.auth.models import User, Group
+
+from api.models.staff import Staff
 from api.common.contants import STAFF_ROLES
 
 
@@ -82,7 +85,6 @@ class StaffSerializer(serializers.ModelSerializer):
         return value
 
     def validate_role(self, value):
-        print("teacher role", value)
         if value not in STAFF_ROLES:
             raise serializers.ValidationError(
                 f"Invalid role. Allowed roles are: {', '.join(STAFF_ROLES)}"
@@ -92,6 +94,18 @@ class StaffSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         validated_data.pop("status", None)
         request = self.context.get("request")
+        # Create the user
+        user = User.objects.create_user(
+            username=f'{validated_data["primary_phone"]}{secrets.token_hex(6)}',
+            email=validated_data.get("email", None),
+            first_name=validated_data["first_name"],
+        )
+        role = validated_data["role"]
+        group, _ = Group.objects.get_or_create(name=role)
+        user.groups.add(group)
+
+        # Attach user and merchant
+        validated_data["user"] = user
         validated_data["merchant"] = request.merchant
         staff = super().create(validated_data)
         staff.outlets.add(request.outlet)

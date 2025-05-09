@@ -27,6 +27,7 @@ from api.views.refresh_token import RefreshTokenAPIView
 
 from api.views.staff import (
     StaffRetrieveUpdateAPIView,
+    StaffPermissionsListAPIView,
     StaffClassesHeadCoordinatorListCreateAPIView,
 )
 from api.views.permissions import PermissionsListAPIView
@@ -43,6 +44,7 @@ __all__ = [
     OutletParentsListAPIView,
     ClassSectionCreateAPIView,
     StaffRetrieveUpdateAPIView,
+    StaffPermissionsListAPIView,
     OutletStaffListCreateAPIView,
     OutletParentsRetrieveAPIView,
     ClassesRetrieveUpdateAPIView,

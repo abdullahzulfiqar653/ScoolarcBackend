@@ -9,6 +9,7 @@ from api.views import (
     OutletParentsListAPIView,
     ClassSectionCreateAPIView,
     StaffRetrieveUpdateAPIView,
+    StaffPermissionsListAPIView,
     OutletParentsRetrieveAPIView,
     MerchantOutletListCreateView,
     ClassesRetrieveUpdateAPIView,
@@ -79,6 +80,11 @@ urlpatterns = [
         "staff/<str:pk>/",
         StaffRetrieveUpdateAPIView.as_view(),
         name="staff-retrieve-update",
+    ),
+    path(
+        "staff/<str:pk>/permissions/",
+        StaffPermissionsListAPIView.as_view(),
+        name="staff-permissions-list-view",
     ),
     path(
         "staff/<str:staff_id>/classes-head-coordinator/",
