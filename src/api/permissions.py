@@ -1,6 +1,7 @@
 from django.apps import apps
 from django.db.models import Q, Prefetch
 from rest_framework import permissions, exceptions
+from api.models.member import Member
 
 
 class isMerchantMember(permissions.BasePermission):
@@ -32,10 +33,25 @@ class IsMerchantMemberAnonymous(permissions.BasePermission):
             raise exceptions.NotFound({"detail": "Entity not found."})
 
         username = request.data.get("username", "")
-
         query = request.merchant.members.filter(
             Q(user__email=username) | Q(user__username=username),
         )
+
+        if not query.exists():
+            raise exceptions.NotFound({"username": ["User not found."]})
+        request.member = query.first()
+        return True
+
+
+class IsParentAppRequest(permissions.BasePermission):
+    """
+    Permission to check if the Anonymous user is a member of the merchant,
+    even for anonymous requests where email or phone is provided.
+    """
+
+    def has_permission(self, request, view):
+        username = request.data.get("username", "")
+        query = Member.objects.filter(primary_phone=username)
 
         if not query.exists():
             raise exceptions.NotFound({"username": ["User not found."]})

@@ -2,13 +2,14 @@ from datetime import timedelta
 from django.utils.timezone import now
 
 from rest_framework import serializers
+from rest_framework.exceptions import Throttled
 from rest_framework.exceptions import ValidationError
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from api.models import OTP
 from api.utils import generate_otp
 from api.factories import OTPSenderFactory
-from rest_framework.exceptions import Throttled
+from api.common.contants import SMS, EMAIL, PARENT
 
 
 class OTPSerializer(serializers.Serializer):
@@ -18,13 +19,15 @@ class OTPSerializer(serializers.Serializer):
     username = serializers.CharField(write_only=True)
     member_id = serializers.CharField(read_only=True)
     remaining_time = serializers.CharField(read_only=True)
-    platform = serializers.CharField(default="email", write_only=True)
+    platform = serializers.CharField(default=SMS, write_only=True)
     otp = serializers.CharField(max_length=6, required=False, write_only=True)
 
     def create(self, validated_data):
-        request = self.context.get("request")
         otp_code = validated_data.get("otp")
-        platform = validated_data.get("platform", "email")
+        request = self.context.get("request")
+        platform = validated_data.get("platform", EMAIL)
+        if getattr(request.member, "role", None) == PARENT:
+            platform = SMS
 
         if otp_code:
             try:

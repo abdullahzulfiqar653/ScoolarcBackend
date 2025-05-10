@@ -9,7 +9,10 @@ from api.views.outlets import (
 )
 
 from api.views.subject import SubjectUpdateAPIView
-from api.views.guardian import ParentsRetrieveUpdateAPIView
+from api.views.parents import (
+    ParentsOTPView,
+    ParentsRetrieveUpdateAPIView,
+)
 
 from api.views.classes import (
     ClassSectionCreateAPIView,
@@ -30,12 +33,15 @@ from api.views.staff import (
     StaffPermissionsListAPIView,
     StaffClassesHeadCoordinatorListCreateAPIView,
 )
+
+
 from api.views.permissions import PermissionsListAPIView
 from api.views.section import SectionRetrieveUpdateAPIView
 from api.views.student import StudentRetrieveUpdateAPIView
 
 __all__ = [
     OTPView,
+    ParentsOTPView,
     LookupListAPIView,
     RefreshTokenAPIView,
     ImagesCreateAPIView,
