@@ -3,6 +3,7 @@ from api.views import (
     AppOtpView,
     AppRefreshTokenAPIView,
     GuardianOutletListView,
+    GuardianStudentListView,
 )
 
 urlpatterns = [
@@ -16,5 +17,10 @@ urlpatterns = [
         "guardian/<str:pk>/outlets/",
         GuardianOutletListView.as_view(),
         name="guardian-outlet-list",
+    ),
+    path(
+        "parents/<str:guardian_id>/outlets/<str:outlet_id>/students/",
+        GuardianStudentListView.as_view(),
+        name="guardian-student-list",
     ),
 ]

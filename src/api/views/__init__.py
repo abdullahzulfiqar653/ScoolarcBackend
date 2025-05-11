@@ -41,6 +41,7 @@ from api.views.student import StudentRetrieveUpdateAPIView
 
 from api.views.parents_app import (
     GuardianOutletListView,
+    GuardianStudentListView,
 )
 
 __all__ = [
@@ -54,6 +55,7 @@ __all__ = [
     GuardianOutletListView,
     PermissionsListAPIView,
     AppRefreshTokenAPIView,
+    GuardianStudentListView,
     OutletParentsListAPIView,
     ClassSectionCreateAPIView,
     StaffRetrieveUpdateAPIView,

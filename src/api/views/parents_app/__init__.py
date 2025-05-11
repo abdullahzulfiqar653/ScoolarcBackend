@@ -1,5 +1,6 @@
-from .guardian import GuardianOutletListView
+from .guardian import GuardianOutletListView, GuardianStudentListView
 
 __all__ = [
-    "GuardianOutletListView",
+    GuardianOutletListView,
+    GuardianStudentListView,
 ]
