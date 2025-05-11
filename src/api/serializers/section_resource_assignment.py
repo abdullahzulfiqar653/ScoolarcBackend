@@ -101,13 +101,13 @@ class ClassSectionResourceAssignmentRetrieveSerializer(serializers.Serializer):
         assignments = SectionStaffAndSubject.objects.filter(staff_section=instance)
         section_teacher_and_subject = [
             {
-                "teacher": str(assignment.section_staff_id),
-                "book": str(assignment.subject_id),
+                "teacher": assignment.section_staff_id,
+                "book": assignment.subject_id,
             }
             for assignment in assignments
         ]
-
+        head = assignments.filter(is_head=True).first()
         return {
             "section_teacher_and_subject": section_teacher_and_subject,
-            "coordinator": str(instance.section_class.coordinator_id),
+            "coordinator": head.section_staff.id if head.section_staff else None,
         }
