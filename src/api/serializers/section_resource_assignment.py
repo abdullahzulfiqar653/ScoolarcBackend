@@ -109,5 +109,7 @@ class ClassSectionResourceAssignmentRetrieveSerializer(serializers.Serializer):
         head = assignments.filter(is_head=True).first()
         return {
             "section_teacher_and_subject": section_teacher_and_subject,
-            "coordinator": head.section_staff.id if head.section_staff else None,
+            "coordinator": (
+                head.section_staff.id if head and head.section_staff else None
+            ),
         }
