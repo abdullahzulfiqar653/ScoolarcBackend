@@ -23,10 +23,10 @@ from api.views.classes import (
     ClassSectionResourceAssignmentRetrieveUpdateAPIView,
 )
 
-from api.views.otp import OTPView
+from api.views.otp import OTPView, AppOtpView
 from api.views.lookup import LookupListAPIView
 from api.views.images import ImagesCreateAPIView
-from api.views.refresh_token import RefreshTokenAPIView
+from api.views.refresh_token import RefreshTokenAPIView, AppRefreshTokenAPIView
 
 from api.views.staff import (
     StaffRetrieveUpdateAPIView,
@@ -41,12 +41,14 @@ from api.views.student import StudentRetrieveUpdateAPIView
 
 __all__ = [
     OTPView,
+    AppOtpView,
     ParentsOTPView,
     LookupListAPIView,
     RefreshTokenAPIView,
     ImagesCreateAPIView,
     SubjectUpdateAPIView,
     PermissionsListAPIView,
+    AppRefreshTokenAPIView,
     OutletParentsListAPIView,
     ClassSectionCreateAPIView,
     StaffRetrieveUpdateAPIView,

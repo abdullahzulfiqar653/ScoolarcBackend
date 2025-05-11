@@ -65,6 +65,10 @@ class Member(BaseModel):
         verbose_name = "MembersRegister"
         unique_together = [["user", "merchant", "role", "cnic"]]
 
+    @property
+    def is_staff(self):
+        return self.role.lower() in [TEACHER, MERCHANT, PRINCIPLE, REGISTRAR]
+
     def clean(self):
         # Enforce that a student can only have one outlet
         if self.pk and self.role.lower() == "student":

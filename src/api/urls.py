@@ -1,7 +1,6 @@
 from django.urls import path, include
 from api.views import (
     OTPView,
-    ParentsOTPView,
     LookupListAPIView,
     ImagesCreateAPIView,
     RefreshTokenAPIView,
@@ -149,11 +148,6 @@ urlpatterns = [
         ParentsRetrieveUpdateAPIView.as_view(),
         name="parents-retrieve-update-view",
     ),
-    path(
-        "parents/auth/token/",
-        ParentsOTPView.as_view(),
-        name="parents-otp-view",
-    ),
     # =====================================================
     # Subjects
     # =====================================================
@@ -166,4 +160,8 @@ urlpatterns = [
     # Lookups
     # =====================================================
     path("lookup/<str:flag>/", LookupListAPIView.as_view(), name="lookup-list"),
+    # =====================================================
+    # app urls
+    # =====================================================
+    path("app/", include("api.app_urls")),
 ]

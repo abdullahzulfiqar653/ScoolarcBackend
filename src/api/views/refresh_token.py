@@ -43,3 +43,19 @@ class RefreshTokenAPIView(generics.RetrieveAPIView):
         except Exception as e:
             print(e)
             raise AuthenticationFailed({"detail": "Invalid Refresh Token."})
+
+
+class AppRefreshTokenAPIView(RefreshTokenAPIView):
+    def retrieve(self, request, *args, **kwargs):
+        refresh_token = request.COOKIES.get("scoolarc_app_refresh_token")
+        if not refresh_token:
+            raise AuthenticationFailed({"detail": "No refresh token found in cookies"})
+
+        try:
+            refresh = RefreshToken(refresh_token)
+            user = User.objects.get(id=refresh["user_id"])
+            access_token = str(refresh.access_token)
+            return Response({"access": access_token, "member_id": user.profile.id})
+        except Exception as e:
+            print(e)
+            raise AuthenticationFailed({"detail": "Invalid Refresh Token."})

@@ -176,7 +176,10 @@ class InOutletOrMerchant(permissions.BasePermission):
         return merchant, outlet
 
     def is_authenticated(self, request):
-        return bool(request.user and request.user.is_authenticated)
+        return (
+            bool(request.user and request.user.is_authenticated)
+            and request.user.profile.is_staff
+        )
 
     def is_in_outlet(self, request, view):
         if not self.is_authenticated(request):
