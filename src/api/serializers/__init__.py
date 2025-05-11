@@ -26,6 +26,10 @@ from api.serializers.section_resource_assignment import (
     ClassSectionResourceAssignmentRetrieveSerializer,
 )
 
+from api.serializers.parents_app import (
+    GuardianOutletSerializer,
+)
+
 __all__ = [
     OTPSerializer,
     UserSerializer,
@@ -42,6 +46,7 @@ __all__ = [
     PermissionSerializer,
     ClassMinimalSerializer,
     RefreshTokenSerializer,
+    GuardianOutletSerializer,
     BulkSectionCreateSerializer,
     BulkSubjectCreateSerializer,
     ClassesHeadCoordinatorSerializer,

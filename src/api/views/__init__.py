@@ -39,6 +39,10 @@ from api.views.permissions import PermissionsListAPIView
 from api.views.section import SectionRetrieveUpdateAPIView
 from api.views.student import StudentRetrieveUpdateAPIView
 
+from api.views.parents_app import (
+    GuardianOutletListView,
+)
+
 __all__ = [
     OTPView,
     AppOtpView,
@@ -47,6 +51,7 @@ __all__ = [
     RefreshTokenAPIView,
     ImagesCreateAPIView,
     SubjectUpdateAPIView,
+    GuardianOutletListView,
     PermissionsListAPIView,
     AppRefreshTokenAPIView,
     OutletParentsListAPIView,

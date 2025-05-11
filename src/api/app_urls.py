@@ -1,5 +1,9 @@
 from django.urls import path
-from api.views import AppOtpView, AppRefreshTokenAPIView
+from api.views import (
+    AppOtpView,
+    AppRefreshTokenAPIView,
+    GuardianOutletListView,
+)
 
 urlpatterns = [
     path(
@@ -8,4 +12,9 @@ urlpatterns = [
         name="parents-otp-view",
     ),
     path("auth/token/refresh/", AppRefreshTokenAPIView.as_view(), name="token_refresh"),
+    path(
+        "guardian/<str:pk>/outlets/",
+        GuardianOutletListView.as_view(),
+        name="guardian-outlet-list",
+    ),
 ]
