@@ -49,22 +49,22 @@ urlpatterns = [
         name="outlet-retrieve-update-destroy",
     ),
     path(
-        "outlets/<str:outlet_id>/classes",
+        "outlets/<str:outlet_id>/classes/",
         OutletClassesListCreateAPIView.as_view(),
         name="merchant-classes-list-create",
     ),
     path(
-        "outlets/<str:outlet_id>/students",
+        "outlets/<str:outlet_id>/students/",
         OutletStudentListCreateAPIView.as_view(),
         name="outlets-student-list-create",
     ),
     path(
-        "outlets/<str:outlet_id>/staff",
+        "outlets/<str:outlet_id>/staff/",
         OutletStaffListCreateAPIView.as_view(),
         name="outlets-student-list-create",
     ),
     path(
-        "outlets/<str:outlet_id>/parents",
+        "outlets/<str:outlet_id>/parents/",
         OutletParentsListAPIView.as_view(),
         name="outlets-parents-list",
     ),
@@ -100,22 +100,22 @@ urlpatterns = [
         name="classes-retrieve-update",
     ),
     path(
-        "classes/<str:pk>/subjects",
+        "classes/<str:pk>/subjects/",
         ClassSubjectListCreateAPIView.as_view(),
         name="subject-list-create-view",
     ),
     path(
-        "classes/<str:pk>/subjects/bulk-create",
+        "classes/<str:pk>/subjects/bulk-create/",
         ClassSubjectBulkCreateAPIView.as_view(),
         name="subject-bulk-create-view",
     ),
     path(
-        "classes/<str:pk>/sections",
+        "classes/<str:pk>/sections/",
         ClassSectionCreateAPIView.as_view(),
         name="classes-create-view",
     ),
     path(
-        "classes/<str:pk>/sections/bulk-create",
+        "classes/<str:pk>/sections/bulk-create/",
         ClassSectionBulkCreateAPIView.as_view(),
         name="subject-bulk-create-view",
     ),

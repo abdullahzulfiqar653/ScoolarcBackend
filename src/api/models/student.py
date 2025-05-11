@@ -7,7 +7,7 @@ class Student(Member):
     mother_name = models.CharField(max_length=128)
     father_cnic = models.CharField(max_length=13)
     b_form = models.CharField(max_length=128, null=True)
-    roll_number = models.CharField(max_length=24, unique=True, editable=False)
+    roll_number = models.CharField(max_length=24, editable=False)
     student_section = models.ForeignKey(
         "api.Section",
         on_delete=models.CASCADE,
@@ -20,13 +20,18 @@ class Student(Member):
         related_name="guardian_students",
     )
 
+    class Meta:
+        unique_together = [["student_section", "roll_number"]]
+
     def save(self, *args, **kwargs):
         if not self.roll_number:
             max_roll_number = self.__class__.objects.filter(
-                student_section__section_class__outlet=self.student_section.section_class.outlet
+                student_section=self.student_section
             ).aggregate(max_roll=models.Max("roll_number"))["max_roll"]
+
             new_roll_number = int(max_roll_number or 0) + 1
             self.roll_number = f"{new_roll_number:04d}"
+
         super().save(*args, **kwargs)
 
     def __str__(self):
