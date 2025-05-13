@@ -21,6 +21,7 @@ django-soft-delete = "^1.0.14"
 pillow = "^10.4.0"
 requests = "^2.32.3"
 boto3 = "^1.37.37"
+django-filter = "^25.1"
 
 
 [tool.poetry.group.dev.dependencies]

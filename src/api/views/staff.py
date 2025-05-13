@@ -87,6 +87,7 @@ Requires the user to be a member of the outlet and have staff role-based access.
     responses={200: PermissionSerializer(many=True)},
 )
 class StaffPermissionsListAPIView(ListAPIView):
+    pagination_class = None
     serializer_class = PermissionSerializer
     permission_classes = [IsOutletMember, RolePermission]
 

@@ -10,25 +10,22 @@ from api.serializers.section import (
     SectionSerializer,
     BulkSectionCreateSerializer,
 )
+
 from api.serializers.student import StudentSerializer
 from api.serializers.merchant import MerchantSerializer
+from api.serializers.attendance import AttendanceSerializer
 from api.serializers.permissions import PermissionSerializer
+from api.serializers.parents_app import GuardianOutletSerializer
 from api.serializers.refresh_token import RefreshTokenSerializer
 from api.serializers.classes_minimal import ClassMinimalSerializer
 from api.serializers.classes_head_coordinator import ClassesHeadCoordinatorSerializer
 
-from api.serializers.subject import (
-    SubjectSerializer,
-    BulkSubjectCreateSerializer,
-)
+from api.serializers.subject import SubjectSerializer, BulkSubjectCreateSerializer
 from api.serializers.section_resource_assignment import (
     ClassSectionResourceAssignmentSerializer,
     ClassSectionResourceAssignmentRetrieveSerializer,
 )
 
-from api.serializers.parents_app import (
-    GuardianOutletSerializer,
-)
 
 __all__ = [
     OTPSerializer,
@@ -44,6 +41,7 @@ __all__ = [
     ClassesSerializer,
     MerchantSerializer,
     PermissionSerializer,
+    AttendanceSerializer,
     ClassMinimalSerializer,
     RefreshTokenSerializer,
     GuardianOutletSerializer,

@@ -23,8 +23,9 @@ from api.views import (
     OutletStudentListCreateAPIView,
     OutletClassesListCreateAPIView,
     OutletRetrieveUpdateDestroyView,
-    ClassSectionResourceAssignmentRetrieveUpdateAPIView,
+    StudentAttendanceListCreateAPIView,
     StaffClassesHeadCoordinatorListCreateAPIView,
+    ClassSectionResourceAssignmentRetrieveUpdateAPIView,
 )
 
 urlpatterns = [
@@ -141,6 +142,11 @@ urlpatterns = [
         "students/<str:pk>/",
         StudentRetrieveUpdateAPIView.as_view(),
         name="students-retrieve-update-view",
+    ),
+    path(
+        "students/<str:pk>/attendance/",
+        StudentAttendanceListCreateAPIView.as_view(),
+        name="students-attendance-list-create-view",
     ),
     # =====================================================
     # Parents

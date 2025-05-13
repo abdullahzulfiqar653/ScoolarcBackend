@@ -14,6 +14,7 @@ MODEL_CODES = {
     "Guardian": "112",
     "TransactionHistory": "113",
     "SectionStaffAndSubject": "114",
+    "Attendance": "115",
 }
 
 STAFF = "staff"

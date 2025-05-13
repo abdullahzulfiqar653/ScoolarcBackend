@@ -6,6 +6,7 @@ from api.permissions import isMerchantMember, RolePermission
 
 
 class PermissionsListCreateAPIView(ListCreateAPIView):
+    pagination_class = None
     serializer_class = PermissionSerializer
     permission_classes = [isMerchantMember, RolePermission]
 
