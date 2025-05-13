@@ -5,7 +5,7 @@ from api.serializers.permissions import PermissionSerializer
 from api.permissions import isMerchantMember, RolePermission
 
 
-class PermissionsListAPIView(ListCreateAPIView):
+class PermissionsListCreateAPIView(ListCreateAPIView):
     serializer_class = PermissionSerializer
     permission_classes = [isMerchantMember, RolePermission]
 

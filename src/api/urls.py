@@ -5,7 +5,6 @@ from api.views import (
     ImagesCreateAPIView,
     RefreshTokenAPIView,
     SubjectUpdateAPIView,
-    PermissionsListAPIView,
     OutletParentsListAPIView,
     ClassSectionCreateAPIView,
     StaffRetrieveUpdateAPIView,
@@ -14,6 +13,7 @@ from api.views import (
     MerchantOutletListCreateView,
     ClassesRetrieveUpdateAPIView,
     SectionRetrieveUpdateAPIView,
+    PermissionsListCreateAPIView,
     StudentRetrieveUpdateAPIView,
     OutletStaffListCreateAPIView,
     ParentsRetrieveUpdateAPIView,
@@ -38,7 +38,9 @@ urlpatterns = [
     # =====================================================
     # Permissions
     # =====================================================
-    path("permissions/", PermissionsListAPIView.as_view(), name="permissions-list"),
+    path(
+        "permissions/", PermissionsListCreateAPIView.as_view(), name="permissions-list"
+    ),
     # =====================================================
     # Outllets
     # =====================================================

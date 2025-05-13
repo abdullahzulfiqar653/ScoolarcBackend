@@ -35,9 +35,9 @@ from api.views.staff import (
 )
 
 
-from api.views.permissions import PermissionsListAPIView
 from api.views.section import SectionRetrieveUpdateAPIView
 from api.views.student import StudentRetrieveUpdateAPIView
+from api.views.permissions import PermissionsListCreateAPIView
 
 from api.views.parents_app import (
     GuardianOutletListView,
@@ -53,13 +53,13 @@ __all__ = [
     ImagesCreateAPIView,
     SubjectUpdateAPIView,
     GuardianOutletListView,
-    PermissionsListAPIView,
     AppRefreshTokenAPIView,
     GuardianStudentListView,
     OutletParentsListAPIView,
     ClassSectionCreateAPIView,
     StaffRetrieveUpdateAPIView,
     StaffPermissionsListAPIView,
+    PermissionsListCreateAPIView,
     OutletStaffListCreateAPIView,
     OutletParentsRetrieveAPIView,
     ClassesRetrieveUpdateAPIView,

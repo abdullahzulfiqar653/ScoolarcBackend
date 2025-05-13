@@ -15,7 +15,7 @@ class PermissionSerializer(serializers.ModelSerializer):
         queryset=Member.objects.all(), many=True, write_only=True
     )
     permission_ids = serializers.PrimaryKeyRelatedField(
-        queryset=Permission.objects.none(), many=True, write_only=True
+        queryset=Permission.objects.all(), many=True, write_only=True
     )
 
     class Meta:
