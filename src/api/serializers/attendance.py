@@ -4,23 +4,28 @@ from api.models.attendance import Attendance
 
 
 class AttendanceSerializer(serializers.ModelSerializer):
+    date = serializers.DateField(required=False, write_only=True)
+
     class Meta:
         model = Attendance
-        fields = ["id", "status", "reason", "created_at"]
+        fields = ["id", "status", "reason", "created_at", "date"]
 
     def create(self, validated_data):
         request = self.context.get("request")
         staff = getattr(request, "staff", None)
         student = getattr(request, "student", None)
 
-        lookup = {}
+        created_at__date = validated_data.get("date", date.today())
+        lookup = {"created_at__date": created_at__date}
+
         if student:
             lookup["student"] = student
         elif staff:
             lookup["staff"] = staff
 
         instance, created = Attendance.objects.get_or_create(
-            defaults=validated_data, **lookup
+            defaults=validated_data,
+            **lookup,
         )
 
         if not created:
@@ -28,6 +33,7 @@ class AttendanceSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError(
                     "Attendance cannot be updated after 3 days."
                 )
+
             for attr, value in validated_data.items():
                 setattr(instance, attr, value)
             instance.save()
