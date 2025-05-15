@@ -45,6 +45,7 @@ from api.views.permissions import PermissionsListCreateAPIView
 from api.views.parents_app import (
     GuardianOutletListView,
     GuardianStudentListView,
+    StudentAttendanceListAPIView,
     SectionBookTeacherListAPIView,
 )
 
@@ -71,6 +72,7 @@ __all__ = [
     MerchantOutletListCreateView,
     StudentRetrieveUpdateAPIView,
     ParentsRetrieveUpdateAPIView,
+    StudentAttendanceListAPIView,
     ClassSubjectListCreateAPIView,
     ClassSubjectBulkCreateAPIView,
     ClassSectionBulkCreateAPIView,
