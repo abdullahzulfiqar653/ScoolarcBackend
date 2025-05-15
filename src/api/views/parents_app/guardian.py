@@ -26,7 +26,7 @@ class GuardianStudentListView(ListAPIView):
     serializer_class = StudentSerializer
 
     def get_queryset(self):
-        guardian_id = self.kwargs["guardian_id"]
+        guardian_id = self.kwargs["pk"]
         outlet_id = self.kwargs["outlet_id"]
 
         return Student.objects.filter(
