@@ -15,7 +15,10 @@ from api.serializers.student import StudentSerializer
 from api.serializers.merchant import MerchantSerializer
 from api.serializers.attendance import AttendanceSerializer
 from api.serializers.permissions import PermissionSerializer
-from api.serializers.parents_app import GuardianOutletSerializer
+from api.serializers.parents_app import (
+    GuardianOutletSerializer,
+    SectionBookTeacherSerializer,
+)
 from api.serializers.refresh_token import RefreshTokenSerializer
 from api.serializers.classes_minimal import ClassMinimalSerializer
 from api.serializers.classes_head_coordinator import ClassesHeadCoordinatorSerializer
@@ -47,6 +50,7 @@ __all__ = [
     GuardianOutletSerializer,
     BulkSectionCreateSerializer,
     BulkSubjectCreateSerializer,
+    SectionBookTeacherSerializer,
     ClassesHeadCoordinatorSerializer,
     ClassSectionResourceAssignmentSerializer,
     ClassSectionResourceAssignmentRetrieveSerializer,

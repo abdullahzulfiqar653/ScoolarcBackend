@@ -4,6 +4,7 @@ from api.views import (
     AppRefreshTokenAPIView,
     GuardianOutletListView,
     GuardianStudentListView,
+    SectionBookTeacherListAPIView,
 )
 
 urlpatterns = [
@@ -19,7 +20,12 @@ urlpatterns = [
         name="guardian-outlet-list",
     ),
     path(
-        "parents/<str:guardian_id>/outlets/<str:outlet_id>/students/",
+        "section/<str:section_id>/books/",
+        SectionBookTeacherListAPIView.as_view(),
+        name="books-teacher-list",
+    ),
+    path(
+        "parents/<str:pk>/outlets/<str:outlet_id>/students/",
         GuardianStudentListView.as_view(),
         name="guardian-student-list",
     ),
