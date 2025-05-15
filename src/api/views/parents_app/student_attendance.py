@@ -11,17 +11,7 @@ from api.serializers.attendance import AttendanceSerializer
     summary="Get student's monthly attendance",
     description="Returns a list of attendance records for a given student. "
     "If 'month' is not provided, the current month is used. "
-    "Year is automatically taken as the current year.",
-    parameters=[
-        OpenApiParameter(
-            name="month",
-            type=OpenApiTypes.INT,
-            location=OpenApiParameter.QUERY,
-            required=False,
-            description="Month number (1-12). Optional. Defaults to current month.",
-        )
-    ],
-    responses={200: AttendanceSerializer(many=True)},
+    "If 'year' is not provided, the current year is used.",
 )
 class StudentAttendanceListAPIView(ListAPIView):
     pagination_class = None
