@@ -15,7 +15,7 @@ class AttendanceSerializer(serializers.ModelSerializer):
         staff = getattr(request, "staff", None)
         student = getattr(request, "student", None)
 
-        created_at__date = validated_data.get("date", date.today())
+        created_at__date = validated_data.pop("date", date.today())
         lookup = {"created_at__date": created_at__date}
 
         if student:
