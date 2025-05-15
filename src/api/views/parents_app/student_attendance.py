@@ -1,8 +1,9 @@
-from datetime import datetime
 from rest_framework.generics import ListAPIView
+from django_filters.rest_framework import DjangoFilterBackend
 from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
 
 from api.models.attendance import Attendance
+from api.filters.attendance import AttendanceFilter
 from api.serializers.attendance import AttendanceSerializer
 
 
@@ -24,20 +25,10 @@ from api.serializers.attendance import AttendanceSerializer
 )
 class StudentAttendanceListAPIView(ListAPIView):
     pagination_class = None
+    filterset_class = AttendanceFilter
+    filter_backends = (DjangoFilterBackend,)
     serializer_class = AttendanceSerializer
 
     def get_queryset(self):
         student_id = self.kwargs.get("student_id")
-        today = datetime.today()
-        current_year = today.year
-
-        try:
-            month = int(self.request.query_params.get("month", today.month))
-        except ValueError:
-            month = today.month  # fallback silently or raise error if desired
-
-        return Attendance.objects.filter(
-            student_id=student_id,
-            created_at__month=month,
-            created_at__year=current_year,
-        ).order_by("-created_at")
+        return Attendance.objects.filter(student_id=student_id).order_by("-created_at")

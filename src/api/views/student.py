@@ -5,8 +5,8 @@ from api.serializers.attendance import AttendanceSerializer
 from api.filters.attendance import AttendanceFilter
 from api.permissions import RolePermission, IsOutletMember
 
-from drf_spectacular.utils import extend_schema, OpenApiParameter
 from django_filters.rest_framework import DjangoFilterBackend
+from drf_spectacular.utils import extend_schema, OpenApiParameter
 from rest_framework.generics import RetrieveUpdateAPIView, ListCreateAPIView
 
 
