@@ -1,6 +1,6 @@
 from rest_framework.generics import ListAPIView
+from drf_spectacular.utils import extend_schema
 from django_filters.rest_framework import DjangoFilterBackend
-from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
 
 from api.models.attendance import Attendance
 from api.filters.attendance import AttendanceFilter

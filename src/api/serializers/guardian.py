@@ -86,10 +86,4 @@ class GuardianSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError(
                     "This phone number is already in use by another user."
                 )
-        else:
-            queryset = merchant.members.filter(primary_phone=value)
-            if queryset.exists():
-                raise serializers.ValidationError(
-                    "This phone number is already in use by another user."
-                )
         return value
