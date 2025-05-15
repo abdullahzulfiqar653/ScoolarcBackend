@@ -20,5 +20,5 @@ class StudentAttendanceListAPIView(ListAPIView):
     serializer_class = AttendanceSerializer
 
     def get_queryset(self):
-        student_id = self.kwargs.get("student_id")
+        student_id = self.kwargs.get("pk")
         return Attendance.objects.filter(student_id=student_id).order_by("-created_at")
