@@ -8,6 +8,7 @@ from api.views import (
     OutletParentsListAPIView,
     ClassSectionCreateAPIView,
     StaffRetrieveUpdateAPIView,
+    SectionStudentsListAPIView,
     StaffPermissionsListAPIView,
     OutletParentsRetrieveAPIView,
     MerchantOutletListCreateView,
@@ -134,6 +135,11 @@ urlpatterns = [
         "sections/<str:pk>/",
         SectionRetrieveUpdateAPIView.as_view(),
         name="sections-retrieve-update",
+    ),
+    path(
+        "sections/<str:pk>/students",
+        SectionStudentsListAPIView.as_view(),
+        name="sections-students-list",
     ),
     # =====================================================
     # Students

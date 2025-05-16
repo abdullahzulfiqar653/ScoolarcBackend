@@ -35,7 +35,7 @@ from api.views.staff import (
 )
 
 
-from api.views.section import SectionRetrieveUpdateAPIView
+from api.views.section import SectionRetrieveUpdateAPIView, SectionStudentsListAPIView
 from api.views.student import (
     StudentRetrieveUpdateAPIView,
     StudentAttendanceListCreateAPIView,
@@ -63,6 +63,7 @@ __all__ = [
     OutletParentsListAPIView,
     ClassSectionCreateAPIView,
     StaffRetrieveUpdateAPIView,
+    SectionStudentsListAPIView,
     StaffPermissionsListAPIView,
     PermissionsListCreateAPIView,
     OutletStaffListCreateAPIView,

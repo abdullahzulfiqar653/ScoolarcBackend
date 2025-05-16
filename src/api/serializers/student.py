@@ -7,6 +7,17 @@ from api.models.student import Student
 from api.serializers.section import SectionSerializer
 
 
+class StudentMinimalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Student
+        fields = [
+            "id",
+            "last_name",
+            "first_name",
+            "roll_number",
+        ]
+
+
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student

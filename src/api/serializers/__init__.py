@@ -11,7 +11,7 @@ from api.serializers.section import (
     BulkSectionCreateSerializer,
 )
 
-from api.serializers.student import StudentSerializer
+from api.serializers.student import StudentSerializer, StudentMinimalSerializer
 from api.serializers.merchant import MerchantSerializer
 from api.serializers.attendance import AttendanceSerializer
 from api.serializers.permissions import PermissionSerializer
@@ -47,6 +47,7 @@ __all__ = [
     AttendanceSerializer,
     ClassMinimalSerializer,
     RefreshTokenSerializer,
+    StudentMinimalSerializer,
     GuardianOutletSerializer,
     BulkSectionCreateSerializer,
     BulkSubjectCreateSerializer,
