@@ -8,7 +8,8 @@ class AttendanceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Attendance
-        fields = ["id", "status", "reason", "created_at", "date"]
+        fields = ["id", "status", "reason", "created_at", "date", "student"]
+        read_only_fields = ("student",)
 
     def create(self, validated_data):
         request = self.context.get("request")
