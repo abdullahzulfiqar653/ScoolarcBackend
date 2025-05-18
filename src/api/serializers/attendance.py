@@ -21,22 +21,21 @@ class AttendanceSerializer(serializers.ModelSerializer):
 
         if student:
             lookup["student"] = student
+            validated_data["student"] = student
         elif staff:
             lookup["staff"] = staff
+            validated_data["staff"] = staff
 
-        instance, created = Attendance.objects.get_or_create(
-            defaults=validated_data,
-            **lookup,
-        )
+        instance = Attendance.objects.filter(**lookup).first()
+        if not instance:
+            instance = Attendance.objects.create(**validated_data)
 
-        if not created:
+        else:
             if (date.today() - instance.created_at.date()).days > 3:
                 raise serializers.ValidationError(
                     "Attendance cannot be updated after 3 days."
                 )
-
             for attr, value in validated_data.items():
                 setattr(instance, attr, value)
             instance.save()
-
         return instance
