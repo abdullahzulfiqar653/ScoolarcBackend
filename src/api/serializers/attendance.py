@@ -3,6 +3,31 @@ from rest_framework import serializers
 from api.models.attendance import Attendance
 
 
+import requests
+import json
+
+
+def send_attendance_notification(status, token):
+    url = "https://exp.host/--/api/v2/push/send"
+    headers = {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+    }
+    body = {
+        "to": token,
+        "sound": "default",
+        "title": "Attendance Update",
+        "body": f"Your child has been marked {status}.",
+    }
+
+    response = requests.post(url, headers=headers, data=json.dumps(body))
+
+    if response.status_code != 200:
+        print(f"Failed to send notification: {response.status_code} - {response.text}")
+    else:
+        print("Notification sent successfully")
+
+
 class AttendanceSerializer(serializers.ModelSerializer):
     date = serializers.DateField(required=False, write_only=True)
 
@@ -38,4 +63,6 @@ class AttendanceSerializer(serializers.ModelSerializer):
             for attr, value in validated_data.items():
                 setattr(instance, attr, value)
             instance.save()
+        token = student.student_guardian.mobile_notification_token
+        send_attendance_notification(validated_data["status"], token)
         return instance
