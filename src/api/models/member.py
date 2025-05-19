@@ -57,6 +57,9 @@ class Member(BaseModel):
         max_length=10, null=True, verbose_name="Primary Phone"
     )
     registration_number = models.CharField(max_length=50, null=True)
+    mobile_notification_token = models.CharField(
+        max_length=255, null=True, blank=True, verbose_name="Mobile Notification Token"
+    )
 
     def __str__(self):
         return f" - {self.role} of {self.merchant.name}."

@@ -18,6 +18,7 @@ from api.serializers.permissions import PermissionSerializer
 from api.serializers.parents_app import (
     GuardianOutletSerializer,
     SectionBookTeacherSerializer,
+    MemberNotificationTokenSerializer,
 )
 from api.serializers.refresh_token import RefreshTokenSerializer
 from api.serializers.classes_minimal import ClassMinimalSerializer

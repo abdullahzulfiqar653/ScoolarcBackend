@@ -6,6 +6,7 @@ from api.views import (
     GuardianStudentListView,
     StudentAttendanceListAPIView,
     SectionBookTeacherListAPIView,
+    MemberNotificationTokenCreateAPIView,
 )
 
 urlpatterns = [
@@ -34,5 +35,10 @@ urlpatterns = [
         "parents/<str:pk>/outlets/<str:outlet_id>/students/",
         GuardianStudentListView.as_view(),
         name="guardian-student-list",
+    ),
+    path(
+        "member-notification-token/",
+        MemberNotificationTokenCreateAPIView.as_view(),
+        name="update-notification-token",
     ),
 ]

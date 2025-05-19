@@ -52,6 +52,7 @@ from api.views.parents_app import (
     GuardianStudentListView,
     StudentAttendanceListAPIView,
     SectionBookTeacherListAPIView,
+    MemberNotificationTokenCreateAPIView,
 )
 
 __all__ = [
@@ -88,6 +89,7 @@ __all__ = [
     OutletClassesListCreateAPIView,
     OutletRetrieveUpdateDestroyView,
     StudentAttendanceListCreateAPIView,
+    MemberNotificationTokenCreateAPIView,
     StaffClassesHeadCoordinatorListCreateAPIView,
     ClassSectionResourceAssignmentRetrieveUpdateAPIView,
 ]
