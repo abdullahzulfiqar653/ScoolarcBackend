@@ -1,4 +1,5 @@
 import os
+import boto3
 import environ
 from pathlib import Path
 from datetime import timedelta
@@ -13,12 +14,14 @@ env = environ.Env(
 )
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
 DEBUG = env("DEBUG")
 SECRET_KEY = env("SECRET_KEY")
 ALLOWED_HOSTS = env("ALLOWED_HOSTS")
 CORS_ORIGIN_ALLOW_ALL = env("CORS_ORIGIN_ALLOW_ALL")
 CORS_ALLOW_CREDENTIALS = env("CORS_ALLOW_CREDENTIALS")
+SMS_OTP_API_KEY = env("SMS_OTP_API_KEY")
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -30,6 +33,7 @@ INSTALLED_APPS = [
     "drf_spectacular",
     "rest_framework_simplejwt",
     "rest_framework",
+    "django_filters",
     "api",
 ]
 
@@ -39,6 +43,7 @@ MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
+    "core.middlewares.merchant_domain.MerchantDomainMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
@@ -51,7 +56,7 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
-            BASE_DIR / "api" / "templates",
+            BASE_DIR / "src" / "templates",
         ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -83,6 +88,10 @@ DATABASES = {
         "PASSWORD": env("DB_PASSWORD", default=""),
         "HOST": env("DB_HOST", default=""),
         "PORT": env("DB_PORT", default=""),
+        "ATOMIC_REQUESTS": True,
+        "OPTIONS": {
+            "isolation_level": env("ISOLATION_LEVEL", default="EXCLUSIVE"),
+        },
     }
 }
 
@@ -126,6 +135,9 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.IsAuthenticated",
     ],
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "EXCEPTION_HANDLER": "api.utils.exception_handler.custom_exception_handler",
+    "DEFAULT_PAGINATION_CLASS": "core.pagination.CustomPagination",
+    # "PAGE_SIZE": 230,
 }
 
 SIMPLE_JWT = {
@@ -143,3 +155,24 @@ if DEBUG:
     INTERNAL_IPS = [
         "127.0.0.1",
     ]
+
+DEFAULT_EMAIL_PORT = 587
+DEFAULT_EMAIL_TLS = True
+DEFAULT_EMAIL_SSL = False
+DEFAULT_EMAIL_HOST = env("DEFAULT_EMAIL_HOST")
+DEFAULT_EMAIL_USER = env("DEFAULT_EMAIL_USER")
+DEFAULT_EMAIL_PASSWORD = env("DEFAULT_EMAIL_PASSWORD")
+
+AWS_S3_REGION_NAME = "nyc3"
+AWS_STORAGE_BUCKET_NAME = "testing-projects"
+OBJECT_STORAGE_URL = os.getenv("OBJECT_STORAGE_URL")
+OBJECT_STORAGE_ACCESS_KEY = os.getenv("OBJECT_STORAGE_ACCESS_KEY")
+OBJECT_STORAGE_SECRET_KEY = os.getenv("OBJECT_STORAGE_SECRET_KEY")
+
+S3_CLIENT = boto3.client(
+    "s3",
+    region_name=AWS_S3_REGION_NAME,
+    endpoint_url=OBJECT_STORAGE_URL,
+    aws_access_key_id=OBJECT_STORAGE_ACCESS_KEY,
+    aws_secret_access_key=OBJECT_STORAGE_SECRET_KEY,
+)
