@@ -14,6 +14,7 @@ class MemberAdmin(admin.ModelAdmin):
         "id",
         "first_name",
         "last_name",
+        "mobile_notification_token",
         "primary_phone",
         "email",
         "role",
